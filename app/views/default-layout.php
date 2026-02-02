@@ -25,8 +25,8 @@
                         <path d="M781.678 123.874L731.659 19.6386L722.091 0L662.672 123.874H681.471L691.542 103.061L680.968 95.3395H749.115L762.879 123.874H781.678ZM703.124 78.8901L722.091 39.1094L741.226 78.8901H703.124Z" fill="currentColor" />
                     </svg>
                 </a>
-                <div class="w-px h-full bg-zinc-200"></div>
-                <nav>
+                <div class="hidden md:block w-px h-full bg-zinc-200"></div>
+                <nav class="hidden md:block">
                     <ul class="flex transition-all duration-300 text-zinc-700 hover:text-zinc-400 *:hover:transition-colors *:hover:duration-300 *:hover:text-zinc-950 gap-4 *:text-sm *:font-medium *:cursor-pointer *:flex *:gap-2 *:items-center">
                         <li class="relative group/product">
                             Produk
@@ -34,7 +34,7 @@
                                 <path d="M0.75 0.75L5.75 5.75L10.75 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
 
-                            <div class="absolute flex flex-col gap-1 opacity-0 scale-95 invisible group-hover/product:opacity-100  group-hover/product:scale-100 group-hover/product:visible top-9 left-0 rounded-md shadow-sm bg-white p-3 border border-zinc-50 min-w-[300px] transition-all duration-500 ease-out">
+                            <div class="absolute flex flex-col gap-1 opacity-0 scale-95 invisible group-hover/product:opacity-100  group-hover/product:scale-100 group-hover/product:visible top-8 left-0 rounded-md shadow-sm bg-white p-3 border border-zinc-50 min-w-[300px] transition-all duration-500 ease-out">
                                 <h6 class="font-semibold uppercase text-xs text-zinc-400">Produk</h6>
                                 <div class="w-full h-0.5 bg-zinc-100"></div>
                                 <div class="flex flex-col gap-1 *:border *:border-transparent *:p-2 *:rounded-md *:hover:bg-zinc-100 *:hover:border-zinc-300">
@@ -70,7 +70,7 @@
                                 <path d="M0.75 0.75L5.75 5.75L10.75 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
 
-                            <div class="absolute flex flex-col gap-1 opacity-0 scale-95 invisible group-hover/perusahaan:opacity-100  group-hover/perusahaan:scale-100 group-hover/perusahaan:visible top-9 left-0 rounded-md shadow-sm bg-white p-3 border border-zinc-50 min-w-fit transition-all duration-500 ease-out">
+                            <div class="absolute flex flex-col gap-1 opacity-0 scale-95 invisible group-hover/perusahaan:opacity-100  group-hover/perusahaan:scale-100 group-hover/perusahaan:visible top-8 left-0 rounded-md shadow-sm bg-white p-3 border border-zinc-50 min-w-fit transition-all duration-500 ease-out">
                                 <h6 class="font-semibold uppercase text-xs text-zinc-400">Perusahaan</h6>
                                 <div class="w-full h-0.5 bg-zinc-100"></div>
                                 <ul class="flex flex-col gap-1 *:border *:border-transparent *:p-2 *:rounded-md *:hover:bg-zinc-100 *:hover:border-zinc-300 **:text-nowrap">
@@ -97,13 +97,19 @@
                         <path d="M0.41 6.484C0.298 6.484 0.201667 6.44733 0.121 6.374C0.0403336 6.29933 0 6.20167 0 6.081V0.403999C0 0.282666 0.0413329 0.185 0.124 0.111C0.206666 0.0370001 0.302666 0 0.412 0C0.44 0 0.534667 0.0433325 0.696 0.129999L3.373 2.808C3.435 2.86933 3.48267 2.93567 3.516 3.007C3.54933 3.07833 3.566 3.15667 3.566 3.242C3.566 3.32733 3.54933 3.40567 3.516 3.477C3.48267 3.54833 3.435 3.615 3.373 3.677L0.696 6.354C0.659333 6.39067 0.616334 6.42167 0.567 6.447C0.518334 6.47167 0.466 6.484 0.41 6.484Z" fill="black" />
                     </svg>
                 </button>
+                <button id="nav-mobile-btn" class="flex md:hidden flex-col justify-evenly">
+                    <div id="nav-decor" class="w-3 h-0.5 bg-zinc-400 transition-transform duration-300"></div>
+                    <div id="nav-decor" class="w-3 h-0.5 bg-zinc-400 transition-transform duration-300"></div>
+                </button>
             </div>
         </div>
     </header>
 
-    <main>
+    <main class="max-w-[1300px] mx-auto mt-6 px-4 md:px-8 lg:px-20">
         <?php require_once "../app/views/" . $viewPath . ".php"; ?>
     </main>
+
+    <script src="js/script.js" defer></script>
 </body>
 
 </html>

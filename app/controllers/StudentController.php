@@ -6,6 +6,6 @@ class StudentController extends Controller
     {
         $studentModel = $this->loadModel("Student");
         $students = $studentModel->getAllStudents();
-        $this->renderView("student/students", ["students" => $students], "List Siswa");
+        $this->renderView("student/index", ["students" => $students], "List Siswa", "dashboard");
     }
 }
