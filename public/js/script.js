@@ -16,7 +16,7 @@ navMobileBtn.addEventListener('click', () => {
 const searchInput = document.getElementById('searchInput');
 const clearBtn = document.getElementById('clearBtn');
 
-searchInput.addEventListener("input", () => {
+searchInput?.addEventListener("input", () => {
     if (searchInput.value.trim() !== "") {
         clearBtn.classList.remove("hidden");
     } else {
@@ -24,7 +24,7 @@ searchInput.addEventListener("input", () => {
     }
 })
 
-clearBtn.addEventListener('click', () => {
+clearBtn?.addEventListener('click', () => {
     searchInput.value = "";
     clearBtn.classList.add('hidden');
     searchInput.focus();

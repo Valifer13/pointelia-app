@@ -1,14 +1,7 @@
 <?php
 
-class Student
+class Student extends Model
 {
-    private $db;
-
-    public function __construct()
-    {
-        $this->db = new Database();
-    }
-
     public function getAllStudents()
     {
         $this->db->query("SELECT * FROM students");
@@ -24,22 +17,32 @@ class Student
     }
 
     public function create(
-        string $nis,
-        string $nisn,
-        string $name,
-        string $email,
-        string $password,
-        string $gender,
-        string $major,
-        string $address,
+        $nisn,
+        $name,
+        $email,
+        $password,
+        $gender,
+        $class,
+        $address,
     ) {
-        $lastNis = array_last(self::getAllStudents())["nis"];
+        // if (
+        //     empty($nisn) ||
+        //     empty($name) ||
+        //     empty($email) ||
+        //     empty($password) ||
+        //     empty($gender) ||
+        //     empty($class) ||
+        //     empty($address)
+        // ) {
+        //     echo "<script>alert('Data must be not null')</script>";
+        //     header("Location: " . BASE_URL . "/students");
+        //     exit();
+        // }
 
         $this->db->query(
-            "INSERT INTO students (nis, nisn, name, email, gender, major, address) VALUES (:nis, :nisn, :name, :email, :gender, :major, :address)",
+            "INSERT INTO students (nisn, name, email, password, gender, class_id, address) VALUES (:nisn, :name, :email, :password, :gender, :class, :address)",
         );
 
-        $this->db->bind(":nis", $nis);
         $this->db->bind(":nisn", $nisn);
         $this->db->bind(":name", $name);
         $this->db->bind(":email", $email);
@@ -48,7 +51,7 @@ class Student
             password_hash($password, PASSWORD_DEFAULT),
         );
         $this->db->bind(":gender", $gender);
-        $this->db->bind(":major", $major);
+        $this->db->bind(":class", $class);
         $this->db->bind(":address", $address);
         $this->db->execute();
     }

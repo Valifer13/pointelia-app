@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?></title>
-    <link rel="stylesheet" href="css/output.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/css/output.css">
 </head>
 
 <body class="font-main bg-zinc-50">
     <header class="bg-white border border-zinc-100 flex justify-between px-5 py-2 rounded-lg w-full mx-auto">
         <div class="flex gap-4 items-center">
-            <a href="/public" class="">
+            <a href="<?= BASE_URL ?>" class="">
                 <svg class="w-20" viewBox="0 0 782 131" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M22.8278 6.71411H0V123.874H18.7993V76.5403H22.8278C42.2985 76.5403 69.4905 73.519 69.4905 41.6272C69.4905 9.5676 42.2985 6.71411 22.8278 6.71411ZM6.71405 23.1635H27.6955C37.4308 23.1635 50.6911 24.6742 50.6911 41.6272C50.6911 58.4123 37.4308 60.0909 27.6955 60.0909H18.7993V32.0597L6.71405 23.1635Z" fill="currentColor" />
                     <path d="M143.848 5.03552C109.102 5.03552 81.0713 32.0596 81.0713 65.2942C81.0713 98.5287 109.102 125.553 143.848 125.553C178.425 125.553 206.624 98.5287 206.624 65.2942C206.624 32.0596 178.425 5.03552 143.848 5.03552ZM99.5349 65.2942C99.5349 41.1236 119.341 21.485 143.848 21.485C168.354 21.485 188.16 41.1236 188.16 65.2942C188.16 89.4647 168.354 109.103 143.848 109.103C119.341 109.103 99.5349 89.4647 99.5349 65.2942Z" fill="currentColor" />
@@ -28,7 +28,7 @@
             <nav class="hidden md:block">
                 <ul class="flex transition-all duration-300 text-zinc-700 hover:text-zinc-400 *:hover:transition-colors *:hover:duration-300 *:hover:text-zinc-950 gap-4 *:text-sm *:font-medium *:cursor-pointer *:flex *:gap-2 *:items-center">
                     <li>
-                        <a href="http://pointeliaapp.text/public/overview">
+                        <a href="<?= BASE_URL ?>/overview">
                             Overview
                         </a>
                     </li>
@@ -42,9 +42,9 @@
                             <h6 class="font-semibold uppercase text-xs text-zinc-400">Pengguna</h6>
                             <div class="w-full h-0.5 bg-zinc-100"></div>
                             <div class="flex flex-col gap-1 *:border *:border-transparent *:p-2 *:rounded-md *:hover:bg-zinc-100 *:hover:border-zinc-300">
-                                <a href="http://pointeliaapp.test/public/admin">Admin</a>
-                                <a href="http://pointeliaapp.test/public/guru">Guru</a>
-                                <a href="http://pointeliaapp.test/public/siswa">Siswa</a>
+                                <a href="<?= BASE_URL ?>/admins">List Admin</a>
+                                <a href="<?= BASE_URL ?>/teachers">List Guru</a>
+                                <a href="<?= BASE_URL ?>/students">List Siswa</a>
                             </div>
                         </div>
                     </li>
@@ -99,11 +99,11 @@
         </div>
     </header>
 
-    <main class="max-w-[1300px] mx-auto mt-6 px-4 md:px-8 lg:px-20">
+    <main class="max-w-[1300px] mx-auto mt-6 px-4 md:px-8 lg:px-20 mb-20">
         <?php require_once "../app/views/" . $viewPath . ".php"; ?>
     </main>
 
-    <script src="js/script.js" defer></script>
+    <script src="<?= BASE_URL ?>/js/script.js" defer></script>
 </body>
 
 </html>

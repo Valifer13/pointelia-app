@@ -1,5 +1,8 @@
 <div>
-    <h1 class="text-2xl font-semibold tracking-wide mb-6">List Siswa</h1>
+    <div class="mb-6 flex flex-col gap-2">
+        <h1 class="text-2xl font-semibold tracking-wide">List Siswa</h1>
+        <?php get_breadcrumb() ?>
+    </div>
     <div class="flex justify-between items-center mb-6">
         <div class="flex gap-1 items-center border border-zinc-300 p-1 rounded-md text-zinc-500 bg-zinc-100">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
@@ -13,22 +16,28 @@
             </button>
         </div>
         <div class="flex gap-4">
-            <button>Export</button>
-            <button class="flex gap-2 items-center px-3 py-2 bg-zinc-900 hover:bg-zinc-700 transition-colors duration-300 cursor-pointer text-white rounded-md">
+            <button class="flex gap-2 items-center px-3 py-2 bg-zinc-200 hover:bg-zinc-300 rounded-md cursor-pointer transition-colors duration-300 border border-zinc-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M8.71 7.71L11 5.41V15a1 1 0 0 0 2 0V5.41l2.29 2.3a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.42l-4-4a1 1 0 0 0-.33-.21a1 1 0 0 0-.76 0a1 1 0 0 0-.33.21l-4 4a1 1 0 1 0 1.42 1.42M21 14a1 1 0 0 0-1 1v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4a1 1 0 0 0-2 0v4a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-4a1 1 0 0 0-1-1" />
+                </svg>
+                Export
+            </button>
+            <a href="<?= BASE_URL ?>/students/add" class="flex gap-2 items-center px-3 py-2 bg-zinc-900 hover:bg-zinc-700 transition-colors duration-300 cursor-pointer text-white rounded-md">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <path fill="currentColor" d="M11 13H6q-.425 0-.712-.288T5 12t.288-.712T6 11h5V6q0-.425.288-.712T12 5t.713.288T13 6v5h5q.425 0 .713.288T19 12t-.288.713T18 13h-5v5q0 .425-.288.713T12 19t-.712-.288T11 18z" />
                 </svg>
                 Tambah Siswa
-            </button>
+            </a>
         </div>
     </div>
-    <div class="pt-5 bg-white rounded-lg w-full shadow-md">
+    <div class="bg-white rounded-lg w-full shadow-md p-1">
         <table class="w-full">
             <thead class="**:border-b **:text-left **:border-b-zinc-300 **:py-2 **:px-5 *:font-bold">
                 <th>No.</th>
                 <th>NIS</th>
                 <th>Nama</th>
                 <th>Jenis Kelamin</th>
+                <th>Alamat</th>
                 <th>Kelas</th>
                 <th>Option</th>
             </thead>
@@ -42,6 +51,7 @@
                         <td><?= str_pad($student["nis"], 4, '0', STR_PAD_LEFT) ?></td>
                         <td class="text-zinc-800"><?= $student["name"] ?></td>
                         <td><?= $student["gender"] == "M" ? "Laki-Laki" : "Perempuan" ?></td>
+                        <td><?= $student["address"] ?></td>
                         <td><?= $student["class"] ?? "-" ?></td>
                         <td class="text-zinc-500">
                             <div class="relative p-2 border border-zinc-400 w-fit rounded-md inset-shadow-zinc-400 inset-shadow-xs group hover:inset-shadow-sm transition-all duration-500">
@@ -50,25 +60,27 @@
                                 </svg>
 
                                 <div class="flex flex-col gap-1 absolute top-10 left-0 bg-white border border-zinc-300 z-10 p-1 rounded-md opacity-0 scale-95 invisible group-hover:opacity-100 group-hover:scale-100 group-hover:visible transition-all duration-100 ease-out">
-                                    <a class="text-blue-500 hover:text-white hover:bg-blue-500 py-2 px-3 rounded-sm transition-colors duration-300 flex gap-2 items-center" href="http://pointeliaapp.test/public/students/<?= $student['nis'] ?>">
+                                    <a class="text-blue-500 hover:text-white hover:bg-blue-500 py-2 px-3 rounded-sm transition-colors duration-300 flex gap-2 items-center" href="<?= BASE_URL ?>/students/detail/<?= $student['nis'] ?>">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                                             <path fill="currentColor" d="M12 9a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5a5 5 0 0 1 5-5a5 5 0 0 1 5 5a5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5" />
                                         </svg>
                                         Detail
                                     </a>
-                                    <a class="text-yellow-400 hover:text-white hover:bg-yellow-400 py-2 px-3 rounded-sm transition-colors duration-300 flex gap-2 items-center" href="http://pointeliaapp.test/public/students/<?= $student['nis'] ?>/edit">
+                                    <a class="text-yellow-400 hover:text-white hover:bg-yellow-400 py-2 px-3 rounded-sm transition-colors duration-300 flex gap-2 items-center" href="<?= BASE_URL ?>/students/<?= $student['nis'] ?>/edit">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                                             <path fill="currentColor" d="M4 21q-.425 0-.712-.288T3 20v-2.425q0-.4.15-.763t.425-.637L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.437.65T21 6.4q0 .4-.138.763t-.437.662l-12.6 12.6q-.275.275-.638.425t-.762.15zM17.6 7.8L19 6.4L17.6 5l-1.4 1.4z" />
                                         </svg>
                                         Edit
                                     </a>
-                                    <button class="text-red-500 hover:text-white hover:bg-red-500 py-2 px-3 rounded-sm transition-colors duration-300 flex gap-2 items-center cursor-pointer">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512">
-                                            <path fill="none" d="M296 64h-80a7.91 7.91 0 0 0-8 8v24h96V72a7.91 7.91 0 0 0-8-8" />
-                                            <path fill="currentColor" d="M432 96h-96V72a40 40 0 0 0-40-40h-80a40 40 0 0 0-40 40v24H80a16 16 0 0 0 0 32h17l19 304.92c1.42 26.85 22 47.08 48 47.08h184c26.13 0 46.3-19.78 48-47l19-305h17a16 16 0 0 0 0-32M192.57 416H192a16 16 0 0 1-16-15.43l-8-224a16 16 0 1 1 32-1.14l8 224A16 16 0 0 1 192.57 416M272 400a16 16 0 0 1-32 0V176a16 16 0 0 1 32 0Zm32-304h-96V72a7.91 7.91 0 0 1 8-8h80a7.91 7.91 0 0 1 8 8Zm32 304.57A16 16 0 0 1 320 416h-.58A16 16 0 0 1 304 399.43l8-224a16 16 0 1 1 32 1.14Z" />
-                                        </svg>
-                                        Delete
-                                    </button>
+                                    <form action="<?= BASE_URL ?>/students/delete/<?= $student['nis'] ?>" method="post">
+                                        <button type="submit" class="text-red-500 hover:text-white hover:bg-red-500 py-2 px-3 rounded-sm transition-colors duration-300 flex gap-2 items-center cursor-pointer">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512">
+                                                <path fill="none" d="M296 64h-80a7.91 7.91 0 0 0-8 8v24h96V72a7.91 7.91 0 0 0-8-8" />
+                                                <path fill="currentColor" d="M432 96h-96V72a40 40 0 0 0-40-40h-80a40 40 0 0 0-40 40v24H80a16 16 0 0 0 0 32h17l19 304.92c1.42 26.85 22 47.08 48 47.08h184c26.13 0 46.3-19.78 48-47l19-305h17a16 16 0 0 0 0-32M192.57 416H192a16 16 0 0 1-16-15.43l-8-224a16 16 0 1 1 32-1.14l8 224A16 16 0 0 1 192.57 416M272 400a16 16 0 0 1-32 0V176a16 16 0 0 1 32 0Zm32-304h-96V72a7.91 7.91 0 0 1 8-8h80a7.91 7.91 0 0 1 8 8Zm32 304.57A16 16 0 0 1 320 416h-.58A16 16 0 0 1 304 399.43l8-224a16 16 0 1 1 32 1.14Z" />
+                                            </svg>
+                                            Delete
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </td>

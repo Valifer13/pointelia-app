@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?></title>
-    <link rel="stylesheet" href="css/output.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/css/output.css">
 </head>
 
 <body class="font-main">
     <header class="p-4">
         <div class="bg-zinc-50 border border-zinc-100 flex justify-between p-2 rounded-lg max-w-[1300px] mx-auto">
             <div class="flex gap-4 items-center">
-                <a href="/public" class="">
+                <a href="<?= BASE_URL ?>" class="">
                     <svg class="w-20" viewBox="0 0 782 131" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M22.8278 6.71411H0V123.874H18.7993V76.5403H22.8278C42.2985 76.5403 69.4905 73.519 69.4905 41.6272C69.4905 9.5676 42.2985 6.71411 22.8278 6.71411ZM6.71405 23.1635H27.6955C37.4308 23.1635 50.6911 24.6742 50.6911 41.6272C50.6911 58.4123 37.4308 60.0909 27.6955 60.0909H18.7993V32.0597L6.71405 23.1635Z" fill="currentColor" />
                         <path d="M143.848 5.03552C109.102 5.03552 81.0713 32.0596 81.0713 65.2942C81.0713 98.5287 109.102 125.553 143.848 125.553C178.425 125.553 206.624 98.5287 206.624 65.2942C206.624 32.0596 178.425 5.03552 143.848 5.03552ZM99.5349 65.2942C99.5349 41.1236 119.341 21.485 143.848 21.485C168.354 21.485 188.16 41.1236 188.16 65.2942C188.16 89.4647 168.354 109.103 143.848 109.103C119.341 109.103 99.5349 89.4647 99.5349 65.2942Z" fill="currentColor" />
@@ -38,15 +38,15 @@
                                 <h6 class="font-semibold uppercase text-xs text-zinc-400">Produk</h6>
                                 <div class="w-full h-0.5 bg-zinc-100"></div>
                                 <div class="flex flex-col gap-1 *:border *:border-transparent *:p-2 *:rounded-md *:hover:bg-zinc-100 *:hover:border-zinc-300">
-                                    <a href="http://pointeliaapp.test/public/students">
+                                    <a href="<?= BASE_URL ?>/students">
                                         <span class="text-sm font-semibold text-zinc-700">Manajemen Poin Pelanggaran</span>
                                         <p class="text-xs text-zinc-400 font-light">Manajemen poin pelanggaran pada siswa</p>
                                     </a>
-                                    <a href="http://pointeliaapp.test/public/reports">
+                                    <a href="<?= BASE_URL ?>/reports">
                                         <span class="text-sm font-semibold text-zinc-700">Pengelolaan Laporan Sekolah</span>
                                         <p class="text-xs text-zinc-400 font-light">Mengelola data laporan sekolah</p>
                                     </a>
-                                    <a href="http://pointeliaapp.test/public/teachers">
+                                    <a href="<?= BASE_URL ?>/teachers">
                                         <span class="text-sm font-semibold text-zinc-800">Manajemen Sekolah</span>
                                         <p class="text-xs text-zinc-400 font-light">Manajemen guru dan staff sekolah</p>
                                     </a>
@@ -75,13 +75,13 @@
                                 <div class="w-full h-0.5 bg-zinc-100"></div>
                                 <ul class="flex flex-col gap-1 *:border *:border-transparent *:p-2 *:rounded-md *:hover:bg-zinc-100 *:hover:border-zinc-300 **:text-nowrap">
                                     <li>
-                                        <a href="http://pointeliaapp.test/public/" class="text-sm font-semibold text-zinc-700">Tentang Kami</a>
+                                        <a href="<?= BASE_URL ?>/tentang-kami" class="text-sm font-semibold text-zinc-700">Tentang Kami</a>
                                     </li>
-                                    <li href="http://pointeliaapp.test/public/reports">
-                                        <a href="http://pointeliaapp.test/public/" class="text-sm font-semibold text-zinc-700">Blog</a>
+                                    <li>
+                                        <a href="<?= BASE_URL ?>/blog" class="text-sm font-semibold text-zinc-700">Blog</a>
                                     </li>
-                                    <li href="http://pointeliaapp.test/public/teachers">
-                                        <a href="http://pointeliaapp.test/public/" class="text-sm font-semibold text-zinc-700">Kontak</a>
+                                    <li>
+                                        <a href="<?= BASE_URL ?>/kontak" class="text-sm font-semibold text-zinc-700">Kontak</a>
                                     </li>
                                 </ul>
                             </div>
@@ -90,7 +90,7 @@
                 </nav>
             </div>
             <div class="flex gap-4 *:text-sm">
-                <button class="cursor-pointer border border-transparent transition-all duration-300 text-zinc-700 hover:text-zinc-900 hover:border-zinc-300 hover:bg-zinc-100 px-2 py-0.5 rounded-md" onclick="window.location.assign('http://pointeliaapp.test/public/auth/sign-in')">Sign In</button>
+                <button class="cursor-pointer border border-transparent transition-all duration-300 text-zinc-700 hover:text-zinc-900 hover:border-zinc-300 hover:bg-zinc-100 px-2 py-0.5 rounded-md" onclick="window.location.assign('<?= BASE_URL ?>/auth/sign-in')">Sign In</button>
                 <button class="flex items-center gap-2 cursor-pointer border inset-shadow-xs hover:inset-shadow-2xs border-zinc-200 px-2 py-0.5 text-zinc-700 hover:text-zinc-900 bg-white rounded-md">
                     Start App
                     <svg width="4" height="7" viewBox="0 0 4 7" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -105,7 +105,7 @@
         </div>
     </header>
 
-    <main class="max-w-[1300px] mx-auto mt-6 px-4 md:px-8 lg:px-20">
+    <main class="max-w-[1300px] mx-auto mt-6 px-4 md:px-8 lg:px-20 mb-20">
         <?php require_once "../app/views/" . $viewPath . ".php"; ?>
     </main>
 
