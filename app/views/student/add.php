@@ -13,7 +13,7 @@
             <div class="flex gap-4">
                 <div class="flex flex-col gap-1">
                     <label class="font-semibold" for="nis">NIS:</label>
-                    <input class="bg-white border border-zinc-300 p-2 rounded-md focus:outline-zinc-400 disabled:bg-zinc-100" disabled type="text" name="nis" id="nis" placeholder="XXXX">
+                    <input class="bg-white border border-zinc-300 p-2 rounded-md focus:outline-zinc-400 disabled:bg-zinc-100 disabled:text-zinc-400" disabled type="text" name="nis" id="nis" value="<?= str_pad($lastNis, 4, "0", STR_PAD_LEFT) ?>">
                 </div>
                 <div class="flex flex-col gap-1">
                     <label for="nisn">NISN:</label>
@@ -27,6 +27,10 @@
             <div class="flex flex-col gap-1">
                 <label class="font-semibold" for="email">Email:</label>
                 <input required class="bg-white border border-zinc-300 p-2 rounded-md focus:outline-zinc-400 disabled:bg-zinc-100" type="email" name="email" id="email" placeholder="Email siswa..." autocomplete="off">
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="font-semibold" for="phone_number">Nomor HP:</label>
+                <input required class="bg-white border border-zinc-300 p-2 rounded-md focus:outline-zinc-400 disabled:bg-zinc-100" type="text" name="phone_number" id="phone_number" placeholder="Nomor Handphone siswa..." autocomplete="off">
             </div>
             <div class="flex gap-4">
                 <div class="flex flex-col gap-1">

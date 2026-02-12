@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 require_once "../app/helpers/hasFilledData.php";
 
@@ -40,6 +39,7 @@ class StudentController extends Controller
                     $_POST['nisn'] ?? null,
                     $_POST['name'] ?? null,
                     $_POST['email'] ?? null,
+                    $_POST['phone_number'] ?? null,
                     "user123",
                     $_POST['gender'] ?? null,
                     $classId,
@@ -116,12 +116,20 @@ class StudentController extends Controller
             }
 
             header("Location: " . BASE_URL . "/students");
+            exit;
+        }
+
+        $studentModel = new Student($db);
+        $lastNis = $studentModel->getLastNis();
+
+        if (empty($lastNis)) {
+            $lastNis = 1;
         }
 
         $studentClassModel = new StudentClass($db);
         $studentClasses = $studentClassModel->getAllStudentClasses();
 
-        $this->view("student/add", ["studentClasses" => $studentClasses], "Tambah Siswa", "dashboard");
+        $this->view("student/add", ["studentClasses" => $studentClasses, "lastNis" => $lastNis], "Tambah Siswa", "dashboard");
     }
 
     public function delete($nis)

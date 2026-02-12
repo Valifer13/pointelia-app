@@ -16,36 +16,31 @@ class Student extends Model
         return $this->db->execute();
     }
 
+    public function getLastNis()
+    {
+        $this->db->query("SELECT nis FROM students ORDER BY nis DESC LIMIT 1");
+        $this->db->execute();
+        return $this->db->single();
+    }
+
     public function create(
         $nisn,
         $name,
         $email,
+        $phoneNumber,
         $password,
         $gender,
         $class,
         $address,
     ) {
-        // if (
-        //     empty($nisn) ||
-        //     empty($name) ||
-        //     empty($email) ||
-        //     empty($password) ||
-        //     empty($gender) ||
-        //     empty($class) ||
-        //     empty($address)
-        // ) {
-        //     echo "<script>alert('Data must be not null')</script>";
-        //     header("Location: " . BASE_URL . "/students");
-        //     exit();
-        // }
-
         $this->db->query(
-            "INSERT INTO students (nisn, name, email, password, gender, class_id, address) VALUES (:nisn, :name, :email, :password, :gender, :class, :address)",
+            "INSERT INTO students (nisn, name, email, phone_number, password, gender, class_id, address) VALUES (:nisn, :name, :email, :phone_number, :password, :gender, :class, :address)",
         );
 
         $this->db->bind(":nisn", $nisn);
         $this->db->bind(":name", $name);
         $this->db->bind(":email", $email);
+        $this->db->bind(":phone_number", $phoneNumber);
         $this->db->bind(
             ":password",
             password_hash($password, PASSWORD_DEFAULT),
@@ -57,16 +52,17 @@ class Student extends Model
     }
 
     public function update(
-        string $nis,
-        string $nisn,
-        string $name,
-        string $email,
-        string $gender,
-        string $major,
-        string $address,
+        $nis,
+        $nisn,
+        $name,
+        $email,
+        $phoneNumber,
+        $gender,
+        $major,
+        $address,
     ) {
         $this->db->query(
-            "UPDATE students SET nisn=:nisn, gender=:gender, major=:major, address=:address WHERE nis=:nis",
+            "UPDATE students SET nisn=:nisn, gender=:gender, major=:major, address=:address, phone_number=:phone_number WHERE nis=:nis",
         );
 
         $this->db->bind(":nis", $nis);
@@ -74,6 +70,7 @@ class Student extends Model
         $this->db->bind(":gender", $gender);
         $this->db->bind(":name", $name);
         $this->db->bind(":email", $email);
+        $this->db->bind(":phone_number", $phoneNumber);
         $this->db->bind(":major", $major);
         $this->db->bind(":address", $address);
         $this->db->execute();
