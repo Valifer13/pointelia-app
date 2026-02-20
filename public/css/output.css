@@ -888,6 +888,11 @@
       }
     }
   }
+  .read-only\:text-zinc-400 {
+    &:read-only {
+      color: var(--color-zinc-400);
+    }
+  }
   .hover\:border-zinc-300 {
     &:hover {
       @media (hover: hover) {

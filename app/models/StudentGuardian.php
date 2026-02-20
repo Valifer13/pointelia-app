@@ -2,11 +2,11 @@
 
 class StudentGuardian extends Model
 {
-    public function connect($studentNis, $guardianId, $relationship, $is_primary, $lives_with)
+    public function connect($studentId, $guardianId, $relationship, $is_primary, $lives_with)
     {
-        $this->db->query("INSERT INTO student_guardians (student_nis, guardian_id, relationship, is_primary, lives_with) VALUES (:student_nis, :guardian_id, :relationship, :is_primary, :lives_with)");
+        $this->db->query("INSERT INTO student_guardians (student_id, guardian_id, relationship, is_primary, lives_with) VALUES (:student_id, :guardian_id, :relationship, :is_primary, :lives_with)");
 
-        $this->db->bind(":student_nis", $studentNis);
+        $this->db->bind(":student_id", $studentId);
         $this->db->bind(":guardian_id", $guardianId);
         $this->db->bind(":relationship", $relationship);
         $this->db->bind(":is_primary", $is_primary);

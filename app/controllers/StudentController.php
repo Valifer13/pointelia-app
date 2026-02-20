@@ -36,6 +36,7 @@ class StudentController extends Controller
                 $classId = $studentClassModel->getIdClass($_POST['class'])[0]['id'];
 
                 $studentModel->create(
+                    $_POST['nis'],
                     $_POST['nisn'] ?? null,
                     $_POST['name'] ?? null,
                     $_POST['email'] ?? null,
@@ -107,12 +108,10 @@ class StudentController extends Controller
 
                 $db->commit();
 
-                $_SESSION['flash_message'] = "Berhasil simpan data!";
-                $_SESSION['flash_status'] = "success";
+                Flasher::setFlash("Berhasil menyimpan data", "success");
             } catch (Exception $e) {
                 $db->rollback();
-                $_SESSION['flash_message'] = "Gagal simpan data: " . $e->getMessage();
-                $_SESSION['flash_status'] = "error";
+                Flasher::setFlash("Gagal simpan data: " . $e->getMessage(), "error");
             }
 
             header("Location: " . BASE_URL . "/students");
@@ -121,6 +120,8 @@ class StudentController extends Controller
 
         $studentModel = new Student($db);
         $lastNis = $studentModel->getLastNis();
+        $lastNis = intval(str_replace('0', '', $lastNis['nis']));
+        $newNis = $lastNis + 1;
 
         if (empty($lastNis)) {
             $lastNis = 1;
@@ -129,7 +130,7 @@ class StudentController extends Controller
         $studentClassModel = new StudentClass($db);
         $studentClasses = $studentClassModel->getAllStudentClasses();
 
-        $this->view("student/add", ["studentClasses" => $studentClasses, "lastNis" => $lastNis], "Tambah Siswa", "dashboard");
+        $this->view("student/add", ["studentClasses" => $studentClasses, "lastNis" => $newNis], "Tambah Siswa", "dashboard");
     }
 
     public function delete($nis)

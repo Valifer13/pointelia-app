@@ -24,6 +24,7 @@ class Student extends Model
     }
 
     public function create(
+        $nis,
         $nisn,
         $name,
         $email,
@@ -34,9 +35,14 @@ class Student extends Model
         $address,
     ) {
         $this->db->query(
-            "INSERT INTO students (nisn, name, email, phone_number, password, gender, class_id, address) VALUES (:nisn, :name, :email, :phone_number, :password, :gender, :class, :address)",
+            "INSERT INTO students (
+                nis, nisn, name, email, phone_number, password, gender, class_id, address
+            ) VALUES (
+                :nis, :nisn, :name, :email, :phone_number, :password, :gender, :class, :address
+            )",
         );
 
+        $this->db->bind(":nis", $nis);
         $this->db->bind(":nisn", $nisn);
         $this->db->bind(":name", $name);
         $this->db->bind(":email", $email);
@@ -48,7 +54,12 @@ class Student extends Model
         $this->db->bind(":gender", $gender);
         $this->db->bind(":class", $class);
         $this->db->bind(":address", $address);
-        $this->db->execute();
+
+        if(!$this->db->execute()) {
+            return false;
+        }
+
+        return true;
     }
 
     public function update(

@@ -13,7 +13,7 @@
             <div class="flex gap-4">
                 <div class="flex flex-col gap-1">
                     <label class="font-semibold" for="nis">NIS:</label>
-                    <input class="bg-white border border-zinc-300 p-2 rounded-md focus:outline-zinc-400 disabled:bg-zinc-100 disabled:text-zinc-400" disabled type="text" name="nis" id="nis" value="<?= str_pad($lastNis, 4, "0", STR_PAD_LEFT) ?>">
+                    <input class="bg-white border border-zinc-300 p-2 rounded-md focus:outline-zinc-400 disabled:bg-zinc-100 read-only:text-zinc-400" readonly type="text" name="nis" id="nis" value="<?= str_pad($lastNis, 4, "0", STR_PAD_LEFT) ?>">
                 </div>
                 <div class="flex flex-col gap-1">
                     <label for="nisn">NISN:</label>
