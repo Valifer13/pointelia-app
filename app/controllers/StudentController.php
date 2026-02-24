@@ -9,16 +9,54 @@ class StudentController extends Controller
         $db = Database::getInstance();
 
         $studentModel = new Student($db);
-        $students = $studentModel->getAllStudents();
+        $students     = $studentModel->getAllStudents();
+
         $this->view("student/index", ["students" => $students], "List Siswa", "dashboard");
     }
 
-    public function detail($nis) {
+    public function detail($nis)
+    {
         $db = Database::getInstance();
 
-        $studentModel = new Student($db);
-        $student = $studentModel->getStudentByNis($nis);
-        $this->view("student/detail", ["student" => $student], "Detail Siswa", "dashboard");
+        $studentModel          = new Student($db);
+        $studentClassModel     = new StudentClass($db);
+        $studentViolationModel = new StudentViolation($db);
+        $studentGuardianModel  = new StudentGuardian($db);
+
+        $student           = $studentModel->getStudentByNis($nis);
+        $studentClass      = $studentClassModel->getStudentClassById($student['class_id']);
+        $studentViolations = $studentViolationModel->getAllViolationsByStudentId($student['id']);
+        $studentGuardians  = $studentGuardianModel->getAllGuardianByStudentId($student['id']);
+
+        $dataAyah = null;
+        $dataIbu  = null;
+        $dataWali = null;
+
+        foreach ($studentGuardians as $studentGuardian) {
+            if ($studentGuardian['relationship'] === "Ayah Kandung") {
+                $dataAyah = $studentGuardian;
+                continue;
+            }
+            
+            if ($studentGuardian['relationship'] === "Ibu Kandung") {
+                $dataIbu = $studentGuardian;
+                continue;
+            }
+            
+            if ($studentGuardian['relationship'] !== "Ibu Kandung" || $studentGuardian['relationship'] !== "Ayah Kandung") {
+                $dataWali = $studentGuardian;
+                continue;
+            }
+        }
+
+        $this->view("student/detail", [
+            "student"           => $student,
+            "studentClass"      => $studentClass,
+            "studentViolations" => $studentViolations,
+            "dataAyah"          => $dataAyah,
+            "dataIbu"           => $dataIbu,
+            "dataWali"          => $dataWali,
+        ], "Detail Siswa", "dashboard");
     }
 
     public function add()
@@ -37,14 +75,154 @@ class StudentController extends Controller
 
                 $studentModel->create(
                     $_POST['nis'],
-                    $_POST['nisn'] ?? null,
-                    $_POST['name'] ?? null,
-                    $_POST['email'] ?? null,
+                    $_POST['nisn']         ?? null,
+                    $_POST['name']         ?? null,
+                    $_POST['email']        ?? null,
                     $_POST['phone_number'] ?? null,
                     "user123",
-                    $_POST['gender'] ?? null,
+                    $_POST['gender']       ?? null,
                     $classId,
-                    $_POST['address'] ?? null
+                    $_POST['address']      ?? null
+                );
+
+                $studentId = $db->lastInsertId();
+
+                if (!empty($_POST['ayah']) && hasFilledData($_POST['ayah'])) {
+                    $guardianModel->create(
+                        $_POST['ayah']['name']         ?? null,
+                        $_POST['ayah']['job']          ?? null,
+                        $_POST['ayah']['phone_number'] ?? null,
+                        $_POST['ayah']['address']      ?? null
+                    );
+
+                    $ayahId = $db->lastInsertId();
+
+                    $studentGuardianModel->connect(
+                        $studentId,
+                        $ayahId,
+                        "Ayah Kandung",
+                        $_POST['ayah']['is_primary'] == "true" ? 1 : 0,
+                        $_POST['ayah']['lives_with'] == "true" ? 1 : 0
+                    );
+                }
+
+                if (!empty($_POST['ibu']) && hasFilledData($_POST['ibu'])) {
+                    $guardianModel->create(
+                        $_POST['ibu']['name']         ?? null,
+                        $_POST['ibu']['job']          ?? null,
+                        $_POST['ibu']['phone_number'] ?? null,
+                        $_POST['ibu']['address']      ?? null
+                    );
+
+                    $ibuId = $db->lastInsertId();
+
+                    $studentGuardianModel->connect(
+                        $studentId,
+                        $ibuId,
+                        "Ibu Kandung",
+                        $_POST['ibu']['is_primary'] == "true" ? 1 : 0,
+                        $_POST['ibu']['lives_with'] == "true" ? 1 : 0
+                    );
+                }
+
+                if (!empty($_POST['wali']) && hasFilledData($_POST['wali'])) {
+                    $guardianModel->create(
+                        $_POST['wali']['name']         ?? null,
+                        $_POST['wali']['job']          ?? null,
+                        $_POST['wali']['phone_number'] ?? null,
+                        $_POST['wali']['address']      ?? null
+                    );
+
+                    $waliId = $db->lastInsertId();
+
+                    $studentGuardianModel->connect(
+                        $studentId,
+                        $waliId,
+                        $_POST['wali']['relationship'],
+                        $_POST['wali']['is_primary'] == "true" ? 1 : 0,
+                        $_POST['wali']['lives_with'] == "true" ? 1 : 0
+                    );
+                }
+
+                $db->commit();
+
+                Flasher::setFlash("Berhasil menyimpan data", "success");
+            } catch (Exception $e) {
+                $db->rollback();
+                Flasher::setFlash("Gagal simpan data: " . $e->getMessage(), "error");
+            }
+
+            header("Location: " . BASE_URL . "/students");
+            exit;
+        }
+
+        $studentModel = new Student($db);
+        $lastNis      = $studentModel->getLastNis();
+        $newNis       = (int)$lastNis['nis'] + 1;
+
+        if (empty($lastNis)) {
+            $lastNis = 1;
+        }
+
+        $studentClassModel = new StudentClass($db);
+        $studentClasses    = $studentClassModel->getAllStudentClasses();
+
+        $this->view("student/add", [
+            "studentClasses" => $studentClasses,
+            "lastNis"        => $newNis
+        ], "Tambah Siswa", "dashboard");
+    }
+
+    public function edit($nis) {
+        $db = Database::getInstance();
+
+        $studentClassModel    = new StudentClass($db);
+        $studentModel         = new Student($db);
+        $studentGuardianModel = new StudentGuardian($db);
+
+        $student          = $studentModel->getStudentByNis($nis);
+        $studentGuardians = $studentGuardianModel->getAllGuardianByStudentId($student['id']);
+        $studentClasses   = $studentClassModel->getAllStudentClasses();
+        $studentClass     = $studentClassModel->getClassById($student['class_id']);
+
+        $dataAyah = null;
+        $dataIbu  = null;
+        $dataWali = null;
+
+        foreach ($studentGuardians as $studentGuardian) {
+            if ($studentGuardian['relationship'] === "Ayah Kandung") {
+                $dataAyah = $studentGuardian;
+                continue;
+            }
+            
+            if ($studentGuardian['relationship'] === "Ibu Kandung") {
+                $dataIbu = $studentGuardian;
+                continue;
+            }
+            
+            if ($studentGuardian['relationship'] !== "Ibu Kandung" || $studentGuardian['relationship'] !== "Ayah Kandung") {
+                $dataWali = $studentGuardian;
+                continue;
+            }
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            try {
+                $db->beginTransaction();
+
+                $guardianModel = new Guardian($db);
+                $classId       = $studentClassModel->getIdClass($_POST['class'])[0]['id'];
+
+                $studentModel->update(
+                    $_POST['nis'],
+                    $_POST['nisn']         ?? null,
+                    $_POST['name']         ?? null,
+                    $_POST['email']        ?? null,
+                    $_POST['phone_number'] ?? null,
+                    "user123",
+                    $_POST['gender']       ?? null,
+                    $classId,
+                    $_POST['address']      ?? null
                 );
 
                 $studentId = $db->lastInsertId();
@@ -118,19 +296,14 @@ class StudentController extends Controller
             exit;
         }
 
-        $studentModel = new Student($db);
-        $lastNis = $studentModel->getLastNis();
-        $lastNis = intval(str_replace('0', '', $lastNis['nis']));
-        $newNis = $lastNis + 1;
-
-        if (empty($lastNis)) {
-            $lastNis = 1;
-        }
-
-        $studentClassModel = new StudentClass($db);
-        $studentClasses = $studentClassModel->getAllStudentClasses();
-
-        $this->view("student/add", ["studentClasses" => $studentClasses, "lastNis" => $newNis], "Tambah Siswa", "dashboard");
+        $this->view("student/edit", [
+            "student"        => $student,
+            "studentClasses" => $studentClasses,
+            "studentClass"   => $studentClass,
+            "dataAyah"       => $dataAyah,
+            "dataIbu"        => $dataIbu,
+            "dataWali"       => $dataWali
+        ], "Edit Siswa", "dashboard");
     }
 
     public function delete($nis)

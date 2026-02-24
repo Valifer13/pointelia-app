@@ -13,7 +13,8 @@ class Student extends Model
     {
         $this->db->query("SELECT * FROM students WHERE nis=:nis");
         $this->db->bind(":nis", $nis);
-        return $this->db->execute();
+        $this->db->execute();
+        return $this->db->single();
     }
 
     public function getLastNis()
