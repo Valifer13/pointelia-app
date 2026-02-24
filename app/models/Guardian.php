@@ -28,6 +28,24 @@ class Guardian extends Model
 
         $this->db->execute();
     }
+
+    public function update(
+        $id,
+        $name,
+        $job,
+        $phone_number,
+        $address,
+    ) {
+        $this->db->query("UPDATE guardians SET name=:name, job=:job, phone_number=:phone_number, address=:address WHERE id=:id");
+
+        $this->db->bind(":id", $id);
+        $this->db->bind(":name", $name);
+        $this->db->bind(":job", $job);
+        $this->db->bind(":phone_number", $phone_number);
+        $this->db->bind(":address", $address);
+
+        $this->db->execute();
+    }
 }
 
 ?>
