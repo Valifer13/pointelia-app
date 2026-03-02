@@ -41,24 +41,6 @@ class StudentClass extends Model
         return $this->db->result();
     }
 
-    public function getClassById($id) {
-        $this->db->query("SELECT
-            classes.id AS class_id,
-            classes.rombel AS rombel,
-            grade_levels.grade AS grade,
-            majors.name AS major_name
-            FROM classes
-            JOIN grade_levels ON classes.grade_level_id = grade_levels.id
-            JOIN majors ON classes.major_id = majors.id
-            WHERE classes.id=:id;
-        ");
-
-        $this->db->bind(":id", $id);
-
-        $this->db->execute();
-        return $this->db->single();
-    }
-
     public function getStudentClassById($id) {
         $this->db->query("SELECT
             classes.id,

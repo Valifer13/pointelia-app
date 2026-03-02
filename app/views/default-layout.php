@@ -91,7 +91,7 @@
             </div>
             <div class="flex gap-4 *:text-sm">
                 <button class="cursor-pointer border border-transparent transition-all duration-300 text-zinc-700 hover:text-zinc-900 hover:border-zinc-300 hover:bg-zinc-100 px-2 py-0.5 rounded-md" onclick="window.location.assign('<?= BASE_URL ?>/auth/sign-in')">Sign In</button>
-                <button class="flex items-center gap-2 cursor-pointer border inset-shadow-xs hover:inset-shadow-2xs border-zinc-200 px-2 py-0.5 text-zinc-700 hover:text-zinc-900 bg-white rounded-md">
+                <button class="flex items-center gap-2 cursor-pointer border inset-shadow-xs hover:inset-shadow-2xs border-zinc-200 px-2 py-0.5 text-zinc-700 hover:text-zinc-900 bg-white rounded-md" onclick="window.location.assign('<?=  BASE_URL ?>/students')">
                     Start App
                     <svg width="4" height="7" viewBox="0 0 4 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M0.41 6.484C0.298 6.484 0.201667 6.44733 0.121 6.374C0.0403336 6.29933 0 6.20167 0 6.081V0.403999C0 0.282666 0.0413329 0.185 0.124 0.111C0.206666 0.0370001 0.302666 0 0.412 0C0.44 0 0.534667 0.0433325 0.696 0.129999L3.373 2.808C3.435 2.86933 3.48267 2.93567 3.516 3.007C3.54933 3.07833 3.566 3.15667 3.566 3.242C3.566 3.32733 3.54933 3.40567 3.516 3.477C3.48267 3.54833 3.435 3.615 3.373 3.677L0.696 6.354C0.659333 6.39067 0.616334 6.42167 0.567 6.447C0.518334 6.47167 0.466 6.484 0.41 6.484Z" fill="black" />

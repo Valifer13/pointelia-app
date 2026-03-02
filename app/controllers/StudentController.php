@@ -8,10 +8,22 @@ class StudentController extends Controller
     {
         $db = Database::getInstance();
 
-        $studentModel = new Student($db);
-        $students     = $studentModel->getAllStudents();
+        $studentModel      = new Student($db);
+        $studentClassModel = new StudentClass($db);
 
-        $this->view("student/index", ["students" => $students], "List Siswa", "dashboard");
+        $students = $studentModel->getAllStudents();
+        $classes  = [];
+
+        foreach ($students as $student) {
+            $classObj =  $studentClassModel->getStudentClassById($student['class_id']);
+            $class    = $classObj['grade'] . " " . $classObj['major_name'] . " " . $classObj['rombel'];
+            array_push($classes, $class);
+        }
+
+        $this->view("student/index", [
+            "students"  => $students,
+            "classes"   => $classes,
+        ], "List Siswa", "dashboard");
     }
 
     public function detail($nis)
@@ -22,11 +34,13 @@ class StudentController extends Controller
         $studentClassModel     = new StudentClass($db);
         $studentViolationModel = new StudentViolation($db);
         $studentGuardianModel  = new StudentGuardian($db);
+        $guardianModel         = new Guardian($db);
 
         $student           = $studentModel->getStudentByNis($nis);
         $studentClass      = $studentClassModel->getStudentClassById($student['class_id']);
         $studentViolations = $studentViolationModel->getAllViolationsByStudentId($student['id']);
         $studentGuardians  = $studentGuardianModel->getAllGuardianByStudentId($student['id']);
+        $guardians         = $guardianModel->getAllGuardians();
 
         $dataAyah = null;
         $dataIbu  = null;
@@ -56,6 +70,7 @@ class StudentController extends Controller
             "dataAyah"          => $dataAyah,
             "dataIbu"           => $dataIbu,
             "dataWali"          => $dataWali,
+            "guardians"         => $guardians
         ], "Detail Siswa", "dashboard");
     }
 
@@ -68,8 +83,8 @@ class StudentController extends Controller
 
                 $studentModel         = new Student($db);
                 $studentClassModel    = new StudentClass($db);
-                $guardianModel        = new Guardian($db);
-                $studentGuardianModel = new StudentGuardian($db);
+                // $guardianModel        = new Guardian($db);
+                // $studentGuardianModel = new StudentGuardian($db);
 
                 $classId = $studentClassModel->getIdClass($_POST['class'])[0]['id'];
 
@@ -85,64 +100,64 @@ class StudentController extends Controller
                     $_POST['address']      ?? null
                 );
 
-                $studentId = $db->lastInsertId();
+                // $studentId = $db->lastInsertId();
 
-                if (!empty($_POST['ayah']) && hasFilledData($_POST['ayah'])) {
-                    $guardianModel->create(
-                        $_POST['ayah']['name']         ?? null,
-                        $_POST['ayah']['job']          ?? null,
-                        $_POST['ayah']['phone_number'] ?? null,
-                        $_POST['ayah']['address']      ?? null
-                    );
+                // if (!empty($_POST['ayah']) && hasFilledData($_POST['ayah'])) {
+                //     $guardianModel->create(
+                //         $_POST['ayah']['name']         ?? null,
+                //         $_POST['ayah']['job']          ?? null,
+                //         $_POST['ayah']['phone_number'] ?? null,
+                //         $_POST['ayah']['address']      ?? null
+                //     );
 
-                    $ayahId = $db->lastInsertId();
+                //     $ayahId = $db->lastInsertId();
 
-                    $studentGuardianModel->connect(
-                        $studentId,
-                        $ayahId,
-                        "Ayah Kandung",
-                        $_POST['ayah']['is_primary'] == "true" ? 1 : 0,
-                        $_POST['ayah']['lives_with'] == "true" ? 1 : 0
-                    );
-                }
+                //     $studentGuardianModel->connect(
+                //         $studentId,
+                //         $ayahId,
+                //         "Ayah Kandung",
+                //         $_POST['ayah']['is_primary'] == "true" ? 1 : 0,
+                //         $_POST['ayah']['lives_with'] == "true" ? 1 : 0
+                //     );
+                // }
 
-                if (!empty($_POST['ibu']) && hasFilledData($_POST['ibu'])) {
-                    $guardianModel->create(
-                        $_POST['ibu']['name']         ?? null,
-                        $_POST['ibu']['job']          ?? null,
-                        $_POST['ibu']['phone_number'] ?? null,
-                        $_POST['ibu']['address']      ?? null
-                    );
+                // if (!empty($_POST['ibu']) && hasFilledData($_POST['ibu'])) {
+                //     $guardianModel->create(
+                //         $_POST['ibu']['name']         ?? null,
+                //         $_POST['ibu']['job']          ?? null,
+                //         $_POST['ibu']['phone_number'] ?? null,
+                //         $_POST['ibu']['address']      ?? null
+                //     );
 
-                    $ibuId = $db->lastInsertId();
+                //     $ibuId = $db->lastInsertId();
 
-                    $studentGuardianModel->connect(
-                        $studentId,
-                        $ibuId,
-                        "Ibu Kandung",
-                        $_POST['ibu']['is_primary'] == "true" ? 1 : 0,
-                        $_POST['ibu']['lives_with'] == "true" ? 1 : 0
-                    );
-                }
+                //     $studentGuardianModel->connect(
+                //         $studentId,
+                //         $ibuId,
+                //         "Ibu Kandung",
+                //         $_POST['ibu']['is_primary'] == "true" ? 1 : 0,
+                //         $_POST['ibu']['lives_with'] == "true" ? 1 : 0
+                //     );
+                // }
 
-                if (!empty($_POST['wali']) && hasFilledData($_POST['wali'])) {
-                    $guardianModel->create(
-                        $_POST['wali']['name']         ?? null,
-                        $_POST['wali']['job']          ?? null,
-                        $_POST['wali']['phone_number'] ?? null,
-                        $_POST['wali']['address']      ?? null
-                    );
+                // if (!empty($_POST['wali']) && hasFilledData($_POST['wali'])) {
+                //     $guardianModel->create(
+                //         $_POST['wali']['name']         ?? null,
+                //         $_POST['wali']['job']          ?? null,
+                //         $_POST['wali']['phone_number'] ?? null,
+                //         $_POST['wali']['address']      ?? null
+                //     );
 
-                    $waliId = $db->lastInsertId();
+                //     $waliId = $db->lastInsertId();
 
-                    $studentGuardianModel->connect(
-                        $studentId,
-                        $waliId,
-                        $_POST['wali']['relationship'],
-                        $_POST['wali']['is_primary'] == "true" ? 1 : 0,
-                        $_POST['wali']['lives_with'] == "true" ? 1 : 0
-                    );
-                }
+                //     $studentGuardianModel->connect(
+                //         $studentId,
+                //         $waliId,
+                //         $_POST['wali']['relationship'],
+                //         $_POST['wali']['is_primary'] == "true" ? 1 : 0,
+                //         $_POST['wali']['lives_with'] == "true" ? 1 : 0
+                //     );
+                // }
 
                 $db->commit();
 
@@ -178,39 +193,39 @@ class StudentController extends Controller
 
         $studentClassModel    = new StudentClass($db);
         $studentModel         = new Student($db);
-        $studentGuardianModel = new StudentGuardian($db);
+        // $studentGuardianModel = new StudentGuardian($db);
 
         $student          = $studentModel->getStudentByNis($nis);
-        $studentGuardians = $studentGuardianModel->getAllGuardianByStudentId($student['id']);
+        // $studentGuardians = $studentGuardianModel->getAllGuardianByStudentId($student['id']);
         $studentClasses   = $studentClassModel->getAllStudentClasses();
-        $studentClass     = $studentClassModel->getClassById($student['class_id']);
+        $studentClass     = $studentClassModel->getStudentClassById($student['class_id']);
 
         $dataAyah = null;
         $dataIbu  = null;
         $dataWali = null;
 
-        foreach ($studentGuardians as $studentGuardian) {
-            if ($studentGuardian['relationship'] === "Ayah Kandung") {
-                $dataAyah = $studentGuardian;
-                continue;
-            }
+        // foreach ($studentGuardians as $studentGuardian) {
+        //     if ($studentGuardian['relationship'] === "Ayah Kandung") {
+        //         $dataAyah = $studentGuardian;
+        //         continue;
+        //     }
             
-            if ($studentGuardian['relationship'] === "Ibu Kandung") {
-                $dataIbu = $studentGuardian;
-                continue;
-            }
+        //     if ($studentGuardian['relationship'] === "Ibu Kandung") {
+        //         $dataIbu = $studentGuardian;
+        //         continue;
+        //     }
             
-            if ($studentGuardian['relationship'] !== "Ibu Kandung" || $studentGuardian['relationship'] !== "Ayah Kandung") {
-                $dataWali = $studentGuardian;
-                continue;
-            }
-        }
+        //     if ($studentGuardian['relationship'] !== "Ibu Kandung" || $studentGuardian['relationship'] !== "Ayah Kandung") {
+        //         $dataWali = $studentGuardian;
+        //         continue;
+        //     }
+        // }
 
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             try {
                 $db->beginTransaction();
 
-                $guardianModel = new Guardian($db);
+                // $guardianModel = new Guardian($db);
                 $classId       = $studentClassModel->getIdClass($_POST['class'])[0]['id'];
 
                 $studentModel->update(
@@ -225,64 +240,64 @@ class StudentController extends Controller
                     $_POST['address']      ?? null
                 );
 
-                $studentId = $db->lastInsertId();
+                // $studentId = $db->lastInsertId();
 
-                if (!empty($_POST['ayah']) && hasFilledData($_POST['ayah'])) {
-                    $guardianModel->create(
-                        $_POST['ayah']['name'] ?? null,
-                        $_POST['ayah']['job'] ?? null,
-                        $_POST['ayah']['phone_number'] ?? null,
-                        $_POST['ayah']['address'] ?? null
-                    );
+                // if (!empty($_POST['ayah']) && hasFilledData($_POST['ayah'])) {
+                //     $guardianModel->create(
+                //         $_POST['ayah']['name']         ?? null,
+                //         $_POST['ayah']['job']          ?? null,
+                //         $_POST['ayah']['phone_number'] ?? null,
+                //         $_POST['ayah']['address']      ?? null
+                //     );
 
-                    $ayahId = $db->lastInsertId();
+                //     $ayahId = $db->lastInsertId();
 
-                    $studentGuardianModel->connect(
-                        $studentId,
-                        $ayahId,
-                        "Ayah Kandung",
-                        $_POST['ayah']['is_primary'] == "true" ? 1 : 0,
-                        $_POST['ayah']['lives_with'] == "true" ? 1 : 0
-                    );
-                }
+                //     $studentGuardianModel->connect(
+                //         $studentId,
+                //         $ayahId,
+                //         "Ayah Kandung",
+                //         $_POST['ayah']['is_primary'] == "true" ? 1 : 0,
+                //         $_POST['ayah']['lives_with'] == "true" ? 1 : 0
+                //     );
+                // }
 
-                if (!empty($_POST['ibu']) && hasFilledData($_POST['ibu'])) {
-                    $guardianModel->create(
-                        $_POST['ibu']['name'] ?? null,
-                        $_POST['ibu']['job'] ?? null,
-                        $_POST['ibu']['phone_number'] ?? null,
-                        $_POST['ibu']['address'] ?? null
-                    );
+                // if (!empty($_POST['ibu']) && hasFilledData($_POST['ibu'])) {
+                //     $guardianModel->create(
+                //         $_POST['ibu']['name']         ?? null,
+                //         $_POST['ibu']['job']          ?? null,
+                //         $_POST['ibu']['phone_number'] ?? null,
+                //         $_POST['ibu']['address']      ?? null
+                //     );
 
-                    $ibuId = $db->lastInsertId();
+                //     $ibuId = $db->lastInsertId();
 
-                    $studentGuardianModel->connect(
-                        $studentId,
-                        $ibuId,
-                        "Ibu Kandung",
-                        $_POST['ibu']['is_primary'] == "true" ? 1 : 0,
-                        $_POST['ibu']['lives_with'] == "true" ? 1 : 0
-                    );
-                }
+                //     $studentGuardianModel->connect(
+                //         $studentId,
+                //         $ibuId,
+                //         "Ibu Kandung",
+                //         $_POST['ibu']['is_primary'] == "true" ? 1 : 0,
+                //         $_POST['ibu']['lives_with'] == "true" ? 1 : 0
+                //     );
+                // }
 
-                if (!empty($_POST['wali']) && hasFilledData($_POST['wali'])) {
-                    $guardianModel->create(
-                        $_POST['wali']['name'] ?? null,
-                        $_POST['wali']['job'] ?? null,
-                        $_POST['wali']['phone_number'] ?? null,
-                        $_POST['wali']['address'] ?? null
-                    );
+                // if (!empty($_POST['wali']) && hasFilledData($_POST['wali'])) {
+                //     $guardianModel->create(
+                //         $_POST['wali']['name']         ?? null,
+                //         $_POST['wali']['job']          ?? null,
+                //         $_POST['wali']['phone_number'] ?? null,
+                //         $_POST['wali']['address']      ?? null
+                //     );
 
-                    $waliId = $db->lastInsertId();
+                //     $waliId = $db->lastInsertId();
 
-                    $studentGuardianModel->connect(
-                        $studentId,
-                        $waliId,
-                        $_POST['wali']['relationship'],
-                        $_POST['wali']['is_primary'] == "true" ? 1 : 0,
-                        $_POST['wali']['lives_with'] == "true" ? 1 : 0
-                    );
-                }
+                //     $studentGuardianModel->connect(
+                //         $studentId,
+                //         $waliId,
+                //         $_POST['wali']['relationship'],
+                //         $_POST['wali']['is_primary'] == "true" ? 1 : 0,
+                //         $_POST['wali']['lives_with'] == "true" ? 1 : 0
+                //     );
+                // }
 
                 $db->commit();
 
@@ -311,6 +326,7 @@ class StudentController extends Controller
         $db = Database::getInstance();
         $studentModel = new Student($db);
         $studentModel->delete($nis);
+        Flasher::setFlash("Berhasil menghapus data", "success");
         header("Location: " . BASE_URL . "/students");
     }
 }

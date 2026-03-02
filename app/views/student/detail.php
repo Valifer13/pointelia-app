@@ -1,11 +1,9 @@
-<div class="mb-6 flex flex-col gap-2">
+<section class="mb-6 flex flex-col gap-2">
     <h1 class="text-2xl font-semibold tracking-wide">Detail Siswa</h1>
-    <div class="flex gap-1 text-zinc-400 *:hover:text-zinc-950 *:hover:underline">
-        <?php get_breadcrumb() ?>
-    </div>
-</div>
+    <?php get_breadcrumb() ?>
+</section>
 
-<div class="bg-white p-5 rounded-lg shadow-md mb-6">
+<section class="bg-white p-5 rounded-lg shadow-md mb-6">
     <h2 class="text-xl font-semibold">Profil Siswa</h2>
     <div class="w-full h-px bg-zinc-300 my-4"></div>
     <div class="flex gap-5">
@@ -52,9 +50,9 @@
             </table>
         </div>
     </div>
-</div>
+</section>
 
-<div class="flex gap-5 mb-6">
+<section class="flex gap-5 mb-6">
     <div class="bg-white p-5 rounded-lg shadow-md w-full">
         <h2 class="text-xl font-semibold">Riwayat Pelanggaran Terbaru</h2>
         <div class="w-full h-px bg-zinc-300 my-4"></div>
@@ -123,13 +121,13 @@
         <div class="w-full h-px bg-zinc-300 my-4"></div>
         <p class="w-full text-6xl font-bold text-center">86</p>
     </div>
-</div>
+</section>
 
-<div class="bg-white p-5 rounded-lg shadow-md w-full">
+<section class="bg-white p-5 rounded-lg shadow-md w-full">
     <h2 class="text-xl font-semibold">Orang Tua / Wali</h2>
     <div class="w-full h-px bg-zinc-300 my-4"></div>
     <div>
-        <div>
+        <div class="flex flex-col gap-4">
             <?php if (!empty($dataAyah) || !empty($dataIbu) || !empty($dataWali)): ?>
                 <ul class="flex text-lg font-medium bg-white *:py-1.5 *:px-3 *:cursor-pointer w-fit rounded-t-md mb-2">
                     <?php if (!empty($dataAyah)): ?>
@@ -244,9 +242,181 @@
                     <p class="text-center font-semibold text-lg text-zinc-400">Hidup Mandiri</p>
                 <?php endif; ?>
             </div>
+            <div class="flex gap-4">
+                <button type="submit" class="flex w-full justify-center gap-2 items-center px-3 py-2 bg-violet-700 hover:bg-violet-900 transition-colors duration-300 cursor-pointer text-white rounded-md">
+                    Buat Koneksi
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                        <path fill="currentColor" d="M12 10c-.8 0-1.4.3-2 .8L6.8 9c.1-.3.2-.7.2-1s-.1-.7-.2-1L10 5.2c.6.5 1.2.8 2 .8c1.7 0 3-1.3 3-3s-1.3-3-3-3s-3 1.3-3 3v.5L5.5 5.4C5.1 5.2 4.6 5 4 5C2.4 5 1 6.3 1 8c0 1.6 1.4 3 3 3c.6 0 1.1-.2 1.5-.4L9 12.5v.5c0 1.7 1.3 3 3 3s3-1.3 3-3s-1.3-3-3-3" />
+                    </svg>
+                </button>
+                <button type="submit" class="flex w-full justify-center gap-2 items-center px-3 py-2 bg-violet-700 hover:bg-violet-900 transition-colors duration-300 cursor-pointer text-white rounded-md">
+                    Tambah Data Baru
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M18 12.998h-5v5a1 1 0 0 1-2 0v-5H6a1 1 0 0 1 0-2h5v-5a1 1 0 0 1 2 0v5h5a1 1 0 0 1 0 2" />
+                    </svg>
+                </button>
+            </div>
+            <div class="flex flex-col gap-4">
+                <form action="" method="post">
+                    <input type="hidden" name="action" value="create-connection">
+                    <div id="create-connection" class="flex flex-col gap-4 bg-zinc-100 p-5 rounded-md">
+                        <div class="flex flex-col gap-1">
+                            <h3 class="flex gap-4 items-center text-lg font-semibold">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 16">
+                                    <path fill="currentColor" d="M12 10c-.8 0-1.4.3-2 .8L6.8 9c.1-.3.2-.7.2-1s-.1-.7-.2-1L10 5.2c.6.5 1.2.8 2 .8c1.7 0 3-1.3 3-3s-1.3-3-3-3s-3 1.3-3 3v.5L5.5 5.4C5.1 5.2 4.6 5 4 5C2.4 5 1 6.3 1 8c0 1.6 1.4 3 3 3c.6 0 1.1-.2 1.5-.4L9 12.5v.5c0 1.7 1.3 3 3 3s3-1.3 3-3s-1.3-3-3-3" />
+                                </svg>
+                                Buat Koneksi
+                            </h3>
+                            <p class="text-sm text-zinc-400">
+                                Buat koneksi dengan data orang tua yang sudah ada.
+                            </p>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label class="font-semibold" for="name">Nama Orang Tua:</label>
+                            <input class="bg-white border border-zinc-300 p-2 rounded-md focus:outline-zinc-400 disabled:bg-zinc-100" type="text" list="Guardians" name="guardian_name" id="guardian_name" placeholder="Nama Wali...">
+                            <datalist id="Guardians">
+                                <?php foreach ($guardians as $guardian): ?>
+                                    <option value="<?= $guardian['name'] ?>"></option>
+                                <?php endforeach; ?>
+                            </datalist>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label class="font-semibold" for="relationship">Hubungan Sebagai:</label>
+                            <input class="bg-white border border-zinc-300 p-2 rounded-md focus:outline-zinc-400 disabled:bg-zinc-100" type="text" list="Relationships" name="relationship" id="relationship" placeholder="Hubungan...">
+                            <datalist id="Relationships">
+                                <option value="Ayah Kandung"></option>
+                                <option value="Ibu Kandung"></option>
+                                <option value="Kakak Kandung"></option>
+                                <option value="Kakek"></option>
+                                <option value="Nenek"></option>
+                                <option value="Paman"></option>
+                                <option value="Bibi"></option>
+                                <option value="Lainnya"></option>
+                            </datalist>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <p class="font-semibold">Wali Utama:</p>
+                            <div class="flex gap-5">
+                                <div class="flex gap-2">
+                                    <input type="radio" name="is_primary" id="is_primary_true" value="true">
+                                    <label for="is_primary_true">Benar</label>
+                                </div>
+                                <div class="flex gap-2">
+                                    <input type="radio" name="is_primary" id="is_primary_false" value="false">
+                                    <label for="is_primary_false">Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <p class="font-semibold">Tinggal Bersama:</p>
+                            <div class="flex gap-5">
+                                <div class="flex gap-2">
+                                    <input type="radio" name="lives_with" id="lives_with_true" value="true">
+                                    <label for="lives_with_true">Benar</label>
+                                </div>
+                                <div class="flex gap-2">
+                                    <input type="radio" name="lives_with" id="lives_with_false" value="false">
+                                    <label for="lives_with_false">Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-end">
+                            <button type="submit" class="flex w-full justify-center md:w-fit gap-2 items-center px-3 py-2 bg-zinc-900 hover:bg-zinc-700 transition-colors duration-300 cursor-pointer text-white rounded-md">
+                                Connect
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="16" viewBox="0 0 15 16">
+                                    <path fill="currentColor" d="M12.49 7.14L3.44 2.27c-.76-.41-1.64.3-1.4 1.13l1.24 4.34q.075.27 0 .54l-1.24 4.34c-.24.83.64 1.54 1.4 1.13l9.05-4.87a.98.98 0 0 0 0-1.72Z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <form action="" method="post">
+                    <input type="hidden" name="action" value="create-guardian-data">
+                    <div id="add-new-guardian-data" class="flex flex-col gap-4 bg-zinc-100 p-5 rounded-md">
+                        <div class="flex flex-col gap-1">
+                            <h3 class="flex gap-4 items-center text-lg font-semibold">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <g fill="none">
+                                        <path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
+                                        <path fill="currentColor" d="M10.5 20a1.5 1.5 0 0 0 3 0v-6.5H20a1.5 1.5 0 0 0 0-3h-6.5V4a1.5 1.5 0 0 0-3 0v6.5H4a1.5 1.5 0 0 0 0 3h6.5z" />
+                                    </g>
+                                </svg>
+                                Tambah Data Baru
+                            </h3>
+                            <p class="text-sm text-zinc-400">
+                                Buat koneksi dengan data wali yang baru.
+                            </p>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label class="font-semibold" for="name">Nama:</label>
+                            <input required class="bg-white border border-zinc-300 p-2 rounded-md focus:outline-zinc-400 disabled:bg-zinc-100" type="text" name="name" id="name" placeholder="Nama Wali..." autocomplete="off">
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label class="font-semibold" for="job">Pekerjaan:</label>
+                            <input required class="bg-white border border-zinc-300 p-2 rounded-md focus:outline-zinc-400 disabled:bg-zinc-100" type="text" name="job" id="job" placeholder="Pekerjaan Wali..." autocomplete="off">
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label class="font-semibold" for="address">Alamat:</label>
+                            <input required class="bg-white border border-zinc-300 p-2 rounded-md focus:outline-zinc-400 disabled:bg-zinc-100" type="text" name="address" id="address" placeholder="Alamat Wali..." autocomplete="off">
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label class="font-semibold" for="phone_number">Nomor:</label>
+                            <input required class="bg-white border border-zinc-300 p-2 rounded-md focus:outline-zinc-400 disabled:bg-zinc-100" type="text" name="phone_number" id="phone_number" placeholder="Nomor Wali..." autocomplete="off">
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label class="font-semibold" for="relationship">Hubungan Sebagai:</label>
+                            <input class="bg-white border border-zinc-300 p-2 rounded-md focus:outline-zinc-400 disabled:bg-zinc-100" type="text" list="Relationships" name="relationship" id="relationship" placeholder="Hubungan...">
+                            <datalist id="Relationships">
+                                <option value="Ayah Kandung"></option>
+                                <option value="Ibu Kandung"></option>
+                                <option value="Kakak Kandung"></option>
+                                <option value="Kakek"></option>
+                                <option value="Nenek"></option>
+                                <option value="Paman"></option>
+                                <option value="Bibi"></option>
+                                <option value="Lainnya"></option>
+                            </datalist>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <p class="font-semibold">Wali Utama:</p>
+                            <div class="flex gap-5">
+                                <div class="flex gap-2">
+                                    <input type="radio" name="is_primary" id="is_primary_true" value="true">
+                                    <label for="is_primary_true">Benar</label>
+                                </div>
+                                <div class="flex gap-2">
+                                    <input type="radio" name="is_primary" id="is_primary_false" value="false">
+                                    <label for="is_primary_false">Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <p class="font-semibold">Tinggal Bersama:</p>
+                            <div class="flex gap-5">
+                                <div class="flex gap-2">
+                                    <input type="radio" name="lives_with" id="lives_with_true" value="true">
+                                    <label for="lives_with_true">Benar</label>
+                                </div>
+                                <div class="flex gap-2">
+                                    <input type="radio" name="lives_with" id="lives_with_false" value="false">
+                                    <label for="lives_with_false">Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-end">
+                            <button type="submit" class="flex w-full justify-center md:w-fit gap-2 items-center px-3 py-2 bg-zinc-900 hover:bg-zinc-700 transition-colors duration-300 cursor-pointer text-white rounded-md">
+                                Submit
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="16" viewBox="0 0 15 16">
+                                    <path fill="currentColor" d="M12.49 7.14L3.44 2.27c-.76-.41-1.64.3-1.4 1.13l1.24 4.34q.075.27 0 .54l-1.24 4.34c-.24.83.64 1.54 1.4 1.13l9.05-4.87a.98.98 0 0 0 0-1.72Z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+</section>
 
 <script>
     const tabs = {

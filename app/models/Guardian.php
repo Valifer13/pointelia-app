@@ -2,6 +2,13 @@
 
 class Guardian extends Model
 {
+    public function getAllGuardians() {
+        $this->db->query("SELECT * FROM guardians");
+
+        $this->db->execute();
+        return $this->db->result();
+    }
+
     public function create(
         $name,
         $job,

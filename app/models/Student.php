@@ -74,7 +74,7 @@ class Student extends Model
         $address,
     ) {
         $this->db->query(
-            "UPDATE students SET nisn=:nisn, gender=:gender, major=:major, address=:address, phone_number=:phone_number WHERE nis=:nis",
+            "UPDATE students SET nisn=:nisn, name=:name, email=:email, gender=:gender, major=:major, address=:address, phone_number=:phone_number WHERE nis=:nis",
         );
 
         $this->db->bind(":nis", $nis);
