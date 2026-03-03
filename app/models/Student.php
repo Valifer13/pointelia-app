@@ -70,11 +70,11 @@ class Student extends Model
         $email,
         $phoneNumber,
         $gender,
-        $major,
+        $class,
         $address,
     ) {
         $this->db->query(
-            "UPDATE students SET nisn=:nisn, name=:name, email=:email, gender=:gender, major=:major, address=:address, phone_number=:phone_number WHERE nis=:nis",
+            "UPDATE students SET nisn=:nisn, name=:name, email=:email, gender=:gender, class_id=:class_id, address=:address, phone_number=:phone_number WHERE nis=:nis",
         );
 
         $this->db->bind(":nis", $nis);
@@ -83,7 +83,7 @@ class Student extends Model
         $this->db->bind(":name", $name);
         $this->db->bind(":email", $email);
         $this->db->bind(":phone_number", $phoneNumber);
-        $this->db->bind(":major", $major);
+        $this->db->bind(":class_id", $class);
         $this->db->bind(":address", $address);
         $this->db->execute();
     }

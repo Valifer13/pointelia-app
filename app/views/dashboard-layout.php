@@ -15,9 +15,14 @@
 <body id="body" class="font-main bg-zinc-50 h-screen overflow-hidden">
     <header id="header" class="sticky top-0 z-50 h-[72px] lg:h-[65px] w-full flex lg:justify-between bg-white border-b border-zinc-300">
         <div id="logo-container" class="relative w-full lg:w-fit justify-between lg:justify-normal flex gap-4 items-center p-4">
-            <a href="<?= BASE_URL ?>" class="logo flex gap-2 items-center font-bold text-2xl px-3">
-                <svg class="text-violet-500" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512">
-                    <path fill="currentColor" d="M255.9 19.77C241.5 109.6 229.4 163 196.2 196.2s-86.6 45.3-176.43 59.7C109.6 270.3 163 282.4 196.2 315.7c33.2 33.2 45.3 86.6 59.7 176.5c14.4-89.9 26.5-143.3 59.7-176.6c33.3-33.2 86.7-45.3 176.6-59.7c-89.9-14.4-143.3-26.5-176.5-59.7c-33.3-33.2-45.4-86.6-59.8-176.43M423 89c-45.8 33.1-81 56.9-112.4 70.2c5.1 9.4 11 17.4 17.8 24.2s14.8 12.7 24.3 17.9c13.4-31.4 37.2-66.6 70.3-112.3m-333.94.06C122.2 134.8 145.9 169.9 159.2 201.2c9.4-5.1 17.4-11 24.2-17.8s12.7-14.8 17.8-24.2c-31.3-13.3-66.4-37-112.14-70.14M352.7 310.5c-9.5 5.2-17.5 11.1-24.3 17.9s-12.7 14.8-17.9 24.3C342 366 377.2 389.8 423 423c-33.2-45.8-57-81-70.3-112.5m-193.5.1C145.9 342 122.1 377.2 89 423c45.7-33.1 80.9-56.9 112.3-70.3c-5.2-9.5-11.1-17.5-17.9-24.3s-14.8-12.7-24.2-17.8" />
+            <a href="<?= BASE_URL ?>" class="logo flex gap-1 items-center font-bold text-2xl px-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                    <g fill="none">
+                        <path fill="#00a6ed" d="M8 26h19V4a2 2 0 0 0-2-2H8z" />
+                        <path fill="#d3d3d3" d="M6 27h21v2H6z" />
+                        <path fill="#0074ba" d="M6.5 2A1.5 1.5 0 0 0 5 3.5V28h1a1 1 0 0 1 1-1h1V2z" />
+                        <path fill="#0074ba" d="M6.5 26A1.5 1.5 0 0 0 5 27.5v1A1.5 1.5 0 0 0 6.5 30h19a1.5 1.5 0 0 0 1.415-1H7a1 1 0 1 1 0-2h20v-1z" />
+                    </g>
                 </svg>
                 <span>LOGO</span>
             </a>
@@ -39,7 +44,7 @@
             </button>
         </div>
         <div class="w-full justify-between items-center p-4 hidden lg:flex">
-            <div class="flex gap-1 items-center border border-violet-300 p-1 rounded-md text-zinc-500 bg-violet-100">
+            <div class="flex gap-1 items-center border border-zinc-300 p-1 rounded-md text-zinc-500 bg-zinc-50">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                     <path fill="currentColor" d="M9.5 16q-2.725 0-4.612-1.888T3 9.5t1.888-4.612T9.5 3t4.613 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l5.6 5.6q.275.275.275.7t-.275.7t-.7.275t-.7-.275l-5.6-5.6q-.75.6-1.725.95T9.5 16m0-2q1.875 0 3.188-1.312T14 9.5t-1.312-3.187T9.5 5T6.313 6.313T5 9.5t1.313 3.188T9.5 14" />
                 </svg>
@@ -67,8 +72,8 @@
             <nav id="navbar" class="expand fixed inset-y-0 left-0 top-[72px] w-64 bg-white p-4 z-50 overflow-y-auto overflow-x-hidden transform -translate-x-full transition-transform duration-300 lg:sticky lg:top-0 lg:inset-auto lg:w-full lg:translate-x-0 lg:h-full lg:z-0 border-r border-zinc-300 ">
                 <div class="flex flex-col gap-1">
                     <span class="nav-divider-title text-xs text-zinc-400">Main</span>
-                    <a href="#" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden bg-white border-violet-500 text-violet-500">
-                        <div class="w-2 h-6 rounded-md absolute -left-1 bg-violet-500"></div>
+                    <a href="#" class="active nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden bg-white border-blue-500 text-blue-500">
+                        <div class="w-2 h-6 rounded-md absolute -left-1 bg-blue-500"></div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M14 9q-.425 0-.712-.288T13 8V4q0-.425.288-.712T14 3h6q.425 0 .713.288T21 4v4q0 .425-.288.713T20 9zM4 13q-.425 0-.712-.288T3 12V4q0-.425.288-.712T4 3h6q.425 0 .713.288T11 4v8q0 .425-.288.713T10 13zm10 8q-.425 0-.712-.288T13 20v-8q0-.425.288-.712T14 11h6q.425 0 .713.288T21 12v8q0 .425-.288.713T20 21zM4 21q-.425 0-.712-.288T3 20v-4q0-.425.288-.712T4 15h6q.425 0 .713.288T11 16v4q0 .425-.288.713T10 21z" />
                         </svg>
@@ -186,7 +191,7 @@
             </nav>
         </aside>
 
-        <section class="relative w-full h-full overflow-y-auto overflow-x-hidden max-w-[1440px] px-4 md:px-8 lg:px-10 py-6">
+        <section class="relative w-full h-full overflow-y-auto overflow-x-hidden max-w-[1440px] px-4 md:px-8 lg:px-10 pt-6 pb-20">
             <?php require_once "../app/views/" . $viewPath . ".php"; ?>
         </section>
     </main>

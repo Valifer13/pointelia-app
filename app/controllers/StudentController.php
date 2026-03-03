@@ -200,9 +200,9 @@ class StudentController extends Controller
         $studentClasses   = $studentClassModel->getAllStudentClasses();
         $studentClass     = $studentClassModel->getStudentClassById($student['class_id']);
 
-        $dataAyah = null;
-        $dataIbu  = null;
-        $dataWali = null;
+        // $dataAyah = null;
+        // $dataIbu  = null;
+        // $dataWali = null;
 
         // foreach ($studentGuardians as $studentGuardian) {
         //     if ($studentGuardian['relationship'] === "Ayah Kandung") {
@@ -226,7 +226,7 @@ class StudentController extends Controller
                 $db->beginTransaction();
 
                 // $guardianModel = new Guardian($db);
-                $classId       = $studentClassModel->getIdClass($_POST['class'])[0]['id'];
+                $classId = $studentClassModel->getIdClass($_POST['class'])[0]['id'];
 
                 $studentModel->update(
                     $_POST['nis'],
@@ -234,7 +234,6 @@ class StudentController extends Controller
                     $_POST['name']         ?? null,
                     $_POST['email']        ?? null,
                     $_POST['phone_number'] ?? null,
-                    "user123",
                     $_POST['gender']       ?? null,
                     $classId,
                     $_POST['address']      ?? null
@@ -301,10 +300,10 @@ class StudentController extends Controller
 
                 $db->commit();
 
-                Flasher::setFlash("Berhasil menyimpan data", "success");
+                Flasher::setFlash("Berhasil mengupdate data", "success");
             } catch (Exception $e) {
                 $db->rollback();
-                Flasher::setFlash("Gagal simpan data: " . $e->getMessage(), "error");
+                Flasher::setFlash("Gagal mengupdate data: " . $e->getMessage(), "error");
             }
 
             header("Location: " . BASE_URL . "/students");
@@ -315,9 +314,9 @@ class StudentController extends Controller
             "student"        => $student,
             "studentClasses" => $studentClasses,
             "studentClass"   => $studentClass,
-            "dataAyah"       => $dataAyah,
-            "dataIbu"        => $dataIbu,
-            "dataWali"       => $dataWali
+            // "dataAyah"       => $dataAyah,
+            // "dataIbu"        => $dataIbu,
+            // "dataWali"       => $dataWali
         ], "Edit Siswa", "dashboard");
     }
 

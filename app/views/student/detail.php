@@ -1,7 +1,7 @@
-<section class="mb-6 flex flex-col gap-2">
+<div class="flex flex-col gap-1 mb-6 bg-white p-4 rounded-md shadow-md">
     <h1 class="text-2xl font-semibold tracking-wide">Detail Siswa</h1>
     <?php get_breadcrumb() ?>
-</section>
+</div>
 
 <section class="bg-white p-5 rounded-lg shadow-md mb-6">
     <h2 class="text-xl font-semibold">Profil Siswa</h2>
