@@ -248,20 +248,23 @@
                     <p class="text-center font-semibold text-lg text-zinc-400">Hidup Mandiri</p>
                 <?php endif; ?>
             </div>
-            <div class="flex gap-4">
-                <button id="createConnectionBtn" type="submit" class="flex w-full justify-center gap-2 items-center px-3 py-2 bg-violet-700 hover:bg-violet-900 transition-colors duration-300 cursor-pointer text-white rounded-md">
-                    Buat Koneksi
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                        <path fill="currentColor" d="M12 10c-.8 0-1.4.3-2 .8L6.8 9c.1-.3.2-.7.2-1s-.1-.7-.2-1L10 5.2c.6.5 1.2.8 2 .8c1.7 0 3-1.3 3-3s-1.3-3-3-3s-3 1.3-3 3v.5L5.5 5.4C5.1 5.2 4.6 5 4 5C2.4 5 1 6.3 1 8c0 1.6 1.4 3 3 3c.6 0 1.1-.2 1.5-.4L9 12.5v.5c0 1.7 1.3 3 3 3s3-1.3 3-3s-1.3-3-3-3" />
-                    </svg>
-                </button>
-                <button id="createGuardianDataBtn" type="submit" class="flex w-full justify-center gap-2 items-center px-3 py-2 bg-violet-700 hover:bg-violet-900 transition-colors duration-300 cursor-pointer text-white rounded-md">
-                    Tambah Data Baru
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M18 12.998h-5v5a1 1 0 0 1-2 0v-5H6a1 1 0 0 1 0-2h5v-5a1 1 0 0 1 2 0v5h5a1 1 0 0 1 0 2" />
-                    </svg>
-                </button>
-            </div>
+
+            <?php if (!(!empty($dataAyah) && !empty($dataIbu) && !empty($dataWali))): ?>
+                <div class="flex gap-4">
+                    <button id="createConnectionBtn" type="submit" class="flex w-full justify-center gap-2 items-center px-3 py-2 bg-violet-700 hover:bg-violet-900 transition-colors duration-300 cursor-pointer text-white rounded-md">
+                        Buat Koneksi
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                            <path fill="currentColor" d="M12 10c-.8 0-1.4.3-2 .8L6.8 9c.1-.3.2-.7.2-1s-.1-.7-.2-1L10 5.2c.6.5 1.2.8 2 .8c1.7 0 3-1.3 3-3s-1.3-3-3-3s-3 1.3-3 3v.5L5.5 5.4C5.1 5.2 4.6 5 4 5C2.4 5 1 6.3 1 8c0 1.6 1.4 3 3 3c.6 0 1.1-.2 1.5-.4L9 12.5v.5c0 1.7 1.3 3 3 3s3-1.3 3-3s-1.3-3-3-3" />
+                        </svg>
+                    </button>
+                    <button id="createGuardianDataBtn" type="submit" class="flex w-full justify-center gap-2 items-center px-3 py-2 bg-violet-700 hover:bg-violet-900 transition-colors duration-300 cursor-pointer text-white rounded-md">
+                        Tambah Data Baru
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M18 12.998h-5v5a1 1 0 0 1-2 0v-5H6a1 1 0 0 1 0-2h5v-5a1 1 0 0 1 2 0v5h5a1 1 0 0 1 0 2" />
+                        </svg>
+                    </button>
+                </div>
+            <?php endif; ?>
             <div class="flex flex-col gap-4">
                 <form id="createConnection" name="createConnection" action="" method="post" class="hidden">
                     <input type="hidden" name="action" value="create-connection">
@@ -302,27 +305,63 @@
                         </div>
                         <div class="flex flex-col gap-1">
                             <p class="font-semibold">Wali Utama:</p>
-                            <div class="flex gap-5">
-                                <div class="flex gap-2">
-                                    <input type="radio" name="is_primary" id="is_primary_true" value="true">
-                                    <label for="is_primary_true">Benar</label>
+                            <div class="flex gap-4">
+                                <div class="w-full">
+                                    <label for="is_primary_true" class="flex items-center gap-4 rounded border border-gray-300 bg-white p-3 text-sm font-medium shadow-sm transition-colors hover:bg-zinc-50 has-checked:border-green-600 has-checked:ring-1 has-checked:ring-green-600 has-checked:bg-green-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                            <g fill="none" fill-rule="evenodd">
+                                                <path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
+                                                <path fill="currentColor" d="M21.546 5.111a1.5 1.5 0 0 1 0 2.121L10.303 18.475a1.6 1.6 0 0 1-2.263 0L2.454 12.89a1.5 1.5 0 1 1 2.121-2.121l4.596 4.596L19.424 5.111a1.5 1.5 0 0 1 2.122 0" />
+                                            </g>
+                                        </svg>
+
+                                        <p class="text-gray-700">Benar</p>
+
+                                        <input type="radio" name="is_primary" value="true" id="is_primary_true" class="sr-only" checked="">
+                                    </label>
                                 </div>
-                                <div class="flex gap-2">
-                                    <input type="radio" name="is_primary" id="is_primary_false" value="false">
-                                    <label for="is_primary_false">Tidak</label>
+
+                                <div class="w-full">
+                                    <label for="is_primary_false" class="flex items-center gap-4 rounded border border-gray-300 bg-white p-3 text-sm font-medium shadow-sm transition-colors hover:bg-zinc-50 has-checked:border-red-600 has-checked:ring-1 has-checked:ring-red-600 has-checked:bg-red-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="m7 7l10 10M7 17L17 7" />
+                                        </svg>
+
+                                        <p class="text-gray-700">Tidak</p>
+
+                                        <input type="radio" name="is_primary" value="false" id="is_primary_false" class="sr-only">
+                                    </label>
                                 </div>
                             </div>
                         </div>
                         <div class="flex flex-col gap-1">
                             <p class="font-semibold">Tinggal Bersama:</p>
-                            <div class="flex gap-5">
-                                <div class="flex gap-2">
-                                    <input type="radio" name="lives_with" id="lives_with_true" value="true">
-                                    <label for="lives_with_true">Benar</label>
+                            <div class="flex gap-4">
+                                <div class="w-full">
+                                    <label for="lives_with_true" class="flex items-center gap-4 rounded border border-gray-300 bg-white p-3 text-sm font-medium shadow-sm transition-colors hover:bg-zinc-50 has-checked:border-green-600 has-checked:ring-1 has-checked:ring-green-600 has-checked:bg-green-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                            <g fill="none" fill-rule="evenodd">
+                                                <path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
+                                                <path fill="currentColor" d="M21.546 5.111a1.5 1.5 0 0 1 0 2.121L10.303 18.475a1.6 1.6 0 0 1-2.263 0L2.454 12.89a1.5 1.5 0 1 1 2.121-2.121l4.596 4.596L19.424 5.111a1.5 1.5 0 0 1 2.122 0" />
+                                            </g>
+                                        </svg>
+
+                                        <p class="text-gray-700">Benar</p>
+
+                                        <input type="radio" name="lives_with" value="true" id="lives_with_true" class="sr-only" checked="">
+                                    </label>
                                 </div>
-                                <div class="flex gap-2">
-                                    <input type="radio" name="lives_with" id="lives_with_false" value="false">
-                                    <label for="lives_with_false">Tidak</label>
+
+                                <div class="w-full">
+                                    <label for="lives_with_false" class="flex items-center gap-4 rounded border border-gray-300 bg-white p-3 text-sm font-medium shadow-sm transition-colors hover:bg-zinc-50 has-checked:border-red-600 has-checked:ring-1 has-checked:ring-red-600 has-checked:bg-red-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="m7 7l10 10M7 17L17 7" />
+                                        </svg>
+
+                                        <p class="text-gray-700">Tidak</p>
+
+                                        <input type="radio" name="lives_with" value="false" id="lives_with_false" class="sr-only">
+                                    </label>
                                 </div>
                             </div>
                         </div>

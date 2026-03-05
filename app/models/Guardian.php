@@ -1,10 +1,17 @@
-<?php 
+<?php
 
 class Guardian extends Model
 {
-    public function getAllGuardians() {
-        $this->db->query("SELECT * FROM guardians");
+    public function getAllGuardians(array $exceptIds = [])
+    {
+        $filteredExceptions = array_filter($exceptIds, fn($value) => $value !== null);
+        $query = "SELECT * FROM guardians";
 
+        if (!empty($filteredExceptions)) {
+            $query .= " WHERE id NOT IN (" . implode(',', $filteredExceptions) . ")";
+        }
+
+        $this->db->query($query);
         $this->db->execute();
         return $this->db->result();
     }
@@ -15,17 +22,6 @@ class Guardian extends Model
         $phone_number,
         $address,
     ) {
-        // if (
-        //     empty($name) ||
-        //     empty($job) ||
-        //     empty($phone_number) ||
-        //     empty($address)
-        // ) {
-        //     echo "<script>alert('Data must be not null')</script>";
-        //     header("Location: " . BASE_URL . "/students");
-        //     exit();
-        // }
-
         $this->db->query("INSERT INTO guardians (name, job, phone_number, address) VALUES (:name, :job, :phone_number, :address)");
 
         $this->db->bind(":name", $name);
@@ -54,5 +50,3 @@ class Guardian extends Model
         $this->db->execute();
     }
 }
-
-?>

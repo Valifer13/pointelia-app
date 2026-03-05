@@ -22,14 +22,14 @@
 <div class="bg-white rounded-lg w-full h-fit shadow-md overflow-x-auto mb-6">
     <table class="w-full">
         <thead class="**:text-left **:py-2 **:px-5 *:whitespace-nowrap *:font-bold bg-blue-600 text-white">
-            <th class="rounded-l-md">No.</th>
+            <th class="rounded-tl-md">No.</th>
             <th>NIS</th>
             <th>Nama</th>
             <th>Jenis Kelamin</th>
             <th>Kelas</th>
             <td>Nomor HP</td>
             <th>Skor</th>
-            <th class="rounded-r-md">Option</th>
+            <th class="rounded-tr-md">Option</th>
         </thead>
 
         <tbody class="*:border-b *:border-b-zinc-300 text-zinc-500">
