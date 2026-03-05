@@ -3,6 +3,6 @@
 class HomeController extends Controller
 {
     public function index() {
-        $this->view('welcome', [],'Welcome Page');
+        $this->view('welcome', [],'Welcome Page', "home");
     }
 }

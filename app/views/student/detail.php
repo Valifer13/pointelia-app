@@ -130,24 +130,18 @@
         <div class="flex flex-col gap-4">
             <?php if (!empty($dataAyah) || !empty($dataIbu) || !empty($dataWali)): ?>
                 <ul class="flex text-lg font-medium bg-white *:py-1.5 *:px-3 *:cursor-pointer w-fit rounded-t-md mb-2">
-                    <?php if (!empty($dataAyah)): ?>
-                        <li id="tab-ayah" class="tab text-zinc-800 border-b-2 border-zinc-800">Ayah</li>
-                    <?php endif; ?>
+                    <li id="tab-ayah" class="tab text-zinc-800 border-b-2 border-zinc-800">Ayah</li>
 
-                    <?php if (!empty($dataIbu)): ?>
-                        <li id="tab-ibu" class="tab text-zinc-400 border-b-2 border-zinc-400">Ibu</li>
-                    <?php endif; ?>
+                    <li id="tab-ibu" class="tab text-zinc-400 border-b-2 border-zinc-400">Ibu</li>
 
-                    <?php if (!empty($dataWali)): ?>
-                        <li id="tab-wali" class="tab text-zinc-400 border-b-2 border-zinc-400">Wali</li>
-                    <?php endif; ?>
+                    <li id="tab-wali" class="tab text-zinc-400 border-b-2 border-zinc-400">Wali</li>
                 </ul>
             <?php endif; ?>
 
             <div class="bg-zinc-100 p-5 rounded-md">
-                <?php if (!empty($dataAyah)): ?>
-                    <table id="data-ayah" class="content">
-                        <tbody class="*:*:pb-1">
+                <table id="data-ayah" class="content">
+                    <tbody class="*:*:pb-1">
+                        <?php if (!empty($dataAyah)): ?>
                             <tr>
                                 <td class="min-w-32 text-zinc-400">Nama</td>
                                 <td>: <?= $dataAyah['name'] ?></td>
@@ -172,13 +166,17 @@
                                 <td class="min-w-32 text-zinc-400">Tinggal Bersama</td>
                                 <td>: <?= $dataAyah['lives_with'] ? "Benar" : "Tidak"; ?></td>
                             </tr>
-                        </tbody>
-                    </table>
-                <?php endif; ?>
+                        <?php else: ?>
+                            <tr class="text-center font-semibold text-lg text-zinc-400">
+                                <td>Siswa tidak memiliki data Ayah.</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
 
-                <?php if (!empty($dataIbu)): ?>
-                    <table id="data-ibu" class="content hidden">
-                        <tbody class="*:*:pb-1">
+                <table id="data-ibu" class="content hidden">
+                    <tbody class="*:*:pb-1">
+                        <?php if (!empty($dataIbu)): ?>
                             <tr>
                                 <td class="min-w-32 text-zinc-400">Nama</td>
                                 <td>: <?= $dataIbu['name'] ?></td>
@@ -203,13 +201,17 @@
                                 <td class="min-w-32 text-zinc-400">Tinggal Bersama</td>
                                 <td>: <?= $dataIbu['lives_with'] ? "Benar" : "Tidak"; ?></td>
                             </tr>
-                        </tbody>
-                    </table>
-                <?php endif; ?>
+                        <?php else: ?>
+                            <tr class="text-center font-semibold text-lg text-zinc-400">
+                                <td>Siswa tidak memiliki data Ibu.</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
 
-                <?php if (!empty($dataWali)): ?>
-                    <table id="data-wali" class="hidden content">
-                        <tbody class="*:*:pb-1">
+                <table id="data-wali" class="hidden content">
+                    <tbody class="*:*:pb-1">
+                        <?php if (!empty($dataWali)): ?>
                             <tr>
                                 <td class="min-w-32 text-zinc-400">Nama</td>
                                 <td>: <?= $dataWali['name'] ?></td>
@@ -228,28 +230,32 @@
                             </tr>
                             <tr>
                                 <td class="min-w-32 text-zinc-400">Wali Utama</td>
-                                <td>: <?= $dataibu['is_primary'] ? "benar" : "tidak"; ?></td>
+                                <td>: <?= $dataWali['is_primary'] ? "benar" : "tidak"; ?></td>
                             </tr>
                             <tr>
                                 <td class="min-w-32 text-zinc-400">Tinggal Bersama</td>
-                                <td>: <?= $dataibu['lives_with'] ? "benar" : "tidak"; ?></td>
+                                <td>: <?= $dataWali['lives_with'] ? "benar" : "tidak"; ?></td>
                             </tr>
-                        </tbody>
-                    </table>
-                <?php endif; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td class="text-center font-semibold text-lg text-zinc-400">Siswa tidak memiliki wali alternatif.</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
 
                 <?php if (empty($dataAyah) && empty($dataIbu) && empty($dataWali)): ?>
                     <p class="text-center font-semibold text-lg text-zinc-400">Hidup Mandiri</p>
                 <?php endif; ?>
             </div>
             <div class="flex gap-4">
-                <button type="submit" class="flex w-full justify-center gap-2 items-center px-3 py-2 bg-violet-700 hover:bg-violet-900 transition-colors duration-300 cursor-pointer text-white rounded-md">
+                <button id="createConnectionBtn" type="submit" class="flex w-full justify-center gap-2 items-center px-3 py-2 bg-violet-700 hover:bg-violet-900 transition-colors duration-300 cursor-pointer text-white rounded-md">
                     Buat Koneksi
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
                         <path fill="currentColor" d="M12 10c-.8 0-1.4.3-2 .8L6.8 9c.1-.3.2-.7.2-1s-.1-.7-.2-1L10 5.2c.6.5 1.2.8 2 .8c1.7 0 3-1.3 3-3s-1.3-3-3-3s-3 1.3-3 3v.5L5.5 5.4C5.1 5.2 4.6 5 4 5C2.4 5 1 6.3 1 8c0 1.6 1.4 3 3 3c.6 0 1.1-.2 1.5-.4L9 12.5v.5c0 1.7 1.3 3 3 3s3-1.3 3-3s-1.3-3-3-3" />
                     </svg>
                 </button>
-                <button type="submit" class="flex w-full justify-center gap-2 items-center px-3 py-2 bg-violet-700 hover:bg-violet-900 transition-colors duration-300 cursor-pointer text-white rounded-md">
+                <button id="createGuardianDataBtn" type="submit" class="flex w-full justify-center gap-2 items-center px-3 py-2 bg-violet-700 hover:bg-violet-900 transition-colors duration-300 cursor-pointer text-white rounded-md">
                     Tambah Data Baru
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path fill="currentColor" d="M18 12.998h-5v5a1 1 0 0 1-2 0v-5H6a1 1 0 0 1 0-2h5v-5a1 1 0 0 1 2 0v5h5a1 1 0 0 1 0 2" />
@@ -257,7 +263,7 @@
                 </button>
             </div>
             <div class="flex flex-col gap-4">
-                <form action="" method="post">
+                <form id="createConnection" name="createConnection" action="" method="post" class="hidden">
                     <input type="hidden" name="action" value="create-connection">
                     <div id="create-connection" class="flex flex-col gap-4 bg-zinc-100 p-5 rounded-md">
                         <div class="flex flex-col gap-1">
@@ -276,7 +282,7 @@
                             <input class="bg-white border border-zinc-300 p-2 rounded-md focus:outline-zinc-400 disabled:bg-zinc-100" type="text" list="Guardians" name="guardian_name" id="guardian_name" placeholder="Nama Wali...">
                             <datalist id="Guardians">
                                 <?php foreach ($guardians as $guardian): ?>
-                                    <option value="<?= $guardian['name'] ?>"></option>
+                                    <option value="<?= $guardian['id'] ?>-<?= $guardian['name'] ?>"></option>
                                 <?php endforeach; ?>
                             </datalist>
                         </div>
@@ -330,7 +336,7 @@
                         </div>
                     </div>
                 </form>
-                <form action="" method="post">
+                <form id="createGuardianData" name="createGuardianData" action="" method="post" class="hidden">
                     <input type="hidden" name="action" value="create-guardian-data">
                     <div id="add-new-guardian-data" class="flex flex-col gap-4 bg-zinc-100 p-5 rounded-md">
                         <div class="flex flex-col gap-1">
@@ -441,6 +447,10 @@
                 content
             } = tabs[name];
 
+            if (!tab || !content) {
+                return;
+            }
+
             const isActive = name === key;
 
             tab.classList.toggle('active', isActive);
@@ -457,6 +467,10 @@
 
     // Event listener
     Object.keys(tabs).forEach(key => {
+        if (!tabs[key].tab) {
+            return;
+        }
+
         tabs[key].tab.addEventListener('click', () => activeTab(key));
     });
 </script>

@@ -11,3 +11,18 @@
     --color-glacial-salt: #b1bbc8;
     --color-ocean-city: #7c94b8;
 }
+
+.nav-item {
+    background: transparent;
+    border: transparent 2px solid;
+}
+
+.nav-item.active {
+    background-color: white;
+    border-color: #3b82f6;
+    color: #3b82f6;
+}
+
+.nav-item.active > div {
+  background-color: #3b82f6;
+}

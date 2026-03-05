@@ -1,6 +1,95 @@
-// *
-// * Navbar Functionality
-// *
+// * <=======================>
+// *  Define Class & Function
+// * <=======================>
+
+class FloatingMenu {
+    constructor(config) {
+        this.buttons = document.querySelectorAll(config.buttonSelector);
+        this.menu = document.querySelector(config.menuSelector);
+
+        this.detailLink = this.menu.querySelector(config.detailSelector);
+        this.editLink = this.menu.querySelector(config.editSelector);
+        this.deleteForm = this.menu.querySelector(config.deleteFormSelector);
+        this.deleteBtn = this.menu.querySelector(config.deleteBtnSelector);
+
+        this.routes = config.routes;
+
+        this.activeBtn = null;
+
+        this.init();
+    }
+
+    init() {
+        this.buttons.forEach(btn => {
+            btn.addEventListener('click', (e) => this.handleClick(e, btn));
+        });
+
+        document.addEventListener('click', () => this.closeMenu());
+        this.menu.addEventListener('click', e => e.stopPropagation());
+
+        window.addEventListener('scroll', () => {
+            if (this.activeBtn) this.updateMenuPosition(this.activeBtn);
+        });
+
+        window.addEventListener('resize', () => {
+            if (this.activeBtn) this.updateMenuPosition(this.activeBtn);
+        });
+    }
+
+    handleClick(e, btn) {
+        e.stopPropagation();
+
+        const data = btn.dataset;
+
+        // set link dinamis
+        this.detailLink.href = this.routes.detail(data.id);
+        this.editLink.href = this.routes.edit(data.id);
+        this.deleteForm.action = this.routes.delete(data.id);
+        this.deleteBtn.onclick = () =>
+            confirm(`Apakah anda yakin menghapus ${data.name}?`);
+
+        this.activeBtn = btn;
+        this.updateMenuPosition(btn);
+        this.openMenu();
+    }
+
+    updateMenuPosition(btn) {
+        const rect = btn.getBoundingClientRect();
+
+        if (rect.bottom < 0 || rect.top > window.innerHeight) {
+            this.closeMenu();
+            return;
+        }
+
+        this.menu.style.top = rect.bottom + "px";
+        this.menu.style.left = rect.left + "px";
+    }
+
+    openMenu() {
+        this.menu.classList.remove('invisible', 'opacity-0', 'scale-95');
+        this.menu.classList.add('opacity-100', 'scale-100');
+    }
+
+    closeMenu() {
+        this.menu.classList.add('invisible', 'opacity-0', 'scale-95');
+        this.menu.classList.remove('opacity-100', 'scale-100');
+        this.activeBtn = null;
+    }
+}
+
+// * <Activate Navbar Functionality>
+
+const currentPath = window.location.pathname.replace(/\/$/, "");
+
+document.querySelectorAll('#navbar a.nav-item').forEach(link => {
+    const linkPath = new URL(link.href).pathname.replace(/\/$/, "");
+
+    if (linkPath === currentPath) {
+        link.classList.add('active');
+    }
+})
+
+// * <Navbar Functionality>
 
 const navMobileBtn = document.getElementById('mobile-sidebar-btn');
 const navSidebarCollapseBtn = document.getElementById('sidebar-collapse-btn');
@@ -60,127 +149,28 @@ navMobileBtn.addEventListener('click', () => {
     }
 });
 
-// *
-// * Data Option
-// *
+// * <Data Option Functionality>
+const currentUrl = window.location.pathname;
 
-// const dataOptionGroups = document.querySelectorAll('.data-option-group');
-// const dataOptionBtns = document.querySelectorAll('.data-option-btn');
-// const dataOptions = document.querySelectorAll('.data-option');
+if (currentUrl === '/students') {
+    const studentMenu = new FloatingMenu({
+        buttonSelector: '.data-option-btn',
+        menuSelector: '#floating-menu',
 
-// // fungsi untuk menutup semua menu
-// function closeAllOptions() {
-//     dataOptions.forEach(opt => {
-//         opt.classList.remove('active', 'opacity-100', 'scale-100', 'visible');
-//     });
+        detailSelector: '#menu-detail',
+        editSelector: '#menu-edit',
+        deleteFormSelector: '#menu-delete-form',
+        deleteBtnSelector: '#menu-delete-btn',
 
-//     dataOptionBtns.forEach(btn => {
-//         btn.classList.remove('inset-shadow-sm');
-//     });
-// }
-
-// // klik tombol
-// dataOptionBtns.forEach((btn, i) => {
-//     btn.addEventListener('click', (e) => {
-//         e.stopPropagation(); // ⛔ cegah document click
-
-//         const isActive = dataOptions[i].classList.contains('active');
-
-//         closeAllOptions();
-
-//         if (!isActive) {
-//             btn.classList.add('inset-shadow-sm');
-//             dataOptions[i].classList.add('active', 'opacity-100', 'scale-100', 'visible');
-//         }
-//     });
-// });
-
-// // cegah klik di dalam menu ikut menutup
-// dataOptions.forEach(opt => {
-//     opt.addEventListener('click', (e) => {
-//         e.stopPropagation();
-//     });
-// });
-
-// // klik di luar -> tutup semua
-// document.addEventListener('click', () => {
-//     closeAllOptions();
-// });
-
-const buttons = document.querySelectorAll('.data-option-btn');
-const menu = document.getElementById('floating-menu');
-
-const detailLink = document.getElementById('menu-detail');
-const editLink = document.getElementById('menu-edit');
-const deleteForm = document.getElementById('menu-delete-form');
-const deleteBtn = document.getElementById('menu-delete-btn');
-
-let activeBtn = null;
-
-buttons.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-
-        const nis = btn.dataset.nis;
-        const name = btn.dataset.name;
-
-        // set link
-        detailLink.href = `/students/detail/${nis}`;
-        editLink.href = `/students/edit/${nis}`;
-        deleteForm.action = `/students/delete/${nis}`;
-        deleteBtn.onclick = () => confirm(`Apakah anda yakin untuk menghapus ${name}?`);
-
-        activeBtn = btn;
-
-        updateMenuPosition(btn);
-        openMenu();
+        routes: {
+            detail: (id) => `/students/detail/${id}`,
+            edit: (id) => `/students/edit/${id}`,
+            delete: (id) => `/students/delete/${id}`,
+        }
     });
-});
-
-function updateMenuPosition(btn) {
-    const rect = btn.getBoundingClientRect();
-
-    if (rect.bottom < 0 || rect.top > window.innerHeight) {
-        closeMenu();
-        return;
-    }
-
-    menu.style.top = rect.bottom + "px";
-    menu.style.left = rect.left + "px";
 }
 
-function openMenu() {
-    menu.classList.remove('invisible', 'opacity-0', 'scale-95');
-    menu.classList.add('opacity-100', 'scale-100');
-}
-
-function closeMenu() {
-    menu.classList.add('invisible', 'opacity-0', 'scale-95');
-    menu.classList.remove('opacity-100', 'scale-100');
-    activeBtn = null;
-}
-
-// klik luar = tutup
-document.addEventListener('click', closeMenu);
-menu.addEventListener('click', e => e.stopPropagation());
-
-
-// ✅ INI KUNCI UTAMANYA
-window.addEventListener('scroll', () => {
-    if (activeBtn) {
-        updateMenuPosition(activeBtn);
-    }
-});
-
-window.addEventListener('resize', () => {
-    if (activeBtn) {
-        updateMenuPosition(activeBtn);
-    }
-});
-
-// *
-// * Flash Functionality
-// *
+// * <Flash Functionality>
 
 const flashes = document.querySelectorAll('.flash');
 
@@ -192,9 +182,7 @@ flashes.forEach((flash, i) => {
     });
 })
 
-// *
-// * Whatever
-// *
+// * <Whatever Functionality>
 
 const searchInput = document.getElementById('searchInput');
 const clearBtn = document.getElementById('clearBtn');
@@ -211,4 +199,23 @@ clearBtn?.addEventListener('click', () => {
     searchInput.value = "";
     clearBtn.classList.add('hidden');
     searchInput.focus();
+})
+
+// * <Connect Guardian Functionality>
+
+const createConnectionBtn = document.getElementById('createConnectionBtn');
+const createGuardianDataBtn = document.getElementById('createGuardianDataBtn');
+const createConnection = document.getElementById('createConnection');
+const createGuardianData = document.getElementById('createGuardianData');
+
+createConnectionBtn?.addEventListener('click', () => {
+    console.log('Create Connection');
+    createConnection.classList.remove('hidden');
+    createGuardianData.classList.add('hidden');
+})
+
+createGuardianDataBtn?.addEventListener('click', () => {
+    console.log('Create Guardian Data');
+    createConnection.classList.add('hidden');
+    createGuardianData.classList.remove('hidden');
 })

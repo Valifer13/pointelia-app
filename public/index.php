@@ -23,6 +23,7 @@ spl_autoload_register(function ($class) {
         "../app/core/",
         "../app/models/",
         "../app/controllers/",
+        "../app/services/"
     ];
 
     foreach ($paths as $path) {
