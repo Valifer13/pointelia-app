@@ -12,7 +12,7 @@
     </style>
 </head>
 
-<body id="body" class="font-main bg-zinc-50 h-screen overflow-hidden">
+<body id="body" class="font-main bg-zinc-100 h-screen overflow-hidden">
     <header id="header" class="sticky top-0 z-50 h-[72px] lg:h-[65px] w-full flex lg:justify-between bg-white border-b border-zinc-300">
         <div id="logo-container" class="relative w-full lg:w-fit justify-between lg:justify-normal flex gap-4 items-center p-4">
             <a href="<?= BASE_URL ?>" class="logo flex gap-1 items-center font-bold text-2xl px-3">

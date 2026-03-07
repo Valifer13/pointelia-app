@@ -168,6 +168,22 @@ if (currentUrl === '/students') {
             delete: (id) => `/students/delete/${id}`,
         }
     });
+} else if (currentUrl === '/teachers') {
+    const teacherMenu = new FloatingMenu({
+        buttonSelector: '.data-option-btn',
+        menuSelector: '#floating-menu',
+
+        detailSelector: '#menu-detail',
+        editSelector: '#menu-edit',
+        deleteFormSelector: '#menu-delete-form',
+        deleteBtnSelector: '#menu-delete-btn',
+
+        routes: {
+            detail: (id) => `/teachers/detail/${id}`,
+            edit: (id) => `/teachers/edit/${id}`,
+            delete: (id) => `/teachers/delete/${id}`,
+        }
+    })
 }
 
 // * <Flash Functionality>
@@ -176,6 +192,8 @@ const flashes = document.querySelectorAll('.flash');
 
 flashes.forEach((flash, i) => {
     const closeBtn = flash.querySelector('.close-flash-btn');
+
+    setTimeout(() => flash.remove(), 5000);
 
     closeBtn.addEventListener('click', () => {
         flash.remove();
