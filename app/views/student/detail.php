@@ -128,18 +128,16 @@
     <div class="w-full h-px bg-zinc-300 my-4"></div>
     <div>
         <div class="flex flex-col gap-4">
-            <?php if (!empty($dataAyah) || !empty($dataIbu) || !empty($dataWali)): ?>
-                <ul class="flex text-lg font-medium bg-white *:py-1.5 *:px-3 *:cursor-pointer w-fit rounded-t-md mb-2">
-                    <li id="tab-ayah" class="tab text-zinc-800 border-b-2 border-zinc-800">Ayah</li>
+            <ul class="flex text-lg font-medium bg-white *:py-1.5 *:px-3 *:cursor-pointer w-fit rounded-t-md mb-2">
+                <li id="tab-ayah" class="tab text-zinc-800 border-b-2 border-zinc-800">Ayah</li>
 
-                    <li id="tab-ibu" class="tab text-zinc-400 border-b-2 border-zinc-400">Ibu</li>
+                <li id="tab-ibu" class="tab text-zinc-400 border-b-2 border-zinc-400">Ibu</li>
 
-                    <li id="tab-wali" class="tab text-zinc-400 border-b-2 border-zinc-400">Wali</li>
-                </ul>
-            <?php endif; ?>
+                <li id="tab-wali" class="tab text-zinc-400 border-b-2 border-zinc-400">Wali</li>
+            </ul>
 
             <div class="bg-zinc-100 p-5 rounded-md">
-                <table id="data-ayah" class="content">
+                <table id="data-ayah" class="content w-full">
                     <tbody class="*:*:pb-1">
                         <?php if (!empty($dataAyah)): ?>
                             <tr>
@@ -174,7 +172,7 @@
                     </tbody>
                 </table>
 
-                <table id="data-ibu" class="content hidden">
+                <table id="data-ibu" class="content hidden w-full">
                     <tbody class="*:*:pb-1">
                         <?php if (!empty($dataIbu)): ?>
                             <tr>
@@ -209,7 +207,7 @@
                     </tbody>
                 </table>
 
-                <table id="data-wali" class="hidden content">
+                <table id="data-wali" class="hidden content w-full">
                     <tbody class="*:*:pb-1">
                         <?php if (!empty($dataWali)): ?>
                             <tr>
@@ -243,10 +241,6 @@
                         <?php endif; ?>
                     </tbody>
                 </table>
-
-                <?php if (empty($dataAyah) && empty($dataIbu) && empty($dataWali)): ?>
-                    <p class="text-center font-semibold text-lg text-zinc-400">Hidup Mandiri</p>
-                <?php endif; ?>
             </div>
 
             <?php if (!(!empty($dataAyah) && !empty($dataIbu) && !empty($dataWali))): ?>

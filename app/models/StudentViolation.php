@@ -9,10 +9,10 @@ class StudentViolation extends Model
         return $this->db->result();
     }
 
-    public function getAllViolationsByStudentId($studentId)
+    public function getAllViolationsByStudentId($studentNis)
     {
-        $this->db->query("SELECT * FROM student_violations WHERE student_id = :student_id");
-        $this->db->bind(":student_id", $studentId);
+        $this->db->query("SELECT * FROM student_violations WHERE student_nis = :student_nis");
+        $this->db->bind(":student_nis", $studentNis);
         $this->db->execute();
         return $this->db->result();
     }

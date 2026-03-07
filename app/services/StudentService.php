@@ -37,10 +37,15 @@ class StudentService
 
     public function getStudentDetail(string $nis): array
     {
-        $student           = $this->studentModel->getStudentByNis($nis);
+        $student = $this->studentModel->getStudentByNis($nis);
+
+        if (empty($student)) {
+            throw new Exception("Siswa dengan nis $nis tidak ditemukan.");
+        }
+
         $studentClass      = $this->studentClassModel->getStudentClassById($student['class_id']);
-        $studentViolations = $this->studentViolationModel->getAllViolationsByStudentId($student['id']);
-        $studentGuardians  = $this->studentGuardianModel->getAllGuardianByStudentId($student['id']);
+        $studentViolations = $this->studentViolationModel->getAllViolationsByStudentId($nis);
+        $studentGuardians  = $this->studentGuardianModel->getAllGuardianByStudentId($nis);
 
         [$dataAyah, $dataIbu, $dataWali] = $this->categorizeGuardians($studentGuardians);
 
@@ -127,7 +132,12 @@ class StudentService
 
     public function getEditStudentFormData(string $nis): array
     {
-        $student        = $this->studentModel->getStudentByNis($nis);
+        $student = $this->studentModel->getStudentByNis($nis);
+
+        if (empty($student)) {
+            throw new Exception("Siswa dengan nis $nis tidak ditemukan.");
+        }
+
         $studentClasses = $this->studentClassModel->getAllStudentClasses();
         $studentClass   = $this->studentClassModel->getStudentClassById($student['class_id']);
 
@@ -156,6 +166,12 @@ class StudentService
 
     public function deleteStudent(string $nis): void
     {
+        $student = $this->studentModel->getStudentByNis($nis);
+
+        if (empty($student)) {
+            throw new Exception("Siswa dengan nis $nis tidak ditemukan.");
+        }
+
         $this->studentModel->delete($nis);
     }
 

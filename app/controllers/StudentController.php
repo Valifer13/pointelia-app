@@ -24,7 +24,14 @@ class StudentController extends Controller
             $this->handleDetailPost($nis);
         }
 
-        $data = $this->studentService->getStudentDetail($nis);
+        try {
+            $data = $this->studentService->getStudentDetail($nis);
+        } catch (Exception $err) {
+            Flasher::setFlash($err->getMessage(), "error");
+            header("Location: " . BASE_URL . "/students");
+            exit;
+        }
+
         $this->view("student/detail", $data, "Detail Siswa");
     }
 
@@ -52,23 +59,40 @@ class StudentController extends Controller
             try {
                 $this->studentService->updateStudent($_POST);
                 Flasher::setFlash("Berhasil mengupdate data", "success");
-            } catch (Exception $e) {
-                Flasher::setFlash("Gagal mengupdate data: " . $e->getMessage(), "error");
+            } catch (Exception $err) {
+                Flasher::setFlash("Gagal mengupdate data: " . $err->getMessage(), "error");
             }
 
-            header("Location: " . BASE_URL . "/students");
+            header("Location: " . BASE_URL . "/students/edit/" . $nis);
             exit;
         }
 
-        $data = $this->studentService->getEditStudentFormData($nis);
+        try {
+            $data = $this->studentService->getEditStudentFormData($nis);
+        } catch (Exception $err) {
+            Flasher::setFlash($err->getMessage(), "error");
+            header("Location: " . BASE_URL . "/students");
+            exit;
+        }
         $this->view("student/edit", $data, "Edit Siswa");
     }
 
     public function delete($nis)
     {
-        $this->studentService->deleteStudent($nis);
-        Flasher::setFlash("Berhasil menghapus data", "success");
-        header("Location: " . BASE_URL . "/students");
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            try {
+                $this->studentService->deleteStudent($nis);
+            } catch (Exception $err) {
+                Flasher::setFlash("Error ditemukan: " . $err->getMessage(), "error");
+                header("Location: " . BASE_URL . "/students");
+            }
+
+            Flasher::setFlash("Berhasil menghapus data", "success");
+            header("Location: " . BASE_URL . "/students");
+            exit;
+        }
+
+        $this->view("404-page");
     }
 
     // -------------------------------------------------------------------------

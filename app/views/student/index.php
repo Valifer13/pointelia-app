@@ -22,8 +22,7 @@
 <div class="bg-white rounded-lg w-full h-fit shadow-md overflow-x-auto mb-6">
     <table class="w-full">
         <thead class="**:text-left **:py-2 **:px-5 *:whitespace-nowrap *:font-bold bg-blue-600 text-white">
-            <th class="rounded-tl-md">No.</th>
-            <th>NIS</th>
+            <th class="rounded-tl-md">NIS</th>
             <th>Nama</th>
             <th>Jenis Kelamin</th>
             <th>Kelas</th>
@@ -33,60 +32,98 @@
         </thead>
 
         <tbody class="*:border-b *:border-b-zinc-300 text-zinc-500">
-            <?php
-            $count = 1;
-            foreach ($data["students"] as $student): ?>
-                <tr class="*:py-2 *:px-5 **:whitespace-nowrap">
-                    <td><?= $count++ ?></td>
-                    <td><?= str_pad($student["nis"], 4, '0', STR_PAD_LEFT) ?></td>
-                    <td class="text-zinc-800"><?= $student["name"] ?></td>
-                    <td>
-                        <?php if ($student["gender"] === "M"): ?>
-                            <div class="flex gap-2 items-center text-blue-500 bg-blue-100 px-3 py-1.5 rounded-full w-fit">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-                                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 14a5 5 0 1 0 10 0a5 5 0 1 0-10 0m14-9l-5.4 5.4M19 5h-5m5 0v5" />
-                                </svg>
-                                <p>Laki-Laki</p>
+            <?php if (!empty($data['students'])): ?>
+                <?php
+                $count = 1;
+                foreach ($data["students"] as $student):
+                    $count++;
+                ?>
+                    <tr class="*:py-2 *:px-5 **:whitespace-nowrap">
+                        <td>
+                            <div class="bg-zinc-100 rounded-full py-1 px-2 w-fit">
+                                <span class="text-base text-zinc-400">#</span>
+                                <span class="text-sm"><?= str_pad($student["nis"], 4, '0', STR_PAD_LEFT) ?></span>
                             </div>
-                        <?php else: ?>
-                            <div class="flex gap-2 items-center text-pink-500 bg-pink-100 px-3 py-1.5 rounded-full w-fit">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-                                    <path fill="currentColor" d="M19.75 7.75a7.75 7.75 0 1 0-9.2 7.6a.27.27 0 0 1 .2.25v2.65a.25.25 0 0 1-.25.25H9A1.25 1.25 0 0 0 9 21h1.5a.25.25 0 0 1 .25.25v1.5a1.25 1.25 0 0 0 2.5 0v-1.5a.25.25 0 0 1 .25-.25H15a1.25 1.25 0 0 0 0-2.5h-1.5a.25.25 0 0 1-.25-.25V15.6a.27.27 0 0 1 .2-.25a7.75 7.75 0 0 0 6.3-7.6m-13 0A5.25 5.25 0 1 1 12 13a5.26 5.26 0 0 1-5.25-5.25" />
+                        </td>
+                        <td class="text-zinc-800"><?= $student["name"] ?></td>
+                        <td>
+                            <?php if ($student["gender"] === "M"): ?>
+                                <div class="flex gap-2 items-center text-blue-500 bg-blue-100 px-3 py-1.5 rounded-full w-fit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 14a5 5 0 1 0 10 0a5 5 0 1 0-10 0m14-9l-5.4 5.4M19 5h-5m5 0v5" />
+                                    </svg>
+                                    <p>Laki-Laki</p>
+                                </div>
+                            <?php else: ?>
+                                <div class="flex gap-2 items-center text-pink-500 bg-pink-100 px-3 py-1.5 rounded-full w-fit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                                        <path fill="currentColor" d="M19.75 7.75a7.75 7.75 0 1 0-9.2 7.6a.27.27 0 0 1 .2.25v2.65a.25.25 0 0 1-.25.25H9A1.25 1.25 0 0 0 9 21h1.5a.25.25 0 0 1 .25.25v1.5a1.25 1.25 0 0 0 2.5 0v-1.5a.25.25 0 0 1 .25-.25H15a1.25 1.25 0 0 0 0-2.5h-1.5a.25.25 0 0 1-.25-.25V15.6a.27.27 0 0 1 .2-.25a7.75 7.75 0 0 0 6.3-7.6m-13 0A5.25 5.25 0 1 1 12 13a5.26 5.26 0 0 1-5.25-5.25" />
+                                    </svg>
+                                    <p>Perempuan</p>
+                                </div>
+                            <?php endif; ?>
+                        </td>
+                        <td><?= $classes[$count - 2] ?? "-" ?></td>
+                        <td><?= $student["phone_number"] ?></td>
+                        <td>0</td>
+                        <td class="text-zinc-500">
+                            <button class="data-option-btn p-2 border border-zinc-400 w-fit rounded-md inset-shadow-zinc-400 transition-all duration-500 cursor-pointer" data-id="<?= $student['nis'] ?>" data-name="<?= $student['name'] ?>">
+                                <svg class="group-hover:text-zinc-800 transition-all duration-500" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M19.9 12.66a1 1 0 0 1 0-1.32l1.28-1.44a1 1 0 0 0 .12-1.17l-2-3.46a1 1 0 0 0-1.07-.48l-1.88.38a1 1 0 0 1-1.15-.66l-.61-1.83a1 1 0 0 0-.95-.68h-4a1 1 0 0 0-1 .68l-.56 1.83a1 1 0 0 1-1.15.66L5 4.79a1 1 0 0 0-1 .48L2 8.73a1 1 0 0 0 .1 1.17l1.27 1.44a1 1 0 0 1 0 1.32L2.1 14.1a1 1 0 0 0-.1 1.17l2 3.46a1 1 0 0 0 1.07.48l1.88-.38a1 1 0 0 1 1.15.66l.61 1.83a1 1 0 0 0 1 .68h4a1 1 0 0 0 .95-.68l.61-1.83a1 1 0 0 1 1.15-.66l1.88.38a1 1 0 0 0 1.07-.48l2-3.46a1 1 0 0 0-.12-1.17ZM18.41 14l.8.9l-1.28 2.22l-1.18-.24a3 3 0 0 0-3.45 2L12.92 20h-2.56L10 18.86a3 3 0 0 0-3.45-2l-1.18.24l-1.3-2.21l.8-.9a3 3 0 0 0 0-4l-.8-.9l1.28-2.2l1.18.24a3 3 0 0 0 3.45-2L10.36 4h2.56l.38 1.14a3 3 0 0 0 3.45 2l1.18-.24l1.28 2.22l-.8.9a3 3 0 0 0 0 3.98m-6.77-6a4 4 0 1 0 4 4a4 4 0 0 0-4-4m0 6a2 2 0 1 1 2-2a2 2 0 0 1-2 2" />
                                 </svg>
-                                <p>Perempuan</p>
-                            </div>
-                        <?php endif; ?>
-                    </td>
-                    <td><?= $classes[$count - 2] ?? "-" ?></td>
-                    <td><?= $student["phone_number"] ?></td>
-                    <td>0</td>
-                    <td class="text-zinc-500">
-                        <button class="data-option-btn p-2 border border-zinc-400 w-fit rounded-md inset-shadow-zinc-400 transition-all duration-500 cursor-pointer" data-id="<?= $student['nis'] ?>" data-name="<?= $student['name'] ?>">
-                            <svg class="group-hover:text-zinc-800 transition-all duration-500" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="M19.9 12.66a1 1 0 0 1 0-1.32l1.28-1.44a1 1 0 0 0 .12-1.17l-2-3.46a1 1 0 0 0-1.07-.48l-1.88.38a1 1 0 0 1-1.15-.66l-.61-1.83a1 1 0 0 0-.95-.68h-4a1 1 0 0 0-1 .68l-.56 1.83a1 1 0 0 1-1.15.66L5 4.79a1 1 0 0 0-1 .48L2 8.73a1 1 0 0 0 .1 1.17l1.27 1.44a1 1 0 0 1 0 1.32L2.1 14.1a1 1 0 0 0-.1 1.17l2 3.46a1 1 0 0 0 1.07.48l1.88-.38a1 1 0 0 1 1.15.66l.61 1.83a1 1 0 0 0 1 .68h4a1 1 0 0 0 .95-.68l.61-1.83a1 1 0 0 1 1.15-.66l1.88.38a1 1 0 0 0 1.07-.48l2-3.46a1 1 0 0 0-.12-1.17ZM18.41 14l.8.9l-1.28 2.22l-1.18-.24a3 3 0 0 0-3.45 2L12.92 20h-2.56L10 18.86a3 3 0 0 0-3.45-2l-1.18.24l-1.3-2.21l.8-.9a3 3 0 0 0 0-4l-.8-.9l1.28-2.2l1.18.24a3 3 0 0 0 3.45-2L10.36 4h2.56l.38 1.14a3 3 0 0 0 3.45 2l1.18-.24l1.28 2.22l-.8.9a3 3 0 0 0 0 3.98m-6.77-6a4 4 0 1 0 4 4a4 4 0 0 0-4-4m0 6a2 2 0 1 1 2-2a2 2 0 0 1-2 2" />
-                            </svg>
-                        </button>
-                    </td>
+                            </button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr class="*:p-5 **:whitespace-nowrap">
+                    <td colspan="7" class="text-xl font-semibold text-zinc-400 text-center">Belum terdapat data siswa!</td>
                 </tr>
-            <?php endforeach;
-            ?>
+            <?php endif; ?>
         </tbody>
     </table>
 </div>
 
-<div class="pagination flex justify-between py-4 px-5 bg-white rounded-md shadow-md">
-    <button class="prev flex gap-2 items-center cursor-pointer text-zinc-600 hover:text-zinc-900 transition-colors duration-300">
-        <svg class="rotate-180" width="4" height="7" viewBox="0 0 4 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0.41 6.484C0.298 6.484 0.201667 6.44733 0.121 6.374C0.0403336 6.29933 0 6.20167 0 6.081V0.403999C0 0.282666 0.0413329 0.185 0.124 0.111C0.206666 0.0370001 0.302666 0 0.412 0C0.44 0 0.534667 0.0433325 0.696 0.129999L3.373 2.808C3.435 2.86933 3.48267 2.93567 3.516 3.007C3.54933 3.07833 3.566 3.15667 3.566 3.242C3.566 3.32733 3.54933 3.40567 3.516 3.477C3.48267 3.54833 3.435 3.615 3.373 3.677L0.696 6.354C0.659333 6.39067 0.616334 6.42167 0.567 6.447C0.518334 6.47167 0.466 6.484 0.41 6.484Z" fill="currentColor" />
-        </svg>
-        Previous
-    </button>
-    <button class="next flex gap-2 items-center cursor-pointer text-zinc-600 hover:text-zinc-900 transition-colors duration-300">
-        Next
-        <svg width="4" height="7" viewBox="0 0 4 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0.41 6.484C0.298 6.484 0.201667 6.44733 0.121 6.374C0.0403336 6.29933 0 6.20167 0 6.081V0.403999C0 0.282666 0.0413329 0.185 0.124 0.111C0.206666 0.0370001 0.302666 0 0.412 0C0.44 0 0.534667 0.0433325 0.696 0.129999L3.373 2.808C3.435 2.86933 3.48267 2.93567 3.516 3.007C3.54933 3.07833 3.566 3.15667 3.566 3.242C3.566 3.32733 3.54933 3.40567 3.516 3.477C3.48267 3.54833 3.435 3.615 3.373 3.677L0.696 6.354C0.659333 6.39067 0.616334 6.42167 0.567 6.447C0.518334 6.47167 0.466 6.484 0.41 6.484Z" fill="currentColor" />
-        </svg>
-    </button>
+<div class="pagination flex gap-5 py-4 justify-center px-5 bg-white rounded-md shadow-md">
+    <ul class="flex justify-center gap-1 text-gray-900">
+        <li>
+            <a href="#" class="grid size-8 place-content-center rounded border border-gray-200 transition-colors hover:bg-gray-50 rtl:rotate-180" aria-label="Previous page">
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+            </a>
+        </li>
+
+        <li>
+            <a href="#" class="block size-8 rounded border border-gray-200 text-center text-sm/8 font-medium transition-colors hover:bg-gray-50">
+                1
+            </a>
+        </li>
+
+        <li class="block size-8 rounded border border-blue-600 bg-blue-600 text-center text-sm/8 font-medium text-white">
+            2
+        </li>
+
+        <li>
+            <a href="#" class="block size-8 rounded border border-gray-200 text-center text-sm/8 font-medium transition-colors hover:bg-gray-50">
+                3
+            </a>
+        </li>
+
+        <li>
+            <a href="#" class="block size-8 rounded border border-gray-200 text-center text-sm/8 font-medium transition-colors hover:bg-gray-50">
+                4
+            </a>
+        </li>
+
+        <li>
+            <a href="#" class="grid size-8 place-content-center rounded border border-gray-200 transition-colors hover:bg-gray-50 rtl:rotate-180" aria-label="Next page">
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                </svg>
+            </a>
+        </li>
+    </ul>
 </div>
 
 <div id="floating-menu"

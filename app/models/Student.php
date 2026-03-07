@@ -57,10 +57,8 @@ class Student extends Model
         $this->db->bind(":address", $address);
 
         if(!$this->db->execute()) {
-            return false;
+            throw new Exception("Unkown error occurred");
         }
-
-        return true;
     }
 
     public function update(
