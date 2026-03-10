@@ -53,69 +53,44 @@
 </section>
 
 <section class="flex gap-5 mb-6">
-    <div class="bg-white p-5 rounded-lg shadow-md w-full">
+    <div class="bg-white p-5 rounded-lg shadow-md w-full min-w-0"> <!-- min-w-0 is the key fix -->
         <h2 class="text-xl font-semibold">Riwayat Pelanggaran Terbaru</h2>
         <div class="w-full h-px bg-zinc-300 my-4"></div>
-        <?php if (!empty($studnetViolations)): ?>
-            <table class="w-full bg-zinc-50 border border-zinc-200 rounded-md">
-                <thead>
-                    <tr class="*:text-start *:text-zinc-500 *:border-b *:border-zinc-200 *:p-2">
-                        <th>No</th>
-                        <th>Pelanggaran</th>
-                        <th>Deskripsi</th>
-                        <th>Dilapor Oleh</th>
-                        <th>Disetujui Oleh</th>
-                        <th>Tanggal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="*:p-2 *:border-b *:border-zinc-200">
-                        <td>1</td>
-                        <td>Seragam Sekolah</td>
-                        <td>Tidak memakai dasi</td>
-                        <td>Bu. Nuri</td>
-                        <td>Bu. Chandra</td>
-                        <td>07/01/2026</td>
-                    </tr>
-                    <tr class="*:p-2 *:border-b *:border-zinc-200">
-                        <td>2</td>
-                        <td>Seragam Sekolah</td>
-                        <td>Tidak memakai dasi</td>
-                        <td>Bu. Nuri</td>
-                        <td>Bu. Chandra</td>
-                        <td>07/01/2026</td>
-                    </tr>
-                    <tr class="*:p-2 *:border-b *:border-zinc-200">
-                        <td>3</td>
-                        <td>Seragam Sekolah</td>
-                        <td>Tidak memakai dasi</td>
-                        <td>Bu. Nuri</td>
-                        <td>Bu. Chandra</td>
-                        <td>07/01/2026</td>
-                    </tr>
-                    <tr class="*:p-2 *:border-b *:border-zinc-200">
-                        <td>4</td>
-                        <td>Seragam Sekolah</td>
-                        <td>Tidak memakai dasi</td>
-                        <td>Bu. Nuri</td>
-                        <td>Bu. Chandra</td>
-                        <td>07/01/2026</td>
-                    </tr>
-                    <tr class="*:p-2 *:border-b *:border-zinc-200">
-                        <td>5</td>
-                        <td>Seragam Sekolah</td>
-                        <td>Tidak memakai dasi</td>
-                        <td>Bu. Nuri</td>
-                        <td>Bu. Chandra</td>
-                        <td>07/01/2026</td>
-                    </tr>
-                </tbody>
-            </table>
+        <?php if (!empty($studentViolations)): ?>
+            <div class="overflow-x-auto w-full"> <!-- wrapper needs overflow-x-auto -->
+                <table class="w-full bg-zinc-50 border border-zinc-200 rounded-md">
+                    <thead>
+                        <tr class="*:text-start *:text-zinc-500 *:border-b *:border-zinc-200 *:p-2 *:whitespace-nowrap">
+                            <th>No</th>
+                            <th>Pelanggaran</th>
+                            <th>Deskripsi</th>
+                            <th>Dilapor Oleh</th>
+                            <th>Disetujui Oleh</th>
+                            <th>Tanggal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                        $count = 0;
+                        foreach($studentViolations as $violation):
+                            $count++;
+                        ?>
+                        <tr class="*:p-2 *:border-b *:border-zinc-200 *:whitespace-nowrap">
+                            <td><?= $count ?></td>
+                            <td><?= $violation['violation_name'] ?></td>
+                            <td><?= $violation['notes'] ?></td>
+                            <td><?= $violation['reporter_name'] ?></td>
+                            <td><?= $violation['validator_name'] ?></td>
+                            <td><?= $violation['violation_date'] ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         <?php else: ?>
             <p class="text-center font-semibold text-lg text-zinc-400">Siswa Tidak Memiliki Pelanggaran Apapun.</p>
         <?php endif; ?>
     </div>
-
     <div class="bg-white p-5 rounded-lg shadow-md min-w-[300px]">
         <h2 class="text-xl font-semibold">Skor Pelanggaran</h2>
         <div class="w-full h-px bg-zinc-300 my-4"></div>
