@@ -7,10 +7,10 @@ class FloatingMenu {
         this.buttons = document.querySelectorAll(config.buttonSelector);
         this.menu = document.querySelector(config.menuSelector);
 
-        this.detailLink = this.menu.querySelector(config.detailSelector);
-        this.editLink = this.menu.querySelector(config.editSelector);
-        this.deleteForm = this.menu.querySelector(config.deleteFormSelector);
-        this.deleteBtn = this.menu.querySelector(config.deleteBtnSelector);
+        this.detailLink = this.menu?.querySelector(config.detailSelector);
+        this.editLink = this.menu?.querySelector(config.editSelector);
+        this.deleteForm = this.menu?.querySelector(config.deleteFormSelector);
+        this.deleteBtn = this.menu?.querySelector(config.deleteBtnSelector);
 
         this.routes = config.routes;
 
@@ -42,10 +42,10 @@ class FloatingMenu {
         const data = btn.dataset;
 
         // set link dinamis
-        this.detailLink.href = this.routes.detail(data.id);
-        this.editLink.href = this.routes.edit(data.id);
-        this.deleteForm.action = this.routes.delete(data.id);
-        this.deleteBtn.onclick = () =>
+        if (this.detailLink) this.detailLink.href = this.routes.detail(data.id);
+        if (this.editLink) this.editLink.href = this.routes.edit(data.id);
+        if (this.deleteForm) this.deleteForm.action = this.routes.delete(data.id);
+        if (this.deleteBtn) this.deleteBtn.onclick = () =>
             confirm(`Apakah anda yakin menghapus ${data.name}?`);
 
         this.activeBtn = btn;
@@ -182,6 +182,22 @@ if (currentUrl === '/students') {
             detail: (id) => `/teachers/detail/${id}`,
             edit: (id) => `/teachers/edit/${id}`,
             delete: (id) => `/teachers/delete/${id}`,
+        }
+    })
+} else if (currentUrl === '/violations') {
+    const violationMenu = new FloatingMenu({
+        buttonSelector: '.data-option-btn',
+        menuSelector: '#floating-menu',
+
+        detailSelector: '#menu-detail',
+        editSelector: '#menu-edit',
+        deleteFormSelector: '#menu-delete-form',
+        deleteBtnSelector: '#menu-delete-btn',
+
+        routes: {
+            detail: (id) => `/violations/detail/${id}`,
+            edit: (id) => `/violations/edit/${id}`,
+            delete: (id) => `/violations/delete/${id}`,
         }
     })
 }

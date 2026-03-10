@@ -24,7 +24,7 @@ class App
             $this->method = $routes[$route]['method'];
             $this->params = array_slice($url, 2);
         } else {
-            echo "404 - Route Not Found";
+            require_once '../app/views/404-page.php';
             return;
         }
 
