@@ -2,6 +2,33 @@
 
 class Student extends Model
 {
+    /**
+     * Funtion to get data with selector if needed
+     * 
+     * @param array $fields Select the fields you want to retrieve from the database
+     * @param string $condition Validate data with selected field
+     * @param array $conditionValue Using for validate data IN query
+     */
+    public function get(array $fields, array $conditionValue = [], string $condition = "nis") {
+        if (empty($fields)) {
+            $query = "SELECT * FROM students";
+        } else {
+            $query = "SELECT " . implode(', ', $fields) . " FROM students";
+        }
+
+        if (!empty($conditionValue)) {
+            if (count($conditionValue) > 1) {
+                $query .= " WHERE " . $condition . " IN ('" . implode("','", $conditionValue) . "')";
+            } else {
+                $query .= " WHERE " . $condition . " = " . $conditionValue[0];
+            }
+        }
+
+        $this->db->query($query);
+        $this->db->execute();
+        return $this->db->result();
+    }
+
     public function getAllStudents()
     {
         $this->db->query("SELECT * FROM students");

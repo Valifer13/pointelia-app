@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class StudentViolation extends Model
 {
@@ -9,13 +9,122 @@ class StudentViolation extends Model
         return $this->db->result();
     }
 
-    public function getAllViolationsByStudentId($studentNis)
+    public function getAllViolationsByStudentNis($studentNis)
     {
         $this->db->query("SELECT * FROM student_violations WHERE student_nis = :student_nis");
         $this->db->bind(":student_nis", $studentNis);
         $this->db->execute();
         return $this->db->result();
     }
-}
 
-?>
+    public function getAllViolationsWithTypeByStudentNis($studentNis)
+    {
+        $this->db->query(" SELECT
+            student_violations.violation_date as violation_date,
+            student_violations.notes as notes,
+            student_violations.status as status,
+            reporter.fullname as reporter_name,
+            validator.fullname as validator_name,
+            violation_types.name as violation_name,
+            violation_types.point_value as violation_poin
+            FROM student_violations
+            JOIN violation_types ON student_violations.violation_type_id = violation_types.id
+            JOIN users as reporter ON student_violations.reported_by = reporter.code
+            JOIN users as validator ON student_violations.validated_by = validator.code
+            WHERE student_violations.student_nis = :student_nis;
+        ");
+
+        $this->db->bind(":student_nis", $studentNis);
+        $this->db->execute();
+        return $this->db->result();
+    }
+
+    public function getAllViolationsWithStudentsAndTeachers()
+    {
+        $this->db->query("SELECT
+                students.nis as student_nis,
+                students.name as student_name,
+                violation_types.name as violation_type_name,
+                violation_types.point_value as violation_poin,
+                reporter.code as reporter_code,
+                reporter.fullname as reporter_name,
+                validator.code as validator_code,
+                validator.fullname as validator_name,
+                student_violations.id as violation_id,
+                student_violations.violation_date as violation_date,
+                student_violations.notes as violation_notes,
+                student_violations.status as violation_status,
+                student_violations.validated_at as validated_at
+            FROM student_violations
+                JOIN students ON student_violations.student_nis = students.nis
+                JOIN violation_types ON student_violations.violation_type_id = violation_types.id
+                JOIN users as reporter ON  student_violations.reported_by = reporter.code
+                JOIN users as validator ON  student_violations.validated_by = validator.code;
+        ");
+
+        $this->db->execute();
+        return $this->db->result();
+    }
+
+    public function create(
+        $studentNis,
+        $violationTypeId,
+        $reportedBy,
+        $validatedBy,
+        $violationDate,
+        $notes,
+        $status
+    ) {
+        $this->db->query("INSERT INTO student_violations (student_nis, violation_type_id, reported_by, validated_by, violation_date, notes, status) VALUES (:student_nis, :violation_type_id, :reported_by, :validated_by, :violation_date, :notes, :status)");
+
+        $this->db->bind(":student_nis", $studentNis);
+        $this->db->bind(":violationTypeId", $violationTypeId);
+        $this->db->bind(":reported_by", $reportedBy);
+        $this->db->bind(":validated_by", $validatedBy);
+        $this->db->bind(":violation_date", $violationDate);
+        $this->db->bind(":notes", $notes);
+        $this->db->bind(":status", $status);
+
+        $this->db->execute();
+    }
+
+    public function update(
+        $id,
+        $studentNis,
+        $violationTypeId,
+        $reportedBy,
+        $validatedBy,
+        $violationDate,
+        $notes,
+        $status
+    ) {
+        $this->db->query("UPDATE student_violations SET
+            student_nis=:student_nis,
+            violation_type_id=:violation_type_id,
+            reported_by=:reported_by,
+            validated_by=:validated_by,
+            violation_date=:violation_date,
+            notes=:notes,
+            status=:status
+            WHERE id=:id
+        ");
+
+        $this->db->bind(":id", $id);
+        $this->db->bind(":student_nis", $studentNis);
+        $this->db->bind(":violationTypeId", $violationTypeId);
+        $this->db->bind(":reported_by", $reportedBy);
+        $this->db->bind(":validated_by", $validatedBy);
+        $this->db->bind(":violation_date", $violationDate);
+        $this->db->bind(":notes", $notes);
+        $this->db->bind(":status", $status);
+
+        $this->db->execute();
+    }
+
+    public function delete($id)
+    {
+        $this->db->query("DELETE FROM student_violations WHERE id=:id");
+        $this->db->bind(":id", $id);
+        $this->db->execute();
+    }
+}

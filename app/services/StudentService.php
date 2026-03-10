@@ -44,7 +44,7 @@ class StudentService
         }
 
         $studentClass      = $this->studentClassModel->getStudentClassById($student['class_id']);
-        $studentViolations = $this->studentViolationModel->getAllViolationsByStudentId($nis);
+        $studentViolations = $this->studentViolationModel->getAllViolationsWithTypeByStudentNis($nis);
         $studentGuardians  = $this->studentGuardianModel->getAllGuardianByStudentId($nis);
 
         [$dataAyah, $dataIbu, $dataWali] = $this->categorizeGuardians($studentGuardians);

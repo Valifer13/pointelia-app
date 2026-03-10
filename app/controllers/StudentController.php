@@ -15,7 +15,7 @@ class StudentController extends Controller
     public function index()
     {
         $data = $this->studentService->getAllStudentsWithClasses();
-        $this->view("student/index", $data, "List Siswa");
+        $this->view("students/index", $data, "List Siswa");
     }
 
     public function detail($nis)
@@ -32,7 +32,7 @@ class StudentController extends Controller
             exit;
         }
 
-        $this->view("student/detail", $data, "Detail Siswa");
+        $this->view("students/detail", $data, "Detail Siswa");
     }
 
     public function add()
@@ -50,7 +50,7 @@ class StudentController extends Controller
         }
 
         $data = $this->studentService->getAddStudentFormData();
-        $this->view("student/add", $data, "Tambah Siswa");
+        $this->view("students/add", $data, "Tambah Siswa");
     }
 
     public function edit($nis)
@@ -74,7 +74,7 @@ class StudentController extends Controller
             header("Location: " . BASE_URL . "/students");
             exit;
         }
-        $this->view("student/edit", $data, "Edit Siswa");
+        $this->view("students/edit", $data, "Edit Siswa");
     }
 
     public function delete($nis)
