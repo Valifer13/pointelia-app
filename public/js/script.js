@@ -106,34 +106,50 @@ const logoContainer = document.getElementById('logo-container');
 const navSidebarCollapseIcon = document.getElementById('sidebar-collapse-icon');
 const navSidebarCollapseArrowIcon = document.getElementById('sidebar-collapse-arrow-icon');
 
+const sidebarState = localStorage.getItem("sidebar");
+
+function openSidebar() {
+    localStorage.setItem("sidebar", "expand");
+    navItems.forEach(navItem => {
+        navItem.classList.remove('hidden');
+    })
+    main.classList.add('lg:grid-cols-[16rem_1fr]');
+    main.classList.remove('lg:grid-cols-[5rem_minmax(0,1fr)]');
+    navSidebarCollapseIcon.classList.remove('hidden');
+    navSidebarCollapseArrowIcon.classList.add('hidden');
+    navSidebarCollapseBtn.classList.add('right-3');
+    navSidebarCollapseBtn.classList.remove('-right-2.5');
+    navDividerTitles.forEach(navDividerTitle => navDividerTitle.classList.remove('hidden'));
+    navDividers.forEach(navDivider => navDivider.classList.add('hidden'));
+}
+
+function closeSidebar() {
+    localStorage.setItem("sidebar", "collapsed");
+    navItems.forEach(navItem => {
+        navItem.classList.add('hidden');
+    })
+    main.classList.remove('lg:grid-cols-[16rem_1fr]');
+    main.classList.add('lg:grid-cols-[5rem_minmax(0,1fr)]');
+    navSidebarCollapseIcon.classList.add('hidden');
+    navSidebarCollapseArrowIcon.classList.remove('hidden');
+    navSidebarCollapseBtn.classList.remove('right-3');
+    navSidebarCollapseBtn.classList.add('-right-2.5');
+    navDividerTitles.forEach(navDividerTitle => navDividerTitle.classList.add('hidden'));
+    navDividers.forEach(navDivider => navDivider.classList.remove('hidden'));
+}
+
+if (sidebarState === "expand") {
+    openSidebar();
+} else if (sidebarState === "collapsed") {
+    closeSidebar();
+}
+
 navSidebarCollapseBtn.addEventListener('click', () => {
     navbar.classList.toggle('expand');
     if (navbar.classList.contains('expand')) {
-        console.log('show sidebar');
-        navItems.forEach(navItem => {
-            navItem.classList.remove('hidden');
-        })
-        main.classList.add('lg:grid-cols-[16rem_1fr]');
-        main.classList.remove('lg:grid-cols-[5rem_minmax(0,1fr)]');
-        navSidebarCollapseIcon.classList.remove('hidden');
-        navSidebarCollapseArrowIcon.classList.add('hidden');
-        navSidebarCollapseBtn.classList.add('right-3');
-        navSidebarCollapseBtn.classList.remove('-right-2.5');
-        navDividerTitles.forEach(navDividerTitle => navDividerTitle.classList.remove('hidden'));
-        navDividers.forEach(navDivider => navDivider.classList.add('hidden'));
+        openSidebar();
     } else {
-        console.log('hide sidebar');
-        navItems.forEach(navItem => {
-            navItem.classList.add('hidden');
-        })
-        main.classList.remove('lg:grid-cols-[16rem_1fr]');
-        main.classList.add('lg:grid-cols-[5rem_minmax(0,1fr)]');
-        navSidebarCollapseIcon.classList.add('hidden');
-        navSidebarCollapseArrowIcon.classList.remove('hidden');
-        navSidebarCollapseBtn.classList.remove('right-3');
-        navSidebarCollapseBtn.classList.add('-right-2.5');
-        navDividerTitles.forEach(navDividerTitle => navDividerTitle.classList.add('hidden'));
-        navDividers.forEach(navDivider => navDivider.classList.remove('hidden'));
+        closeSidebar();
     }
 });
 
