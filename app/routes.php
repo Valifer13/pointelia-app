@@ -4,6 +4,9 @@ $routes = [
     // Landing Page
     "" => ["controller" => "HomeController", "method" => "index"],
 
+    // Dashboard
+    "dashboard" => [ "controller" => "DashboardController", "method" => "index"], 
+
     // Student routes
     "students"        => ["controller" => "StudentController", "method" => "index"],
     "students/add"    => ["controller" => "StudentController", "method" => "add"],
@@ -22,6 +25,13 @@ $routes = [
     "violations"        => ["controller" => "StudentViolationController", "method" => "index"],
     "violations/add"    => ["controller" => "StudentViolationController", "method" => "add"],
     "violations/detail" => ["controller" => "StudentViolationController", "method" => "detail"],
-    "violations/delete" => ["controller" => "StudentViolationController", "method" => "delete"],
-    "violations/edit"   => ["controller" => "StudentViolationController", "method" => "edit"],
+    // "violations/delete" => ["controller" => "StudentViolationController", "method" => "delete"],
+    // "violations/edit"   => ["controller" => "StudentViolationController", "method" => "edit"],
+
+    // Violation Types routes
+    "violation-types"        => ["controller" => "ViolationTypeController", "method" => "index"],
+    "violation-types/add"    => ["controller" => "ViolationTypeController", "method" => "add"],
+    "violation-types/detail" => ["controller" => "ViolationTypeController", "method" => "detail"],
+    "violation-types/delete" => ["controller" => "ViolationTypeController", "method" => "delete"],
+    "violation-types/edit"   => ["controller" => "ViolationTypeController", "method" => "edit"],
 ];

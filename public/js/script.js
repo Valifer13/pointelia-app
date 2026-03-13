@@ -77,7 +77,9 @@ class FloatingMenu {
     }
 }
 
-// * <Activate Navbar Functionality>
+// * <==========================>
+// *  Activate Nav Functionality
+// * <==========================>
 
 const currentPath = window.location.pathname.replace(/\/$/, "");
 
@@ -89,7 +91,9 @@ document.querySelectorAll('#navbar a.nav-item').forEach(link => {
     }
 })
 
-// * <Navbar Functionality>
+// * <====================>
+// *  Navbar Functionality
+// * <====================>
 
 const navMobileBtn = document.getElementById('mobile-sidebar-btn');
 const navSidebarCollapseBtn = document.getElementById('sidebar-collapse-btn');
@@ -165,7 +169,10 @@ navMobileBtn.addEventListener('click', () => {
     }
 });
 
-// * <Data Option Functionality>
+// * <====================>
+// *  Data Option Functionality
+// * <====================>
+
 const currentUrl = window.location.pathname;
 
 if (currentUrl === '/students') {
@@ -216,9 +223,27 @@ if (currentUrl === '/students') {
             delete: (id) => `/violations/delete/${id}`,
         }
     })
+} else if (currentUrl === '/violation-types') {
+    const violationTypesMenu = new FloatingMenu({
+        buttonSelector: '.data-option-btn',
+        menuSelector: '#floating-menu',
+
+        detailSelector: '#menu-detail',
+        editSelector: '#menu-edit',
+        deleteFormSelector: '#menu-delete-form',
+        deleteBtnSelector: '#menu-delete-btn',
+
+        routes: {
+            detail: (id) => `/violation-types/detail/${id}`,
+            edit: (id) => `/violation-types/edit/${id}`,
+            delete: (id) => `/violation-types/delete/${id}`,
+        }
+    })
 }
 
-// * <Flash Functionality>
+// * <===================>
+// *  Flash Functionality
+// * <===================>
 
 const flashes = document.querySelectorAll('.flash');
 
@@ -232,7 +257,9 @@ flashes.forEach((flash, i) => {
     });
 })
 
-// * <Whatever Functionality>
+// * <======================>
+// *  Whatever Functionality
+// * <======================>
 
 const searchInput = document.getElementById('searchInput');
 const clearBtn = document.getElementById('clearBtn');

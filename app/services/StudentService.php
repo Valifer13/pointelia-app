@@ -51,7 +51,7 @@ class StudentService
 
         $guardians         = $this->guardianModel->getAllGuardians([
             $dataAyah['guardian_id'] ?? null,
-            $dataIbu['guardian_id'] ?? null,
+            $dataIbu['guardian_id']  ?? null,
             $dataWali['guardian_id'] ?? null
         ]);
 

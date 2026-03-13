@@ -1,6 +1,6 @@
 <div class="flex flex-col md:flex-row justify-between gap-4 items-start lg:items-center mb-6 bg-white p-4 rounded-md shadow-md">
     <div class="flex flex-col gap-1">
-        <h1 class="text-2xl font-semibold tracking-wide">List Pelanggaran</h1>
+        <h1 class="text-2xl font-semibold tracking-wide">List Tipe Pelanggaran</h1>
         <?php get_breadcrumb() ?>
     </div>
     <div class="flex gap-4">
@@ -10,19 +10,19 @@
             </svg>
             Export
         </button>
-        <a href="<?= BASE_URL ?>/violations/add" class="flex gap-2 items-center px-3 py-2 bg-blue-600 hover:bg-blue-700 transition-colors duration-300 cursor-pointer text-white rounded-md font-medium">
+        <a href="<?= BASE_URL ?>/violation-types/add" class="flex gap-2 items-center px-3 py-2 bg-blue-600 hover:bg-blue-700 transition-colors duration-300 cursor-pointer text-white rounded-md font-medium">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M11 13H6q-.425 0-.712-.288T5 12t.288-.712T6 11h5V6q0-.425.288-.712T12 5t.713.288T13 6v5h5q.425 0 .713.288T19 12t-.288.713T18 13h-5v5q0 .425-.288.713T12 19t-.712-.288T11 18z" />
             </svg>
-            Laporkan Pelanggaran
+            Tambah Tipe Pelanggaran
         </a>
     </div>
 </div>
 
 <div class="bg-white p-0.5 w-fit rounded-full shadow-md mb-4">
     <ul class="flex *:bg-white *:hover:bg-zinc-100 *:rounded-full *:px-4 *:py-2 *:cursor-pointer">
-        <li title="Riwayat pelanggaran yang sudah terjadi" class="bg-zinc-300!"><a href="<?= BASE_URL ?>/violations">Riwayat</a></li>
-        <li title="Manajemen jenis pelanggaran"><a href="<?= BASE_URL ?>/violation-types">Jenis</a></li>
+        <li title="Riwayat pelanggaran yang sudah terjadi"><a href="<?= BASE_URL ?>/violations">Riwayat</a></li>
+        <li title="Manajemen jenis pelanggaran" class="bg-zinc-300!"><a href="<?= BASE_URL ?>/violation-types">Jenis</a></li>
     </ul>
 </div>
 
@@ -30,19 +30,17 @@
     <table class="w-full">
         <thead class="**:text-left **:py-2 **:px-5 *:whitespace-nowrap *:font-bold bg-blue-600 text-white">
             <th class="rounded-tl-md">No.</th>
-            <th>Siswa</th>
-            <td>Jenis Pelanggaran</td>
-            <th>Pelapor</th>
-            <th>Divalidasi Oleh</th>
-            <th>Tanggal</th>
+            <th>Tipe</th>
+            <td>Deksripsi</td>
+            <th>Poin</th>
             <th class="rounded-tr-md">Option</th>
         </thead>
 
         <tbody class="*:border-b *:border-b-zinc-300 text-zinc-500">
-            <?php if (!empty($data['studentViolations'])): ?>
+            <?php if (!empty($data['violationTypes'])): ?>
                 <?php
                 $count = 0;
-                foreach ($data['studentViolations'] as $violation):
+                foreach ($data['violationTypes'] as $violation):
                     $count++;
                 ?>
                     <tr class="*:py-2 *:px-5 **:whitespace-nowrap">
@@ -52,13 +50,11 @@
                                 <span class="text-base"><?= $count ?></span>
                             </div>
                         </td>
-                        <td class="text-zinc-800"><?= $violation['student_name'] ?></td>
-                        <td><?= $violation["violation_type_name"] ?></td>
-                        <td><?= $violation["reporter_name"] ?></td>
-                        <td><?= $violation["validator_name"] ?? "-" ?></td>
-                        <td><?= $violation["violation_date"] ?></td>
+                        <td class="text-zinc-800"><?= $violation['name'] ?></td>
+                        <td class="truncate max-w-[550px]"><?= $violation["description"] ?></td>
+                        <td><?= $violation["point_value"] ?></td>
                         <td class="text-zinc-500">
-                            <button class="data-option-btn p-2 border border-zinc-400 w-fit rounded-md inset-shadow-zinc-400 transition-all duration-500 cursor-pointer" data-id="<?= $violation['violation_id'] ?>">
+                            <button class="data-option-btn p-2 border border-zinc-400 w-fit rounded-md inset-shadow-zinc-400 transition-all duration-500 cursor-pointer" data-id="<?= $violation['id'] ?>" data-name="<?= $violation['name'] ?>">
                                 <svg class="group-hover:text-zinc-800 transition-all duration-500" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                                     <path fill="currentColor" d="M19.9 12.66a1 1 0 0 1 0-1.32l1.28-1.44a1 1 0 0 0 .12-1.17l-2-3.46a1 1 0 0 0-1.07-.48l-1.88.38a1 1 0 0 1-1.15-.66l-.61-1.83a1 1 0 0 0-.95-.68h-4a1 1 0 0 0-1 .68l-.56 1.83a1 1 0 0 1-1.15.66L5 4.79a1 1 0 0 0-1 .48L2 8.73a1 1 0 0 0 .1 1.17l1.27 1.44a1 1 0 0 1 0 1.32L2.1 14.1a1 1 0 0 0-.1 1.17l2 3.46a1 1 0 0 0 1.07.48l1.88-.38a1 1 0 0 1 1.15.66l.61 1.83a1 1 0 0 0 1 .68h4a1 1 0 0 0 .95-.68l.61-1.83a1 1 0 0 1 1.15-.66l1.88.38a1 1 0 0 0 1.07-.48l2-3.46a1 1 0 0 0-.12-1.17ZM18.41 14l.8.9l-1.28 2.22l-1.18-.24a3 3 0 0 0-3.45 2L12.92 20h-2.56L10 18.86a3 3 0 0 0-3.45-2l-1.18.24l-1.3-2.21l.8-.9a3 3 0 0 0 0-4l-.8-.9l1.28-2.2l1.18.24a3 3 0 0 0 3.45-2L10.36 4h2.56l.38 1.14a3 3 0 0 0 3.45 2l1.18-.24l1.28 2.22l-.8.9a3 3 0 0 0 0 3.98m-6.77-6a4 4 0 1 0 4 4a4 4 0 0 0-4-4m0 6a2 2 0 1 1 2-2a2 2 0 0 1-2 2" />
                                 </svg>
@@ -125,4 +121,20 @@
         </svg>
         Detail
     </a>
+
+    <a id="menu-edit" class="flex gap-3 px-3 py-2 hover:bg-yellow-500 hover:text-white group rounded">
+        <svg class="text-yellow-500 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83l3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z" />
+        </svg>
+        Edit
+    </a>
+
+    <form id="menu-delete-form" method="post">
+        <button id="menu-delete-btn" class="flex gap-3 px-3 py-2 hover:bg-red-500 hover:text-white group rounded">
+            <svg class="text-red-500 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z" />
+            </svg>
+            Delete
+        </button>
+    </form>
 </div>

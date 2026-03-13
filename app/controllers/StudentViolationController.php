@@ -19,8 +19,9 @@ class StudentViolationController extends Controller
 
     public function add()
     {
-        // code
-        $this->view("violations/add", [], "Tambah Pelanggaran");
+        $data = $this->StudentViolationService->getAddStudentViolationFormData();
+
+        $this->view("violations/add", $data, "Tambah Pelanggaran");
     }
 
     public function update()

@@ -1,0 +1,78 @@
+<?php 
+
+class ViolationTypeService
+{
+    private ViolationType $violationTypeModel;
+    private $db;
+
+    public function __construct(Database $db)
+    {
+        $this->violationTypeModel = new ViolationType($db);
+        $this->db = $db;
+    }
+
+    public function getAllViolationTypes(): array
+    {
+        $violationTypes = $this->violationTypeModel->getAllViolationType();
+
+        return [
+            "violationTypes" => $violationTypes,
+        ];
+    }
+
+    public function getViolationTypeDetail(int $id): array
+    {
+        $violationType = $this->violationTypeModel->getViolationTypeById($id);
+
+        if (empty($violationType)) {
+            throw new Exception("Tipe pelanggaran tidak ditemukan");
+        }
+
+        return [
+            'violationType' => $violationType
+        ];
+    }
+
+    public function createViolationType(array $data): void
+    {
+        $this->violationTypeModel->create(
+            $data['name'],
+            $data['description'],
+            $data['point_value']
+        );
+    }
+
+    public function getEditViolationTypeFormData(int $id): array
+    {
+        $violationType = $this->violationTypeModel->getViolationTypeById($id);
+
+        if (empty($violationType)) {
+            throw new Exception("Tipe pelanggaran tidak ditemukan");
+        }
+
+        return [
+            'violationType' => $violationType
+        ];
+    }
+
+    public function updateViolationType(array $data): void
+    {
+        $this->violationTypeModel->update(
+            $data['id'],
+            $data['name'],
+            $data['description'],
+            $data['point_value']
+        );
+    }
+
+    public function deleteViolationType(int $id): void
+    {
+        $violationType = $this->violationTypeModel->getViolationTypeById($id);
+
+        if (empty($violationType)) {
+            throw new Exception("Tipe pelanggaran tidak ditemukan");
+        }
+
+        $this->violationTypeModel->delete($id);
+    }
+}
