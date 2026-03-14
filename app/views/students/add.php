@@ -10,31 +10,31 @@
         <div class="w-full flex flex-col gap-4">
             <div class="flex w-full gap-4">
                 <div class="w-full">
-                    <label class="font-semibold" for="nis">NIS:</label>
+                    <label class="font-semibold" for="nis">NIS</label>
                     <input required class="w-full p-2 rounded-md border border-zinc-300 bg-zinc-50 focus:outline-none read-only:text-zinc-400" type="text" name="nis" id="nis" readonly value="<?= str_pad($lastNis, 4, "0", STR_PAD_LEFT) ?>">
                 </div>
                 <div class="w-full">
-                    <label class="font-semibold" for="nisn">NISN:</label>
+                    <label class="font-semibold" for="nisn">NISN</label>
                     <input required class="w-full p-2 rounded-md border border-zinc-300 bg-zinc-50 focus:outline-none" type="text" name="nisn" id="nisn">
                 </div>
             </div>
             <div class="flex w-full gap-4">
                 <div class="w-full">
-                    <label class="font-semibold" for="name">Nama:</label>
+                    <label class="font-semibold" for="name">Nama</label>
                     <input required class="w-full p-2 rounded-md border border-zinc-300 bg-zinc-50 focus:outline-none" type="text" name="name" id="name" placeholder="Nama siswa..." autocomplete="off">
                 </div>
                 <div class="w-full">
-                    <label class="font-semibold" for="email">Email:</label>
+                    <label class="font-semibold" for="email">Email</label>
                     <input required class="w-full p-2 rounded-md border border-zinc-300 bg-zinc-50 focus:outline-none" type="email" name="email" id="email" placeholder="Email siswa..." autocomplete="off">
                 </div>
             </div>
             <div class="flex w-full gap-4">
                 <div class="w-full">
-                    <label class="font-semibold" for="phone_number">Nomor HP:</label>
+                    <label class="font-semibold" for="phone_number">Nomor HP</label>
                     <input required class="w-full p-2 rounded-md border border-zinc-300 bg-zinc-50 focus:outline-none" type="tel" id="phone_number" name="phone_number">
                 </div>
                 <div class="w-full">
-                    <label class="font-semibold" for="class">Kelas:</label>
+                    <label class="font-semibold" for="class">Kelas</label>
                     <input required class="w-full p-2 rounded-md border border-zinc-300 bg-zinc-50 focus:outline-none" type="text" list="Classes" name="class" id="class">
                     <datalist id="Classes">
                         <?php foreach ($studentClasses as $studentClass): ?>
@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="space-y-3">
-                <p class="font-semibold">Jenis Kelamin:</p>
+                <p class="font-semibold">Jenis Kelamin</p>
                 <div class="flex gap-4">
                     <div class="w-full">
                         <label for="gender_male" class="flex items-center gap-4 rounded border border-gray-300 bg-white p-3 text-sm font-medium shadow-sm transition-colors hover:bg-zinc-50 has-checked:border-blue-600 has-checked:ring-1 has-checked:ring-blue-600 has-checked:bg-blue-100">
@@ -72,7 +72,7 @@
                 </div>
             </div>
             <div class="flex flex-col gap-1">
-                <label class="font-semibold" for="address">Alamat:</label>
+                <label class="font-semibold" for="address">Alamat</label>
                 <textarea required class="bg-zinc-50 border border-zinc-300 p-2 rounded-md focus:outline-zinc-400 disabled:bg-zinc-100" name="address" id="address" placeholder="Alamat siswa..."></textarea>
             </div>
             <div class="flex justify-end">

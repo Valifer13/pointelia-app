@@ -16,6 +16,16 @@ class Guardian extends Model
         return $this->db->result();
     }
 
+    public function getGuardianById($id)
+    {
+        $this->db->query("SELECT * FROM guardians WHERE id = :id");
+
+        $this->db->bind(":id", $id);
+
+        $this->db->execute();
+        return $this->db->single();
+    }
+
     public function create(
         $name,
         $job,
@@ -48,5 +58,15 @@ class Guardian extends Model
         $this->db->bind(":address", $address);
 
         $this->db->execute();
+    }
+
+    public function delete($id)
+    {
+        $this->db->query("DELETE FROM guardians WHERE id = :id");
+
+        $this->db->bind(":id", $id);
+
+        $this->db->execute();
+        return $this->db->single();
     }
 }

@@ -239,6 +239,22 @@ if (currentUrl === '/students') {
             delete: (id) => `/violation-types/delete/${id}`,
         }
     })
+} else if (currentUrl === '/guardians') {
+    const guardiansMenu = new FloatingMenu({
+        buttonSelector: '.data-option-btn',
+        menuSelector: '#floating-menu',
+
+        detailSelector: '#menu-detail',
+        editSelector: '#menu-edit',
+        deleteFormSelector: '#menu-delete-form',
+        deleteBtnSelector: '#menu-delete-btn',
+
+        routes: {
+            detail: (id) => `/guardians/detail/${id}`,
+            edit: (id) => `/guardians/edit/${id}`,
+            delete: (id) => `/guardians/delete/${id}`,
+        }
+    })
 }
 
 // * <===================>

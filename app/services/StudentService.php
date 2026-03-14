@@ -69,10 +69,9 @@ class StudentService
     public function connectGuardian(string $nis, array $data): void
     {
         $guardianId = explode('-', $data['guardian_name'])[0];
-        $studentId  = $this->studentModel->getStudentByNis($nis)['id'];
 
         $this->studentGuardianModel->connect(
-            $studentId,
+            $nis,
             $guardianId,
             $data['relationship'],
             $data['is_primary'] == "true" ? 1 : 0,
@@ -90,10 +89,9 @@ class StudentService
         );
 
         $guardianId = $this->db->lastInsertId();
-        $studentId  = $this->studentModel->getStudentByNis($nis)['id'];
 
         $this->studentGuardianModel->connect(
-            $studentId,
+            $nis,
             $guardianId,
             $data['relationship'],
             $data['is_primary'] == "true" ? 1 : 0,

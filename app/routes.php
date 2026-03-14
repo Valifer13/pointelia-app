@@ -34,4 +34,18 @@ $routes = [
     "violation-types/detail" => ["controller" => "ViolationTypeController", "method" => "detail"],
     "violation-types/delete" => ["controller" => "ViolationTypeController", "method" => "delete"],
     "violation-types/edit"   => ["controller" => "ViolationTypeController", "method" => "edit"],
+
+    // Guardian routes
+    "guardians"        => ["controller" => "GuardianController", "method" => "index"],
+    "guardians/add"    => ["controller" => "GuardianController", "method" => "add"],
+    "guardians/detail" => ["controller" => "GuardianController", "method" => "detail"],
+    "guardians/delete" => ["controller" => "GuardianController", "method" => "delete"],
+    "guardians/edit"   => ["controller" => "GuardianController", "method" => "edit"],
+
+    // Class routes
+    "classes"        => ["controller" => "ClassController", "method" => "index"],
+    "classes/add"    => ["controller" => "ClassController", "method" => "add"],
+    "classes/detail" => ["controller" => "ClassController", "method" => "detail"],
+    "classes/delete" => ["controller" => "ClassController", "method" => "delete"],
+    "classes/edit"   => ["controller" => "ClassController", "method" => "edit"],
 ];

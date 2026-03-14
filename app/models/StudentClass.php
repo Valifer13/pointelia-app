@@ -57,4 +57,58 @@ class StudentClass extends Model
         $this->db->execute();
         return $this->db->single();
     }
+
+    public function create(
+        $major_id,
+        $grade_level_id,
+        $form_tutor_code,
+        $academic_year_id,
+        $rombel
+    ) {
+        $this->db->query("INSERT INTO classes (major_id, grade_level_id, form_tutor_id, academic_year_id, rombel)
+            VALUES (:major_id, :grade_level_id, :form_tutor_code, :academic_year_id, :rombel)
+        ");
+
+        $this->db->bind(":major_id", $major_id);
+        $this->db->bind(":grade_level_id", $grade_level_id);
+        $this->db->bind(":form_tutor_code", $form_tutor_code);
+        $this->db->bind(":academic_year_id", $academic_year_id);
+        $this->db->bind(":rombel", $rombel);
+
+        $this->db->execute();
+    }
+
+    public function update(
+        $id,
+        $major_id,
+        $grade_level_id,
+        $form_tutor_code,
+        $academic_year_id,
+        $rombel
+    ) {
+        $this->db->query("UPDATE classes SET
+            major_id=:major_id,
+            grade_level_id=:grade_level_id,
+            form_tutor_id=:form_tutor_id,
+            academic_year_id=:academic_year_id,
+            rombel=:rombel
+            WHERE id = :id
+        ");
+
+        $this->db->bind(":id", $id);
+        $this->db->bind(":major_id", $major_id);
+        $this->db->bind(":grade_level_id", $grade_level_id);
+        $this->db->bind(":form_tutor_code", $form_tutor_code);
+        $this->db->bind(":academic_year_id", $academic_year_id);
+        $this->db->bind(":rombel", $rombel);
+
+        $this->db->execute();
+    }
+
+    public function delete($id)
+    {
+        $this->db->query("DELETE FROM classes WHERE id = :id");
+        $this->db->bind(":id", $id);
+        $this->db->execute();
+    }
 }
