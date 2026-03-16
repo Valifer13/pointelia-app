@@ -14,10 +14,23 @@ class TeacherService {
 
     public function getAllTeachers(): array
     {
-        $teachers = $this->teacherModel->getAllTeachers();
+        $teachers = $this->teacherModel->getAllTeachersWithRole();
 
         return [
             'teachers' => $teachers
+        ];
+    }
+
+    public function getDetailTeacher(string $code): array
+    {
+        $teacher = $this->teacherModel->getTeacherByCode($code);
+
+        if (empty($teacher)) {
+            throw new Exception("Data guru tidak ditemukan!");
+        }
+
+        return [
+            'teacher' => $teacher
         ];
     }
 

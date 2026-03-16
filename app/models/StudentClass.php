@@ -18,7 +18,30 @@ class StudentClass extends Model
         return $this->db->result();
     }
 
-    public function getIdClass($class) {
+    public function getAllStudentClassesWithTeachers()
+    {
+        $this->db->query("SELECT
+            classes.id,
+            classes.rombel AS rombel,
+            grade_levels.grade AS grade,
+            majors.name AS major_name,
+            majors.description AS major_description,
+            form_tutor.code AS form_tutor_code,
+            form_tutor.fullname AS form_tutor_name,
+            bk_teacher.code AS bk_teacher_code,
+            bk_teacher.fullname AS bk_teacher_name
+            FROM `classes`
+            LEFT JOIN grade_levels ON classes.grade_level_id = grade_levels.id
+            LEFT JOIN majors ON classes.major_id = majors.id
+            LEFT JOIN users AS form_tutor ON classes.form_tutor_code = form_tutor.code
+            LEFT JOIN users AS bk_teacher ON classes.bk_teacher_code = bk_teacher.code
+        ");
+        $this->db->execute();
+        return $this->db->result();
+    }
+
+    public function getIdClass($class)
+    {
         $temp = explode(' ', $class);
 
         $this->db->query("SELECT
@@ -41,7 +64,32 @@ class StudentClass extends Model
         return $this->db->result();
     }
 
-    public function getStudentClassById($id) {
+    public function getStudentClassById($id)
+    {
+        $this->db->query("SELECT
+            classes.id,
+            classes.rombel AS rombel,
+            grade_levels.grade AS grade,
+            majors.name AS major_name,
+            majors.description AS major_description,
+            form_tutor.code AS form_tutor_code,
+            form_tutor.fullname AS form_tutor_name,
+            bk_teacher.code AS bk_teacher_code,
+            bk_teacher.fullname AS bk_teacher_name
+            FROM `classes`
+            LEFT JOIN grade_levels ON classes.grade_level_id = grade_levels.id
+            LEFT JOIN majors ON classes.major_id = majors.id
+            LEFT JOIN users AS form_tutor ON classes.form_tutor_code = form_tutor.code
+            LEFT JOIN users AS bk_teacher ON classes.bk_teacher_code = bk_teacher.code
+            WHERE classes.id = :id
+        ");
+        $this->db->bind(":id", $id);
+        $this->db->execute();
+        return $this->db->single();
+    }
+    
+    public function getStudentClassByGradeAndMajor(string $grade, string $major)
+    {
         $this->db->query("SELECT
             classes.id,
             classes.rombel AS rombel,
@@ -51,9 +99,10 @@ class StudentClass extends Model
             FROM classes
             JOIN grade_levels ON classes.grade_level_id = grade_levels.id
             JOIN majors ON classes.major_id = majors.id
-            WHERE classes.id = :id
+            WHERE grade_levels.grade = :grade AND majors.name = :major
         ");
-        $this->db->bind(":id", $id);
+        $this->db->bind(":grade", $grade);
+        $this->db->bind(":major", $major);
         $this->db->execute();
         return $this->db->single();
     }
@@ -62,17 +111,17 @@ class StudentClass extends Model
         $major_id,
         $grade_level_id,
         $form_tutor_code,
-        $academic_year_id,
+        $bk_teacher_code,
         $rombel
     ) {
-        $this->db->query("INSERT INTO classes (major_id, grade_level_id, form_tutor_id, academic_year_id, rombel)
-            VALUES (:major_id, :grade_level_id, :form_tutor_code, :academic_year_id, :rombel)
+        $this->db->query("INSERT INTO classes (major_id, grade_level_id, form_tutor_code, bk_teacher_code, rombel)
+            VALUES (:major_id, :grade_level_id, :form_tutor_code, :bk_teacher_code, :rombel)
         ");
 
         $this->db->bind(":major_id", $major_id);
         $this->db->bind(":grade_level_id", $grade_level_id);
         $this->db->bind(":form_tutor_code", $form_tutor_code);
-        $this->db->bind(":academic_year_id", $academic_year_id);
+        $this->db->bind(":bk_teacher_code", $bk_teacher_code);
         $this->db->bind(":rombel", $rombel);
 
         $this->db->execute();
@@ -83,14 +132,14 @@ class StudentClass extends Model
         $major_id,
         $grade_level_id,
         $form_tutor_code,
-        $academic_year_id,
+        $bk_teacher_code,
         $rombel
     ) {
         $this->db->query("UPDATE classes SET
             major_id=:major_id,
             grade_level_id=:grade_level_id,
-            form_tutor_id=:form_tutor_id,
-            academic_year_id=:academic_year_id,
+            form_tutor_code=:form_tutor_code,
+            bk_teacher_code=:bk_teacher_code,
             rombel=:rombel
             WHERE id = :id
         ");
@@ -99,7 +148,7 @@ class StudentClass extends Model
         $this->db->bind(":major_id", $major_id);
         $this->db->bind(":grade_level_id", $grade_level_id);
         $this->db->bind(":form_tutor_code", $form_tutor_code);
-        $this->db->bind(":academic_year_id", $academic_year_id);
+        $this->db->bind(":bk_teacher_code", $bk_teacher_code);
         $this->db->bind(":rombel", $rombel);
 
         $this->db->execute();

@@ -43,9 +43,9 @@ $routes = [
     "guardians/edit"   => ["controller" => "GuardianController", "method" => "edit"],
 
     // Class routes
-    "classes"        => ["controller" => "ClassController", "method" => "index"],
-    "classes/add"    => ["controller" => "ClassController", "method" => "add"],
-    "classes/detail" => ["controller" => "ClassController", "method" => "detail"],
-    "classes/delete" => ["controller" => "ClassController", "method" => "delete"],
-    "classes/edit"   => ["controller" => "ClassController", "method" => "edit"],
+    "classes"        => ["controller" => "StudentClassController", "method" => "index"],
+    "classes/add"    => ["controller" => "StudentClassController", "method" => "add"],
+    "classes/detail" => ["controller" => "StudentClassController", "method" => "detail"],
+    "classes/delete" => ["controller" => "StudentClassController", "method" => "delete"],
+    "classes/edit"   => ["controller" => "StudentClassController", "method" => "edit"],
 ];

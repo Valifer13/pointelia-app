@@ -19,9 +19,11 @@ class TeacherController extends Controller
         $this->view('teachers/index', $data, "List Guru");
     }
 
-    public function detail($id)
+    public function detail($code)
     {
-        $this->view('teachers/detail', [], "Detail Guru");
+        $data = $this->teacherService->getDetailTeacher($code);
+
+        $this->view('teachers/detail', $data, "Detail Guru");
     }
 
     public function add()
@@ -41,7 +43,7 @@ class TeacherController extends Controller
         $this->view('teachers/add', [], "Tambah Guru");
     }
 
-    public function edit($id)
+    public function edit($code)
     {
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             try {
@@ -51,12 +53,12 @@ class TeacherController extends Controller
                 Flasher::setFlash("Gagal mengubah data guru. Error: " . $err->getMessage(), "error");
             }
 
-            header("Location: " . BASE_URL . "/teachers/edit/" . $id);
+            header("Location: " . BASE_URL . "/teachers/edit/" . $code);
             exit;
         }
 
         try {
-            $data = $this->teacherService->getEditTeacherFormData($id);
+            $data = $this->teacherService->getEditTeacherFormData($code);
         } catch (Exception $err) {
             Flasher::setFlash($err->getMessage(), "error");
             header("Location: " . BASE_URL . "/teachers");

@@ -26,7 +26,12 @@ class StudentService
 
         foreach ($students as $student) {
             $classObj  = $this->studentClassModel->getStudentClassById($student['class_id']);
-            $classes[] = $classObj['grade'] . " " . $classObj['major_name'] . " " . $classObj['rombel'];
+
+            if (!empty($classObj)) {
+                $classes[] = $classObj['grade'] . " " . $classObj['major_name'] . " " . $classObj['rombel'];
+            } else {
+                $classes[] = "-";
+            }
         }
 
         return [

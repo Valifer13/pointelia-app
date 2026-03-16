@@ -86,7 +86,10 @@ const currentPath = window.location.pathname.replace(/\/$/, "");
 document.querySelectorAll('#navbar a.nav-item').forEach(link => {
     const linkPath = new URL(link.href).pathname.replace(/\/$/, "");
 
-    if (linkPath === currentPath) {
+    if (
+        currentPath === linkPath ||
+        (linkPath !== "/" && currentPath.startsWith(linkPath + "/"))
+    ) {
         link.classList.add('active');
     }
 })
@@ -253,6 +256,22 @@ if (currentUrl === '/students') {
             detail: (id) => `/guardians/detail/${id}`,
             edit: (id) => `/guardians/edit/${id}`,
             delete: (id) => `/guardians/delete/${id}`,
+        }
+    })
+} else if (currentUrl === '/classes') {
+    const classesMenu = new FloatingMenu({
+        buttonSelector: '.data-option-btn',
+        menuSelector: '#floating-menu',
+
+        detailSelector: '#menu-detail',
+        editSelector: '#menu-edit',
+        deleteFormSelector: '#menu-delete-form',
+        deleteBtnSelector: '#menu-delete-btn',
+
+        routes: {
+            detail: (id) => `/classes/detail/${id}`,
+            edit: (id) => `/classes/edit/${id}`,
+            delete: (id) => `/classes/delete/${id}`,
         }
     })
 }

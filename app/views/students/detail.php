@@ -32,7 +32,11 @@
                     </tr>
                     <tr>
                         <td class="min-w-20 text-zinc-400">Kelas</td>
-                        <td>: <?= $studentClass['grade'] ?> <?= $studentClass['major_name'] ?> <?= $studentClass['rombel'] ?></td>
+                        <?php if (!empty($studentClass)): ?>
+                            <td>: <?= $studentClass['grade'] ?> <?= $studentClass['major_name'] ?> <?= $studentClass['rombel'] ?></td>
+                        <?php else: ?>
+                            <td>: -</td>
+                        <?php endif; ?>
                     </tr>
                     <tr>
                         <td class="min-w-20 text-zinc-400">Alamat</td>
@@ -70,19 +74,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php 
+                        <?php
                         $count = 0;
-                        foreach($studentViolations as $violation):
+                        foreach ($studentViolations as $violation):
                             $count++;
                         ?>
-                        <tr class="*:p-2 *:border-b *:border-zinc-200 *:whitespace-nowrap">
-                            <td><?= $count ?></td>
-                            <td><?= $violation['violation_name'] ?></td>
-                            <td><?= $violation['notes'] ?></td>
-                            <td><?= $violation['reporter_name'] ?></td>
-                            <td><?= $violation['validator_name'] ?></td>
-                            <td><?= $violation['violation_date'] ?></td>
-                        </tr>
+                            <tr class="*:p-2 *:border-b *:border-zinc-200 *:whitespace-nowrap">
+                                <td><?= $count ?></td>
+                                <td><?= $violation['violation_name'] ?></td>
+                                <td><?= $violation['notes'] ?></td>
+                                <td><?= $violation['reporter_name'] ?></td>
+                                <td><?= $violation['validator_name'] ?></td>
+                                <td><?= $violation['violation_date'] ?></td>
+                            </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>

@@ -35,7 +35,11 @@
                 </div>
                 <div class="w-full">
                     <label class="font-semibold" for="class">Kelas</label>
+                    <?php if (!empty($studentClass)): ?>
                     <input required class="w-full p-2 rounded-md border border-zinc-300 bg-zinc-50 focus:outline-none" type="text" list="Classes" name="class" id="class" value="<?= $studentClass['grade'] . ' ' . $studentClass['major_name'] . ' ' . $studentClass['rombel'] ?>">
+                    <?php else: ?>
+                    <input required class="w-full p-2 rounded-md border border-zinc-300 bg-zinc-50 focus:outline-none" type="text" list="Classes" name="class" id="class" value="">
+                    <?php endif; ?>
                     <datalist id="Classes">
                         <?php foreach ($studentClasses as $studentClassOption): ?>
                             <option value="<?= $studentClassOption['grade'] . ' ' . $studentClassOption['major_name'] . ' ' . $studentClassOption['rombel'] ?>"></option>

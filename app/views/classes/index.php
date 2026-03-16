@@ -1,6 +1,6 @@
 <div class="flex flex-col md:flex-row justify-between gap-4 items-start lg:items-center mb-6 bg-white p-4 rounded-md shadow-md">
     <div class="flex flex-col gap-1">
-        <h1 class="text-2xl font-semibold tracking-wide"><?= $title ?></h1>
+        <h1 class="text-2xl font-semibold tracking-wide">List Kelas</h1>
         <?php get_breadcrumb() ?>
     </div>
     <div class="flex gap-4">
@@ -10,69 +10,51 @@
             </svg>
             Export
         </button>
-        <a href="<?= BASE_URL ?>/teachers/add" class="flex gap-2 items-center px-3 py-2 bg-blue-600 hover:bg-blue-700 transition-colors duration-300 cursor-pointer text-white rounded-md font-medium">
+        <a href="<?= BASE_URL ?>/classes/add" class="flex gap-2 items-center px-3 py-2 bg-blue-600 hover:bg-blue-700 transition-colors duration-300 cursor-pointer text-white rounded-md font-medium">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M11 13H6q-.425 0-.712-.288T5 12t.288-.712T6 11h5V6q0-.425.288-.712T12 5t.713.288T13 6v5h5q.425 0 .713.288T19 12t-.288.713T18 13h-5v5q0 .425-.288.713T12 19t-.712-.288T11 18z" />
             </svg>
-            Tambah Guru
+            Tambah Kelas
         </a>
     </div>
+</div>
+
+<div class="bg-white p-0.5 w-fit rounded-full shadow-md mb-4">
+    <ul class="flex *:bg-white *:hover:bg-zinc-100 *:rounded-full *:px-4 *:py-2 *:cursor-pointer">
+        <li title="Manajemen data kelas" class="bg-zinc-300!"><a href="<?= BASE_URL ?>/classes">Kelas</a></li>
+        <li title="Manajemen data jurusan"><a href="<?= BASE_URL ?>/majors">Jurusan</a></li>
+    </ul>
 </div>
 
 <div class="bg-white rounded-lg w-full h-fit shadow-md overflow-x-auto mb-6">
     <table class="w-full">
         <thead class="**:text-left **:py-2 **:px-5 *:whitespace-nowrap *:font-bold bg-blue-600 text-white">
-            <th>Kode</th>
-            <th>Nama</th>
-            <th>Nomor HP.</th>
-            <th>Posisi</th>
-            <td>Status</td>
+            <th class="rounded-tl-md">No.</th>
+            <th>Kelas</th>
+            <td>Wali Kelas</td>
+            <th>Guru BK</th>
             <th class="rounded-tr-md">Option</th>
         </thead>
 
         <tbody class="*:border-b *:border-b-zinc-300 text-zinc-500">
-            <?php if (!empty($data['teachers'])): ?>
-                <?php foreach ($data["teachers"] as $teacher): ?>
+            <?php if (!empty($data["student_classes"])): ?>
+                <?php
+                $count = 0;
+                foreach ($data["student_classes"] as $student_class):
+                    $count++;
+                ?>
                     <tr class="*:py-2 *:px-5 **:whitespace-nowrap">
                         <td>
-                            <div class="py-1 px-2 bg-zinc-100 rounded-full w-fit">
-                                <span class="text-base text-zinc-400">#</span>
-                                <span class="text-sm"><?= $teacher["code"] ?></span>
+                            <div>
+                                <span class="text-lg text-zinc-400">#</span>
+                                <span class="text-base"><?= $count ?></span>
                             </div>
                         </td>
-                        <td class="flex gap-2 items-center">
-                            <p><?= $teacher["fullname"] ?></p>
-                            <svg
-                                <?php if ($teacher["role"] === "Guru"): ?>
-                                class="text-green-600"
-                                <?php elseif ($teacher["role"] === "Admin"): ?>
-                                class="text-blue-600"
-                                <?php elseif ($teacher["role"] === "Bimbingan Konseling"): ?>
-                                class="text-violet-600"
-                                <?php elseif ($teacher["role"] === "Manajemen"): ?>
-                                class="text-orange-600"
-                                <?php endif; ?>
-                                xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-                                <path fill="currentColor" d="M7 7.5C7 4.424 9.424 2 12.5 2S18 4.424 18 7.5S15.576 13 12.5 13a5.8 5.8 0 0 1-1.5-.18V13a1 1 0 0 1-1 1H9v1a1 1 0 0 1-1 1H7v.5A1.5 1.5 0 0 1 5.5 18h-2A1.5 1.5 0 0 1 2 16.5v-1.586c0-.398.158-.78.44-1.06l4.54-4.541c.134-.134.2-.368.142-.638A5.6 5.6 0 0 1 7 7.5M15 6a1 1 0 1 0-2 0a1 1 0 0 0 2 0" />
-                            </svg>
-                        </td>
-                        <td><?= $teacher["phone_number"] ?></td>
-                        <td><?= $teacher["position"] ?></td>
-                        <td>
-                            <?php if ($teacher["is_active"] === 1): ?>
-                            <div class="flex gap-2 items-center bg-green-100 py-1 px-4 rounded-full w-fit">
-                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
-                                <span class="text-green-500 font-medium">Aktif</span>
-                            </div>
-                            <?php else: ?>
-                            <div class="flex gap-2 items-center bg-red-100 py-1 px-4 rounded-full w-fit">
-                                <div class="w-2 h-2 bg-red-500 rounded-full"></div>
-                                <span class="text-red-500 font-medium">Tidak Aktif</span>
-                            </div>
-                            <?php endif; ?>
-                        </td>
+                        <td class="text-zinc-800"><?= $student_class["grade"] . " " . $student_class["major_name"] . " " . $student_class["rombel"] ?></td>
+                        <td><?= $student_class["form_tutor_name"] ?? "-" ?></td>
+                        <td><?= $student_class["bk_teacher_name"] ?? "-" ?></td>
                         <td class="text-zinc-500">
-                            <button class="data-option-btn p-2 border border-zinc-400 w-fit rounded-md inset-shadow-zinc-400 transition-all duration-500 cursor-pointer" data-id="<?= $teacher['code'] ?>" data-name="<?= $teacher['fullname'] ?>">
+                            <button class="data-option-btn p-2 border border-zinc-400 w-fit rounded-md inset-shadow-zinc-400 transition-all duration-500 cursor-pointer" data-id="<?= $student_class['id'] ?>" data-name="<?= $student_class["grade"] . " " . $student_class["major_name"] . " " . $student_class["rombel"] ?>">
                                 <svg class="group-hover:text-zinc-800 transition-all duration-500" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                                     <path fill="currentColor" d="M19.9 12.66a1 1 0 0 1 0-1.32l1.28-1.44a1 1 0 0 0 .12-1.17l-2-3.46a1 1 0 0 0-1.07-.48l-1.88.38a1 1 0 0 1-1.15-.66l-.61-1.83a1 1 0 0 0-.95-.68h-4a1 1 0 0 0-1 .68l-.56 1.83a1 1 0 0 1-1.15.66L5 4.79a1 1 0 0 0-1 .48L2 8.73a1 1 0 0 0 .1 1.17l1.27 1.44a1 1 0 0 1 0 1.32L2.1 14.1a1 1 0 0 0-.1 1.17l2 3.46a1 1 0 0 0 1.07.48l1.88-.38a1 1 0 0 1 1.15.66l.61 1.83a1 1 0 0 0 1 .68h4a1 1 0 0 0 .95-.68l.61-1.83a1 1 0 0 1 1.15-.66l1.88.38a1 1 0 0 0 1.07-.48l2-3.46a1 1 0 0 0-.12-1.17ZM18.41 14l.8.9l-1.28 2.22l-1.18-.24a3 3 0 0 0-3.45 2L12.92 20h-2.56L10 18.86a3 3 0 0 0-3.45-2l-1.18.24l-1.3-2.21l.8-.9a3 3 0 0 0 0-4l-.8-.9l1.28-2.2l1.18.24a3 3 0 0 0 3.45-2L10.36 4h2.56l.38 1.14a3 3 0 0 0 3.45 2l1.18-.24l1.28 2.22l-.8.9a3 3 0 0 0 0 3.98m-6.77-6a4 4 0 1 0 4 4a4 4 0 0 0-4-4m0 6a2 2 0 1 1 2-2a2 2 0 0 1-2 2" />
                                 </svg>
@@ -82,7 +64,7 @@
                 <?php endforeach; ?>
             <?php else: ?>
                 <tr class="*:p-5 **:whitespace-nowrap">
-                    <td colspan="7" class="text-xl font-semibold text-zinc-400 text-center">Belum terdapat data guru!</td>
+                    <td colspan="7" class="text-xl font-semibold text-zinc-400 text-center">Belum ada data kelas!</td>
                 </tr>
             <?php endif; ?>
         </tbody>
