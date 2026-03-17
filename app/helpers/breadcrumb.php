@@ -15,14 +15,14 @@ function get_breadcrumb($divider = '/')
 
     $html = '
             <nav aria-label="Breadcrumb">
-                <ol class="flex items-center gap-1 text-sm text-gray-700">
+                <ol class="flex items-center gap-1 text-sm text-zinc-400">
     ';
 
     foreach ($uri as $item) {
         $current_full_url .= ('/' . $item);
         $html .= '
                     <li>
-                        <a href="' . $current_full_url . '" class="block transition-colors hover:text-gray-900"> ' . ucwords($item) . ' </a>
+                        <a href="' . $current_full_url . '" class="block transition-colors duration-300 hover:text-zinc-900"> ' . ucwords($item) . ' </a>
                     </li>
         ';
 

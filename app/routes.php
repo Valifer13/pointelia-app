@@ -48,4 +48,11 @@ $routes = [
     "classes/detail" => ["controller" => "StudentClassController", "method" => "detail"],
     "classes/delete" => ["controller" => "StudentClassController", "method" => "delete"],
     "classes/edit"   => ["controller" => "StudentClassController", "method" => "edit"],
+
+    // Major routes
+    "majors"        => ["controller" => "MajorController", "method" => "index"],
+    "majors/add"    => ["controller" => "MajorController", "method" => "add"],
+    "majors/detail" => ["controller" => "MajorController", "method" => "detail"],
+    "majors/delete" => ["controller" => "MajorController", "method" => "delete"],
+    "majors/edit"   => ["controller" => "MajorController", "method" => "edit"],
 ];

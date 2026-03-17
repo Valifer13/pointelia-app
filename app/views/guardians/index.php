@@ -1,6 +1,6 @@
 <div class="flex flex-col md:flex-row justify-between gap-4 items-start lg:items-center mb-6 bg-white p-4 rounded-md shadow-md">
     <div class="flex flex-col gap-1">
-        <h1 class="text-2xl font-semibold tracking-wide">List Data Orang Tua/Wali</h1>
+        <h1 class="text-2xl font-semibold tracking-wide text-zinc-600">List Data Orang Tua/Wali</h1>
         <?php get_breadcrumb() ?>
     </div>
     <div class="flex gap-4">
@@ -19,47 +19,43 @@
     </div>
 </div>
 
-<div class="bg-white rounded-lg w-full h-fit shadow-md overflow-x-auto mb-6">
-    <table class="w-full">
-        <thead class="**:text-left **:py-2 **:px-5 *:whitespace-nowrap *:font-bold bg-blue-600 text-white">
-            <th class="rounded-tl-md">No</th>
-            <th>Nama</th>
-            <th>Pekerjaan</th>
-            <td>Nomor HP</td>
-            <th class="rounded-tr-md">Option</th>
+<div class="bg-white w-full overflow-x-auto p-4 rounded-md shadow-md mb-6">
+    <table class="w-full text-left border-collapse">
+        <thead>
+            <tr class="text-[11px] text-zinc-400 uppercase tracking-widest whitespace-nowrap border-b border-zinc-200">
+                <th class="pb-4 px-4 font-semibold pl-2 w-16">No</th>
+                <th class="pb-4 px-4 font-semibold w-2/5">Nama Lengkap</th>
+                <th class="pb-4 px-4 font-semibold w-1/5">Pekerjaan</th>
+                <th class="pb-4 px-4 font-semibold w-1/5">Nomor HP</th>
+                <th class="pb-4 px-4 font-semibold text-right pr-2">Aksi</th>
+            </tr>
         </thead>
+        <tbody class="text-sm">
 
-        <tbody class="*:border-b *:border-b-zinc-300 text-zinc-500">
-            <?php if (!empty($data["guardians"])): ?>
-                <?php
-                $count = 0;
-                foreach ($data["guardians"] as $guardian):
-                    $count++;
-                ?>
-                    <tr class="*:py-2 *:px-5 **:whitespace-nowrap">
-                        <td>
-                            <div class="bg-zinc-100 rounded-full py-1 px-2 w-fit">
-                                <span class="text-base text-zinc-400">#</span>
-                                <span class="text-sm"><?= $count ?></span>
-                            </div>
-                        </td>
-                        <td class="text-zinc-800"><?= $guardian["name"] ?></td>
-                        <td><?= $guardian["job"] ?></td>
-                        <td><?= $guardian["phone_number"] ?></td>
-                        <td class="text-zinc-500">
-                            <button class="data-option-btn p-2 border border-zinc-400 w-fit rounded-md inset-shadow-zinc-400 transition-all duration-500 cursor-pointer" data-id="<?= $guardian['id'] ?>" data-name="<?= $guardian['name'] ?>">
-                                <svg class="group-hover:text-zinc-800 transition-all duration-500" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                                    <path fill="currentColor" d="M19.9 12.66a1 1 0 0 1 0-1.32l1.28-1.44a1 1 0 0 0 .12-1.17l-2-3.46a1 1 0 0 0-1.07-.48l-1.88.38a1 1 0 0 1-1.15-.66l-.61-1.83a1 1 0 0 0-.95-.68h-4a1 1 0 0 0-1 .68l-.56 1.83a1 1 0 0 1-1.15.66L5 4.79a1 1 0 0 0-1 .48L2 8.73a1 1 0 0 0 .1 1.17l1.27 1.44a1 1 0 0 1 0 1.32L2.1 14.1a1 1 0 0 0-.1 1.17l2 3.46a1 1 0 0 0 1.07.48l1.88-.38a1 1 0 0 1 1.15.66l.61 1.83a1 1 0 0 0 1 .68h4a1 1 0 0 0 .95-.68l.61-1.83a1 1 0 0 1 1.15-.66l1.88.38a1 1 0 0 0 1.07-.48l2-3.46a1 1 0 0 0-.12-1.17ZM18.41 14l.8.9l-1.28 2.22l-1.18-.24a3 3 0 0 0-3.45 2L12.92 20h-2.56L10 18.86a3 3 0 0 0-3.45-2l-1.18.24l-1.3-2.21l.8-.9a3 3 0 0 0 0-4l-.8-.9l1.28-2.2l1.18.24a3 3 0 0 0 3.45-2L10.36 4h2.56l.38 1.14a3 3 0 0 0 3.45 2l1.18-.24l1.28 2.22l-.8.9a3 3 0 0 0 0 3.98m-6.77-6a4 4 0 1 0 4 4a4 4 0 0 0-4-4m0 6a2 2 0 1 1 2-2a2 2 0 0 1-2 2" />
-                                </svg>
-                            </button>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <tr class="*:p-5 **:whitespace-nowrap">
-                    <td colspan="7" class="text-xl font-semibold text-zinc-400 text-center">Belum terdapat data orang tua / wali!</td>
+            <?php
+            $count = 1;
+            foreach ($data['guardians'] as $guardian):
+            ?>
+                <tr class="border-b border-zinc-100 hover:bg-zinc-50/80 whitespace-nowrap transition-colors group">
+                    <td class="p-4 pl-2 text-zinc-400"><?= str_pad($count++, 2, '0', STR_PAD_LEFT) ?></td>
+                    <td class="p-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-zinc-100 flex items-center justify-center text-xs font-medium text-zinc-500"><?= $guardian['name'][0] ?></div>
+                            <span class="text-zinc-900 font-medium"><?= $guardian['name'] ?></span>
+                        </div>
+                    </td>
+                    <td class="p-4 text-zinc-600"><?= $guardian['job'] ?></td>
+                    <td class="p-4 text-zinc-600"><?= $guardian['phone_number'] ?></td>
+                    <td class="p-4 text-right pr-2">
+                        <button class="data-option-btn p-1 border border-zinc-200 w-fit rounded-md inset-shadow-zinc-400 transition-all duration-500 cursor-pointer" data-id="<?= $guardian['id'] ?>" data-name="<?= $guardian['name'] ?>">
+                            <svg class="text-zinc-400 group-hover:text-zinc-800 transition-all duration-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M7 12a2 2 0 1 1-4 0a2 2 0 0 1 4 0m7 0a2 2 0 1 1-4 0a2 2 0 0 1 4 0m7 0a2 2 0 1 1-4 0a2 2 0 0 1 4 0" />
+                            </svg>
+                        </button>
+                    </td>
                 </tr>
-            <?php endif; ?>
+            <?php endforeach; ?>
+
         </tbody>
     </table>
 </div>
