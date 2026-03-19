@@ -19,11 +19,9 @@
     </div>
 </div>
 
-<div class="bg-white p-0.5 w-fit rounded-full shadow-md mb-4">
-    <ul class="flex *:bg-white *:hover:bg-zinc-100 *:rounded-full *:px-4 *:py-2 *:cursor-pointer">
-        <li title="Manajemen data kelas" class="bg-zinc-300!"><a href="<?= BASE_URL ?>/classes">Kelas</a></li>
-        <li title="Manajemen data jurusan"><a href="<?= BASE_URL ?>/majors">Jurusan</a></li>
-    </ul>
+<div class="flex bg-white p-0.5 w-fit h-fit rounded-full shadow-md mb-4">
+    <a title="Manajemen data kelas" href="<?= BASE_URL ?>/classes" class="bg-zinc-300 rounded-full px-4 py-2 cursor-pointer">Kelas</a>
+    <a title="Manajemen data jurusan" href="<?= BASE_URL ?>/majors" class="bg-white hover:bg-zinc-100 rounded-full px-4 py-2 cursor-pointer">Jurusan</a>
 </div>
 
 <div class="bg-white w-full overflow-x-auto p-4 rounded-md shadow-md mb-6">

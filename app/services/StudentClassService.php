@@ -34,8 +34,11 @@ class StudentClassService
             throw new Exception("Data kelas tidak ditemukan");
         }
 
+        $students_in_this_class = $this->studentClassModel->getAllStudentInClass($id);
+
         return [
-            'student_class' => $student_class
+            'student_class' => $student_class,
+            'students_in_this_class' => $students_in_this_class
         ];
     }
 

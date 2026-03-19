@@ -9,6 +9,14 @@ class Major extends Model
         return $this->db->result();
     }
 
+    public function getMajorById(int $id)
+    {
+        $this->db->query("SELECT * FROM majors WHERE id = :id");
+        $this->db->bind(":id", $id);
+        $this->db->execute();
+        return $this->db->single();
+    }
+
     public function getMajorByName(string $name)
     {
         $this->db->query("SELECT * FROM majors WHERE name = :name");

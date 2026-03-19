@@ -107,6 +107,14 @@ class StudentClass extends Model
         return $this->db->single();
     }
 
+    public function getAllStudentInClass(int $class_id)
+    {
+        $this->db->query("SELECT * FROM students WHERE class_id = :class_id");
+        $this->db->bind(":class_id", $class_id);
+        $this->db->execute();
+        return $this->db->result();
+    }
+
     public function create(
         $major_id,
         $grade_level_id,

@@ -19,61 +19,10 @@
     </div>
 </div>
 
-<div class="bg-white p-0.5 w-fit rounded-full shadow-md mb-4">
-    <ul class="flex *:bg-white *:hover:bg-zinc-100 *:rounded-full *:px-4 *:py-2 *:cursor-pointer">
-        <li title="Riwayat pelanggaran yang sudah terjadi" class="bg-zinc-300!"><a href="<?= BASE_URL ?>/violations">Riwayat</a></li>
-        <li title="Manajemen jenis pelanggaran"><a href="<?= BASE_URL ?>/violation-types">Jenis</a></li>
-    </ul>
+<div class="flex bg-white p-0.5 w-fit h-fit rounded-full shadow-md mb-4">
+    <a title="Riwayat pelanggaran yang terjadi" href="<?= BASE_URL ?>/violations" class="bg-zinc-300 rounded-full px-4 py-2 cursor-pointer">Riwayat</a>
+    <a title="Manajemen tipe-tipe pelanggaran" href="<?= BASE_URL ?>/violation-types" class="bg-white hover:bg-zinc-100 rounded-full px-4 py-2 cursor-pointer">Jenis</a>
 </div>
-
-<!-- <div class="bg-white rounded-lg w-full h-fit shadow-md overflow-x-auto mb-6">
-    <table class="w-full">
-        <thead class="**:text-left **:py-2 **:px-5 *:whitespace-nowrap *:font-bold bg-blue-600 text-white">
-            <th class="rounded-tl-md">No.</th>
-            <th>Siswa</th>
-            <td>Jenis Pelanggaran</td>
-            <th>Pelapor</th>
-            <th>Divalidasi Oleh</th>
-            <th>Tanggal</th>
-            <th class="rounded-tr-md">Option</th>
-        </thead>
-
-        <tbody class="*:border-b *:border-b-zinc-300 text-zinc-500">
-            <?php if (!empty($data['studentViolations'])): ?>
-                <?php
-                $count = 0;
-                foreach ($data['studentViolations'] as $violation):
-                    $count++;
-                ?>
-                    <tr class="*:py-2 *:px-5 **:whitespace-nowrap">
-                        <td>
-                            <div>
-                                <span class="text-lg text-zinc-400">#</span>
-                                <span class="text-base"><?= $count ?></span>
-                            </div>
-                        </td>
-                        <td class="text-zinc-800"><?= $violation['student_name'] ?></td>
-                        <td><?= $violation["violation_type_name"] ?></td>
-                        <td><?= $violation["reporter_name"] ?></td>
-                        <td><?= $violation["validator_name"] ?? "-" ?></td>
-                        <td><?= $violation["violation_date"] ?></td>
-                        <td class="text-zinc-500">
-                            <button class="data-option-btn p-2 border border-zinc-400 w-fit rounded-md inset-shadow-zinc-400 transition-all duration-500 cursor-pointer" data-id="<?= $violation['violation_id'] ?>">
-                                <svg class="group-hover:text-zinc-800 transition-all duration-500" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                                    <path fill="currentColor" d="M19.9 12.66a1 1 0 0 1 0-1.32l1.28-1.44a1 1 0 0 0 .12-1.17l-2-3.46a1 1 0 0 0-1.07-.48l-1.88.38a1 1 0 0 1-1.15-.66l-.61-1.83a1 1 0 0 0-.95-.68h-4a1 1 0 0 0-1 .68l-.56 1.83a1 1 0 0 1-1.15.66L5 4.79a1 1 0 0 0-1 .48L2 8.73a1 1 0 0 0 .1 1.17l1.27 1.44a1 1 0 0 1 0 1.32L2.1 14.1a1 1 0 0 0-.1 1.17l2 3.46a1 1 0 0 0 1.07.48l1.88-.38a1 1 0 0 1 1.15.66l.61 1.83a1 1 0 0 0 1 .68h4a1 1 0 0 0 .95-.68l.61-1.83a1 1 0 0 1 1.15-.66l1.88.38a1 1 0 0 0 1.07-.48l2-3.46a1 1 0 0 0-.12-1.17ZM18.41 14l.8.9l-1.28 2.22l-1.18-.24a3 3 0 0 0-3.45 2L12.92 20h-2.56L10 18.86a3 3 0 0 0-3.45-2l-1.18.24l-1.3-2.21l.8-.9a3 3 0 0 0 0-4l-.8-.9l1.28-2.2l1.18.24a3 3 0 0 0 3.45-2L10.36 4h2.56l.38 1.14a3 3 0 0 0 3.45 2l1.18-.24l1.28 2.22l-.8.9a3 3 0 0 0 0 3.98m-6.77-6a4 4 0 1 0 4 4a4 4 0 0 0-4-4m0 6a2 2 0 1 1 2-2a2 2 0 0 1-2 2" />
-                                </svg>
-                            </button>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <tr class="*:p-5 **:whitespace-nowrap">
-                    <td colspan="7" class="text-xl font-semibold text-zinc-400 text-center">Belum terdapat pelanggaran yang dilapor!</td>
-                </tr>
-            <?php endif; ?>
-        </tbody>
-    </table>
-</div> -->
 
 <div class="bg-white w-full overflow-x-auto p-4 rounded-md shadow-md mb-6">
     <table class="w-full text-left border-collapse">

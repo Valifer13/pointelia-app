@@ -178,7 +178,7 @@ navMobileBtn.addEventListener('click', () => {
 
 const currentUrl = window.location.pathname;
 
-if (currentUrl === '/students') {
+if (currentUrl === '/students' || currentPath.startsWith("/classes/detail")) {
     const studentMenu = new FloatingMenu({
         buttonSelector: '.data-option-btn',
         menuSelector: '#floating-menu',
