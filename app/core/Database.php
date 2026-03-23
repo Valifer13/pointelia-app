@@ -48,18 +48,23 @@ class Database
 
     public function execute()
     {
-        return $this->stmt->execute();
+        try {
+            if(!$this->stmt->execute()) {
+                throw new Error("Failed");
+            }
+        } catch (PDOException $e) {
+            throw new RuntimeException("Query failed" . $e->getMessage());
+        }
     }
 
     public function result()
     {
-        $this->execute();
         return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function single()
     {
-        return $this->stmt->fetch();
+        return $this->stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function bind($param, $value)

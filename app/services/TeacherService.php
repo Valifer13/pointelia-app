@@ -12,9 +12,9 @@ class TeacherService {
         $this->roleModel    = new Role($db);
     }
 
-    public function getAllTeachers(): array
+    public function getAllTeachers($page): array
     {
-        $teachers = $this->teacherModel->getAllTeachersWithRole();
+        $teachers = $this->teacherModel->getAllTeachersWithRole($page);
 
         return [
             'teachers' => $teachers

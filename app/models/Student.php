@@ -9,7 +9,8 @@ class Student extends Model
      * @param string $condition Validate data with selected field
      * @param array $conditionValue Using for validate data IN query
      */
-    public function get(array $fields, array $conditionValue = [], string $condition = "nis") {
+    public function get(array $fields, array $conditionValue = [], string $condition = "nis")
+    {
         if (empty($fields)) {
             $query = "SELECT * FROM students";
         } else {
@@ -29,11 +30,39 @@ class Student extends Model
         return $this->db->result();
     }
 
-    public function getAllStudents()
+    public function getAllStudents(int $page = 1, int $perPage = 10)
     {
-        $this->db->query("SELECT * FROM students");
+        // Pastikan page minimal 1
+        (int) $page = max($page, 1);
+
+        (int) $offset = ($page - 1) * $perPage;
+
+        // Ambil data
+        $this->db->query("SELECT * FROM students LIMIT $perPage OFFSET $offset");
         $this->db->execute();
-        return $this->db->result();
+        $data = $this->db->result();
+
+        // Hitung total data
+        $this->db->query("SELECT COUNT(*) as total FROM students");
+        $this->db->execute();
+        $total = $this->db->single()['total'];
+
+        // Hitung last page
+        $lastPage = ceil($total / $perPage);
+
+        return [
+            'data' => $data,
+            'pagination' => [
+                'total' => (int)$total,
+                'per_page' => $perPage,
+                'current_page' => $page,
+                'last_page' => (int)$lastPage,
+                'from' => $offset + 1,
+                'to' => $offset + count($data),
+                'has_next' => $page < $lastPage,
+                'has_prev' => $page > 1,
+            ]
+        ];
     }
 
     public function getStudentByNis(string $nis)
@@ -83,7 +112,7 @@ class Student extends Model
         $this->db->bind(":class", $class);
         $this->db->bind(":address", $address);
 
-        if(!$this->db->execute()) {
+        if (!$this->db->execute()) {
             throw new Exception("Unkown error occurred");
         }
     }

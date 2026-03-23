@@ -11,9 +11,9 @@ class GuardianService
         $this->guardianModel = new Guardian($db);
     }
 
-    public function getAllGuardians(): array
+    public function getAllGuardians(int $page): array
     {
-        $guardians = $this->guardianModel->getAllGuardians();
+        $guardians = $this->guardianModel->getAllGuardians($page);
 
         return [
             'guardians' => $guardians,

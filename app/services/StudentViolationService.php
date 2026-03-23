@@ -15,12 +15,12 @@ class StudentViolationService
         $this->violationTypeModel    = new ViolationType($db);
     }
 
-    public function getViolations(): array
+    public function getViolations(int $page): array
     {
-        $studentViolations = $this->studentViolationModel->getAllViolationsWithStudentsAndTeachers();
+        $student_violations = $this->studentViolationModel->getAllViolationsWithStudentsAndTeachers($page);
 
         return [
-            'studentViolations' => $studentViolations,
+            'student_violations' => $student_violations,
         ];
     }
 

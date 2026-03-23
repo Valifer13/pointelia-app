@@ -12,7 +12,14 @@ class MajorController extends Controller
 
     public function index()
     {
-        $data = $this->majorService->getAllMajors();
+        $data = $this->majorService->getAllMajors(1);
+
+        $this->view("majors/index", $data, "List Jurusan");
+    }
+
+    public function index_with_paginaton($page)
+    {
+        $data = $this->majorService->getAllMajors($page);
 
         $this->view("majors/index", $data, "List Jurusan");
     }

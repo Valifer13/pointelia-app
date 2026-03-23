@@ -39,8 +39,13 @@ class StudentViolation extends Model
         return $this->db->result();
     }
 
-    public function getAllViolationsWithStudentsAndTeachers()
+    public function getAllViolationsWithStudentsAndTeachers(int $page = 1, int $perPage = 10)
     {
+        // Pastikan page minimal 1
+        (int) $page = max($page, 1);
+
+        (int) $offset = ($page - 1) * $perPage;
+
         $this->db->query("SELECT
                 students.nis as student_nis,
                 students.name as student_name,
@@ -61,9 +66,30 @@ class StudentViolation extends Model
                 JOIN users as reporter ON  student_violations.reported_by = reporter.code
                 JOIN users as validator ON  student_violations.validated_by = validator.code;
         ");
-
         $this->db->execute();
-        return $this->db->result();
+        $data = $this->db->result();
+
+        // Hitung total data
+        $this->db->query("SELECT COUNT(*) as total FROM student_violations");
+        $this->db->execute();
+        $total = $this->db->single()['total'];
+
+        // Hitung last page
+        $lastPage = ceil($total / $perPage);
+
+        return [
+            'data' => $data,
+            'pagination' => [
+                'total' => (int)$total,
+                'per_page' => $perPage,
+                'current_page' => $page,
+                'last_page' => (int)$lastPage,
+                'from' => $offset + 1,
+                'to' => $offset + count($data),
+                'has_next' => $page < $lastPage,
+                'has_prev' => $page > 1,
+            ]
+        ];
     }
 
     public function create(

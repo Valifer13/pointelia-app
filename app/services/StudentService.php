@@ -19,12 +19,12 @@ class StudentService
         $this->guardianModel         = new Guardian($db);
     }
 
-    public function getAllStudentsWithClasses(): array
+    public function getAllStudentsWithClasses(int $page): array
     {
-        $students = $this->studentModel->getAllStudents();
+        $students = $this->studentModel->getAllStudents($page);
         $classes  = [];
 
-        foreach ($students as $student) {
+        foreach ($students['data'] as $student) {
             $classObj  = $this->studentClassModel->getStudentClassById($student['class_id']);
 
             if (!empty($classObj)) {
@@ -54,7 +54,7 @@ class StudentService
 
         [$dataAyah, $dataIbu, $dataWali] = $this->categorizeGuardians($studentGuardians);
 
-        $guardians         = $this->guardianModel->getAllGuardians([
+        $guardians         = $this->guardianModel->getAllGuardiansWithException([
             $dataAyah['guardian_id'] ?? null,
             $dataIbu['guardian_id']  ?? null,
             $dataWali['guardian_id'] ?? null

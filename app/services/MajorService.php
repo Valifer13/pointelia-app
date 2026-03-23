@@ -11,9 +11,9 @@ class MajorService
         $this->db = $db;
     }
 
-    public function getAllMajors(): array
+    public function getAllMajors(int $page): array
     {
-        $majors = $this->majorModel->getAllMajors();
+        $majors = $this->majorModel->getAllMajors($page);
 
         return [
             'majors' => $majors,

@@ -2,33 +2,6 @@
 
 class Teacher extends Model
 {
-    /**
-     * Funtion to get data with selector if needed
-     * 
-     * @param array $fields Select the fields you want to retrieve from the database
-     * @param string $condition Validate data with selected field
-     * @param array $conditionValue Using for validate data IN query
-     */
-    public function get(array $fields, array $conditionValue = [], string $condition = "code") {
-        if (empty($fields)) {
-            $query = "SELECT * FROM users";
-        } else {
-            $query = "SELECT " . implode(', ', $fields) . " FROM users";
-        }
-
-        if (!empty($conditionValue)) {
-            if (count($conditionValue) > 1) {
-                $query .= " WHERE " . $condition . " IN ('" . implode("','", $conditionValue) . "')";
-            } else {
-                $query .= " WHERE " . $condition . " = " . $conditionValue[0];
-            }
-        }
-
-        $this->db->query($query);
-        $this->db->execute();
-        return $this->db->result();
-    }
-
     public function getAllTeachers()
     {
         $this->db->query("SELECT * FROM users");
@@ -36,16 +9,42 @@ class Teacher extends Model
         return $this->db->result();
     }
 
-    public function getAllTeachersWithRole()
+    public function getAllTeachersWithRole(int $page = 1, int $perPage = 10)
     {
+        $page = max($page, 1);
+        $offset = ($page - 1) * $perPage;
+
         $this->db->query("SELECT
             users.*,
             roles.name AS role
             FROM users
-            JOIN roles ON users.role_id = roles.id;
+            JOIN roles ON users.role_id = roles.id
+            LIMIT $perPage OFFSET $offset
         ");
         $this->db->execute();
-        return $this->db->result();
+        $data = $this->db->result();
+
+        // Hitung total data
+        $this->db->query("SELECT COUNT(*) as total FROM users");
+        $this->db->execute();
+        $total = $this->db->single()['total'];
+
+        // Hitung last page
+        $lastPage = ceil($total / $perPage);
+
+        return [
+            'data' => $data,
+            'pagination' => [
+                'total' => (int)$total,
+                'per_page' => $perPage,
+                'current_page' => $page,
+                'last_page' => (int)$lastPage,
+                'from' => $offset + 1,
+                'to' => $offset + count($data),
+                'has_next' => $page < $lastPage,
+                'has_prev' => $page > 1,
+            ]
+        ];
     }
 
     public function getTeacherByCode(string $code)
@@ -68,6 +67,12 @@ class Teacher extends Model
         $this->db->bind(":role_name", $role_name);
         $this->db->execute();
         return $this->db->result();
+    }
+
+    public function resetPassword(string $code, string $new_password) {
+        $this->db->query("UPDATE users SET password=:new_password WHERE code=:code");
+        $this->db->bind(":new_password", $new_password);
+        $this->db->execute();
     }
 
     public function create(

@@ -12,7 +12,14 @@ class GuardianController extends Controller
 
     public function index()
     {
-        $data = $this->guadrianService->getAllGuardians();
+        $data = $this->guadrianService->getAllGuardians(1);
+
+        $this->view("guardians/index", $data, "List Data Orang Tua");
+    }
+
+    public function index_with_pagination($page)
+    {
+        $data = $this->guadrianService->getAllGuardians($page);
 
         $this->view("guardians/index", $data, "List Data Orang Tua");
     }

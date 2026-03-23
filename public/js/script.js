@@ -178,7 +178,7 @@ navMobileBtn.addEventListener('click', () => {
 
 const currentUrl = window.location.pathname;
 
-if (currentUrl === '/students' || currentPath.startsWith("/classes/detail")) {
+if (currentUrl === '/students' || currentUrl.startsWith('/students/page') || currentPath.startsWith("/classes/detail")) {
     const studentMenu = new FloatingMenu({
         buttonSelector: '.data-option-btn',
         menuSelector: '#floating-menu',
@@ -194,7 +194,7 @@ if (currentUrl === '/students' || currentPath.startsWith("/classes/detail")) {
             delete: (id) => `/students/delete/${id}`,
         }
     });
-} else if (currentUrl === '/teachers') {
+} else if (currentUrl === '/teachers' || currentUrl.startsWith('/teachers/page')) {
     const teacherMenu = new FloatingMenu({
         buttonSelector: '.data-option-btn',
         menuSelector: '#floating-menu',
@@ -210,7 +210,7 @@ if (currentUrl === '/students' || currentPath.startsWith("/classes/detail")) {
             delete: (id) => `/teachers/delete/${id}`,
         }
     })
-} else if (currentUrl === '/violations') {
+} else if (currentUrl === '/violations' || currentUrl.startsWith('/violations/page')) {
     const violationMenu = new FloatingMenu({
         buttonSelector: '.data-option-btn',
         menuSelector: '#floating-menu',
@@ -242,7 +242,7 @@ if (currentUrl === '/students' || currentPath.startsWith("/classes/detail")) {
             delete: (id) => `/violation-types/delete/${id}`,
         }
     })
-} else if (currentUrl === '/guardians') {
+} else if (currentUrl === '/guardians' || currentUrl.startsWith('/guardians/page')) {
     const guardiansMenu = new FloatingMenu({
         buttonSelector: '.data-option-btn',
         menuSelector: '#floating-menu',
@@ -258,7 +258,7 @@ if (currentUrl === '/students' || currentPath.startsWith("/classes/detail")) {
             delete: (id) => `/guardians/delete/${id}`,
         }
     })
-} else if (currentUrl === '/classes') {
+} else if (currentUrl === '/classes' || currentUrl.startsWith('/classes/page')) {
     const classesMenu = new FloatingMenu({
         buttonSelector: '.data-option-btn',
         menuSelector: '#floating-menu',
@@ -272,6 +272,22 @@ if (currentUrl === '/students' || currentPath.startsWith("/classes/detail")) {
             detail: (id) => `/classes/detail/${id}`,
             edit: (id) => `/classes/edit/${id}`,
             delete: (id) => `/classes/delete/${id}`,
+        }
+    })
+} else if (currentUrl === '/majors' || currentUrl.startsWith('/majors/page')) {
+    const majorsMenu = new FloatingMenu({
+        buttonSelector: '.data-option-btn',
+        menuSelector: '#floating-menu',
+
+        detailSelector: '#menu-detail',
+        editSelector: '#menu-edit',
+        deleteFormSelector: '#menu-delete-form',
+        deleteBtnSelector: '#menu-delete-btn',
+
+        routes: {
+            detail: (id) => `/majors/detail/${id}`,
+            edit: (id) => `/majors/edit/${id}`,
+            delete: (id) => `/majors/delete/${id}`,
         }
     })
 }

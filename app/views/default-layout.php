@@ -6,13 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?></title>
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/output.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.8/dist/cdn.min.js"></script>
 
     <style>
         /* * { outline: 1px red solid; } */
     </style>
 </head>
 
-<body id="body" class="font-main bg-zinc-100 h-screen overflow-hidden">
+<body id="body" class="font-main bg-zinc-100 h-screen overflow-hidden antialiased">
     <header id="header" class="sticky top-0 z-50 h-[72px] lg:h-[65px] w-full flex lg:justify-between bg-white border-b border-zinc-300">
         <div id="logo-container" class="relative w-full lg:w-fit justify-between lg:justify-normal flex gap-4 items-center p-4">
             <a href="<?= BASE_URL ?>" class="logo flex gap-1 items-center font-bold text-2xl px-3">

@@ -14,7 +14,13 @@ class StudentController extends Controller
 
     public function index()
     {
-        $data = $this->studentService->getAllStudentsWithClasses();
+        $data = $this->studentService->getAllStudentsWithClasses(1);
+        $this->view("students/index", $data, "List Siswa");
+    }
+
+    public function index_with_pagination(int $page)
+    {
+        $data = $this->studentService->getAllStudentsWithClasses($page);
         $this->view("students/index", $data, "List Siswa");
     }
 

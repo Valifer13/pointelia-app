@@ -17,9 +17,9 @@ class StudentClassService
         $this->gradeLevelModel   = new GradeLevel($db);
     }
 
-    public function getAllStudentClasses()
+    public function getAllStudentClasses(int $page)
     {
-        $student_classes = $this->studentClassModel->getAllStudentClassesWithTeachers();
+        $student_classes = $this->studentClassModel->getAllStudentClassesWithTeachers($page);
 
         return [
             'student_classes' => $student_classes,

@@ -28,7 +28,11 @@ class App
             $this->method = "pageNotFound";
         }
 
-        require_once '../app/controllers/' . $this->controller . '.php';
+        if (!str_contains($this->controller, "Api")) {
+            require_once '../app/controllers/' . $this->controller . '.php';
+        } else {
+            require_once '../app/api/' . $this->controller . '.php';
+        }
         $this->controller = new $this->controller;
 
         call_user_func_array([$this->controller, $this->method], $this->params);

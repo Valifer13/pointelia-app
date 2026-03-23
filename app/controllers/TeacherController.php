@@ -14,7 +14,14 @@ class TeacherController extends Controller
 
     public function index()
     {
-        $data = $this->teacherService->getAllTeachers();
+        $data = $this->teacherService->getAllTeachers(1);
+
+        $this->view('teachers/index', $data, "List Guru");
+    }
+
+    public function index_with_pagination(int $page)
+    {
+        $data = $this->teacherService->getAllTeachers($page);
 
         $this->view('teachers/index', $data, "List Guru");
     }

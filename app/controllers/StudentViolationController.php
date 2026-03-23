@@ -12,7 +12,14 @@ class StudentViolationController extends Controller
 
     public function index()
     {
-        $data = $this->StudentViolationService->getViolations();
+        $data = $this->StudentViolationService->getViolations(1);
+
+        $this->view("violations/index", $data, "List Pelanggaran");
+    }
+
+    public function index_with_pagination($page)
+    {
+        $data = $this->StudentViolationService->getViolations($page);
 
         $this->view("violations/index", $data, "List Pelanggaran");
     }

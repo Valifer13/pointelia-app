@@ -11,12 +11,12 @@ class ViolationTypeService
         $this->db = $db;
     }
 
-    public function getAllViolationTypes(): array
+    public function getAllViolationTypes(int $page): array
     {
-        $violationTypes = $this->violationTypeModel->getAllViolationType();
+        $violation_types = $this->violationTypeModel->getAllViolationType($page);
 
         return [
-            "violationTypes" => $violationTypes,
+            "violation_types" => $violation_types,
         ];
     }
 
