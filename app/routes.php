@@ -4,6 +4,11 @@ $routes = [
     // Landing Page
     "" => ["controller" => "HomeController", "method" => "index"],
 
+    // Auth routes
+    "login"            => [ "controller" => "AuthController", "method" => "login"], 
+    "logout"           => [ "controller" => "AuthController", "method" => "logout"], 
+    "change-password"  => [ "controller" => "AuthController", "method" => "change_password"], 
+
     // Dashboard
     "dashboard" => [ "controller" => "DashboardController", "method" => "index"], 
 

@@ -55,6 +55,20 @@ class Teacher extends Model
         return $this->db->single();
     }
 
+    public function getTeacherByUsername(string $username)
+    {
+        $this->db->query("SELECT
+            users.*,
+            roles.name AS role
+            FROM users
+            JOIN roles ON users.role_id = roles.id
+            WHERE username=:username;
+        ");
+        $this->db->bind(":username", $username);
+        $this->db->execute();
+        return $this->db->single();
+    }
+
     public function getTeacherByRole(string $role_name)
     {
         $this->db->query("SELECT

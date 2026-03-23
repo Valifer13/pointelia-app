@@ -17,14 +17,18 @@
 <body id="body" class="font-main bg-zinc-100 h-screen overflow-hidden antialiased">
     <header id="header" class="sticky top-0 z-50 h-[72px] lg:h-[65px] w-full flex lg:justify-between bg-white border-b border-zinc-300">
         <div id="logo-container" class="relative w-full lg:w-fit justify-between lg:justify-normal flex gap-4 items-center p-4">
-            <a href="<?= BASE_URL ?>" class="logo flex gap-1 items-center font-bold text-2xl px-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-                    <g fill="none">
-                        <path fill="#00a6ed" d="M8 26h19V4a2 2 0 0 0-2-2H8z" />
-                        <path fill="#d3d3d3" d="M6 27h21v2H6z" />
-                        <path fill="#0074ba" d="M6.5 2A1.5 1.5 0 0 0 5 3.5V28h1a1 1 0 0 1 1-1h1V2z" />
-                        <path fill="#0074ba" d="M6.5 26A1.5 1.5 0 0 0 5 27.5v1A1.5 1.5 0 0 0 6.5 30h19a1.5 1.5 0 0 0 1.415-1H7a1 1 0 1 1 0-2h20v-1z" />
+            <a href="<?= BASE_URL ?>" class="logo flex gap-2 items-center font-bold text-2xl px-3">
+                <svg width="20" height="24" viewBox="0 0 20 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_356_42)">
+                        <path d="M0.999523 10.1961C0.447237 10.1961 -0.00565863 10.6537 0.0494773 11.214C0.213727 12.8832 0.780063 14.4908 1.70475 15.891C2.81624 17.574 4.39495 18.8806 6.23887 19.6437C8.08277 20.4067 10.1081 20.5915 12.0556 20.1743C14.003 19.7571 15.7842 18.757 17.171 17.3019C18.5579 15.8468 19.4874 14.0029 19.8407 12.0061C20.194 10.0093 19.9549 7.95044 19.1541 6.09297C18.3533 4.2355 17.0271 2.66387 15.3453 1.5792C13.9462 0.676826 12.3539 0.145614 10.7128 0.0259641C10.1619 -0.0142003 9.72622 0.460481 9.74202 1.02337L9.85182 4.93348C9.86762 5.49635 10.3339 5.92734 10.8739 6.04556C11.3508 6.15002 11.8086 6.33972 12.2253 6.60844C12.9255 7.06002 13.4776 7.7144 13.811 8.48773C14.1445 9.2611 14.244 10.1183 14.0969 10.9497C13.9498 11.7811 13.5628 12.5488 12.9854 13.1546C12.408 13.7604 11.6664 14.1768 10.8556 14.3505C10.0447 14.5242 9.20147 14.4473 8.43377 14.1296C7.66607 13.8119 7.00877 13.2679 6.54597 12.5672C6.27062 12.1502 6.07157 11.689 5.95552 11.2059C5.82412 10.659 5.38827 10.1961 4.83601 10.1961H0.999523Z" fill="black" />
+                        <path d="M5 10.1961H1C0.447715 10.1961 0 10.6526 0 11.2157V24.9804C0 25.5435 0.447715 26 1 26H5C5.55228 26 6 25.5435 6 24.9804V11.2157C6 10.6526 5.55228 10.1961 5 10.1961Z" fill="black" />
+                        <path d="M6 3.05882C6 1.36948 4.65685 0 3 0C1.34315 0 0 1.36948 0 3.05882C0 4.74816 1.34315 6.11765 3 6.11765C4.65685 6.11765 6 4.74816 6 3.05882Z" fill="black" />
                     </g>
+                    <defs>
+                        <clipPath id="clip0_356_42">
+                            <rect width="20" height="26" fill="white" />
+                        </clipPath>
+                    </defs>
                 </svg>
                 <span>Pointer</span>
             </a>
@@ -58,19 +62,19 @@
                 </button>
             </div>
             <div class="flex gap-4 items-center">
+                <div class="flex flex-col justify-between items-end">
+                    <p class="font-medium"><?= $_SESSION['user']['fullname'] ?></p>
+                    <span class="text-xs text-zinc-400"><?= $_SESSION['user']['role'] ?></span>
+                </div>
                 <div class="size-10 overflow-hidden rounded-full">
                     <img src="https://placehold.co/400" alt="student profile">
-                </div>
-                <div class="flex flex-col justify-between">
-                    <p class="font-medium">Admin</p>
-                    <span class="text-xs text-zinc-400">Guru</span>
                 </div>
             </div>
         </div>
     </header>
 
     <main id="main" class="grid grid-cols-1 lg:grid-cols-[16rem_1fr] h-[calc(100vh-65px)] overflow-hidden transition-all duration-300">
-        <aside id="aside" class="h-0 lg:h-full bg-whiteoverflow-hidden">
+        <aside id="aside" class="h-0 lg:h-full bg-white overflow-hidden">
             <nav id="navbar" class="expand fixed inset-y-0 left-0 top-[72px] w-64 bg-white p-4 z-50 overflow-y-auto overflow-x-hidden transform -translate-x-full transition-transform duration-300 lg:sticky lg:top-0 lg:inset-auto lg:w-full lg:translate-x-0 lg:h-full lg:z-0 border-r border-zinc-300">
                 <div class="flex flex-col gap-1">
                     <span class="nav-divider-title text-xs text-zinc-400">Main</span>
@@ -168,32 +172,22 @@
                             Aktivitas
                         </span>
                     </a>
-                </div>
-
-                <div class="flex flex-col lg:hidden mt-10">
-                    <a href="#" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
-                        <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                            <path fill="currentColor" d="M12.838 17.638q.362-.363.362-.888t-.362-.888t-.888-.362t-.887.363t-.363.887t.363.888t.887.362t.888-.363M11.05 14.15h1.85q0-.825.188-1.3t1.062-1.3q.65-.65 1.025-1.238T15.55 8.9q0-1.4-1.025-2.15T12.1 6q-1.425 0-2.312.75T8.55 8.55l1.65.65q.125-.45.563-.975T12.1 7.7q.8 0 1.2.438t.4.962q0 .5-.3.938t-.75.812q-1.1.975-1.35 1.475t-.25 1.825M12 22q-2.075 0-3.9-.787t-3.175-2.138T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22" />
-                        </svg>
-                        <span>
-                            Bantuan
-                        </span>
-                    </a>
-                    <a href="<?= BASE_URL ?>/settings" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
-                        <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                            <path fill="currentColor" d="M10.825 22q-.675 0-1.162-.45t-.588-1.1L8.85 18.8q-.325-.125-.612-.3t-.563-.375l-1.55.65q-.625.275-1.25.05t-.975-.8l-1.175-2.05q-.35-.575-.2-1.225t.675-1.075l1.325-1Q4.5 12.5 4.5 12.337v-.675q0-.162.025-.337l-1.325-1Q2.675 9.9 2.525 9.25t.2-1.225L3.9 5.975q.35-.575.975-.8t1.25.05l1.55.65q.275-.2.575-.375t.6-.3l.225-1.65q.1-.65.588-1.1T10.825 2h2.35q.675 0 1.163.45t.587 1.1l.225 1.65q.325.125.613.3t.562.375l1.55-.65q.625-.275 1.25-.05t.975.8l1.175 2.05q.35.575.2 1.225t-.675 1.075l-1.325 1q.025.175.025.338v.674q0 .163-.05.338l1.325 1q.525.425.675 1.075t-.2 1.225l-1.2 2.05q-.35.575-.975.8t-1.25-.05l-1.5-.65q-.275.2-.575.375t-.6.3l-.225 1.65q-.1.65-.587 1.1t-1.163.45zm1.225-6.5q1.45 0 2.475-1.025T15.55 12t-1.025-2.475T12.05 8.5q-1.475 0-2.488 1.025T8.55 12t1.013 2.475T12.05 15.5" />
-                        </svg>
-                        <span>
-                            Pengaturan
-                        </span>
-                    </a>
+                    <form action="<?= BASE_URL ?>/logout" method="post">
+                        <button type="submit" title="Logout" class="relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-red-50 hover:border-red-200 w-full text-red-500 cursor-pointer">
+                            <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-red-200"></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h6q.425 0 .713.288T12 4t-.288.713T11 5H5v14h6q.425 0 .713.288T12 20t-.288.713T11 21zm12.175-8H10q-.425 0-.712-.288T9 12t.288-.712T10 11h7.175L15.3 9.125q-.275-.275-.275-.675t.275-.7t.7-.313t.725.288L20.3 11.3q.3.3.3.7t-.3.7l-3.575 3.575q-.3.3-.712.288t-.713-.313q-.275-.3-.262-.712t.287-.688z" />
+                            </svg>
+                            <span>
+                                Logout
+                            </span>
+                        </button>
+                    </form>
                 </div>
             </nav>
         </aside>
 
-        <section class="relative w-full h-full overflow-y-auto overflow-x-hidden max-w-[1440px] px-4 md:px-8 lg:px-10 pt-6 pb-20 mx-auto">
+        <section class="relative w-full h-full min-h-screen overflow-y-auto overflow-x-hidden max-w-[1440px] px-4 md:px-8 lg:px-10 pt-6 pb-20 mx-auto">
             <?php require_once "../app/views/" . $viewPath . ".php"; ?>
         </section>
 

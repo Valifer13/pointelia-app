@@ -2,4 +2,5 @@
 
 class Auth
 {
+    private static $user;
 }
