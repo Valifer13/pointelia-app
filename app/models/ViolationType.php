@@ -2,7 +2,14 @@
 
 class ViolationType extends Model
 {
-    public function getAllViolationType(int $page = 1, int $perPage = 10): array
+    public function getAllViolationType()
+    {
+        $this->db->query("SELECT * FROM violation_types");
+        $this->db->execute();
+        return $this->db->result();
+    }
+
+    public function getAllViolationTypeWithPagination(int $page = 1, int $perPage = 10): array
     {
         // Pastikan page minimal 1
         (int) $page = max($page, 1);

@@ -28,10 +28,6 @@
                         <?php endforeach; ?>
                     </datalist>
                 </div>
-                <div class="flex flex-col gap-1 w-full">
-                    <label class="font-semibold" for="rombel">Rombel</label>
-                    <input required class="w-full p-2 rounded-md border border-zinc-300 bg-zinc-50 focus:outline-none" type="number" name="rombel" id="rombel" value="<?= $student_class['rombel'] ?>">
-                </div>
             </div>
             <div class="flex flex-col md:flex-row gap-4">
                 <div class="flex flex-col gap-1 w-full">
@@ -44,13 +40,8 @@
                     </datalist>
                 </div>
                 <div class="flex flex-col gap-1 w-full">
-                    <label class="font-semibold" for="bk_teacher">Guru BK</label>
-                    <input required class="w-full p-2 rounded-md border border-zinc-300 bg-zinc-50 focus:outline-none" type="text" name="bk_teacher" id="bk_teacher" list="BKTeachers" value="<?= $student_class['bk_teacher_code'] ?>">
-                    <datalist id="BKTeachers">
-                        <?php foreach($bk_teachers as $bk_teacher): ?>
-                            <option value="<?= $bk_teacher['code'] ?>"><?= $bk_teacher['fullname'] ?></option>
-                        <?php endforeach; ?>
-                    </datalist>
+                    <label class="font-semibold" for="rombel">Rombel</label>
+                    <input required class="w-full p-2 rounded-md border border-zinc-300 bg-zinc-50 focus:outline-none" type="number" name="rombel" id="rombel" value="<?= $student_class['rombel'] ?>">
                 </div>
             </div>
             <div class="flex justify-end">

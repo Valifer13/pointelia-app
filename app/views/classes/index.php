@@ -31,7 +31,6 @@
                 <th class="pb-4 px-4 font-semibold pl-2 w-16">No</th>
                 <th class="pb-4 px-4 font-semibold w-2/5">Kelas</th>
                 <th class="pb-4 px-4 font-semibold w-1/5">Wali Kelas</th>
-                <th class="pb-4 px-4 font-semibold w-1/5">Guru BK</th>
                 <th class="pb-4 px-4 font-semibold text-right pr-2">Aksi</th>
             </tr>
         </thead>
@@ -47,7 +46,6 @@
                         <span class="text-zinc-900 font-medium"><?= $student_class["grade"] . " " . $student_class["major_name"] . " " . $student_class["rombel"] ?></span>
                     </td>
                     <td class="p-4 text-zinc-600"><?= $student_class["form_tutor_name"] ?? "-" ?></td>
-                    <td class="p-4 text-zinc-600"><?= $student_class["bk_teacher_name"] ?? "-" ?></td>
                     <td class="p-4 text-right pr-2">
                         <button class="data-option-btn p-1 border border-zinc-200 w-fit rounded-md inset-shadow-zinc-400 transition-all duration-500 cursor-pointer" data-id="<?= $student_class['id'] ?>" data-name="<?= $student_class["grade"] . " " . $student_class["major_name"] . " " . $student_class["rombel"] ?>">
                             <svg class="text-zinc-400 group-hover:text-zinc-800 transition-all duration-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">

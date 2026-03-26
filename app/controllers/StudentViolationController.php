@@ -26,6 +26,18 @@ class StudentViolationController extends Controller
 
     public function add()
     {
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            try {
+                $this->StudentViolationService->addStudentViolation($_POST);
+                Flasher::setFlash("Berhasil menambahkan pelanggaran baru.", "success");
+            } catch (PDOException $err) {
+                Flasher::setFlash("Gagal menambahkan pelanggaran baru. Error: " . $err->getMessage(), "error");
+            }
+
+            header("Location: " . BASE_URL . "/violations");
+            exit;
+        }
+
         $data = $this->StudentViolationService->getAddStudentViolationFormData();
 
         $this->view("violations/add", $data, "Tambah Pelanggaran");

@@ -266,9 +266,10 @@
                             <label class="font-semibold" for="relationship">Hubungan Sebagai:</label>
                             <input class="bg-white border border-zinc-300 p-2 rounded-md focus:outline-zinc-400 disabled:bg-zinc-100" type="text" list="Relationships" name="relationship" id="relationship" placeholder="Hubungan...">
                             <datalist id="Relationships">
-                                <option value="Ayah Kandung"></option>
-                                <option value="Ibu Kandung"></option>
-                                <option value="Kakak Kandung"></option>
+                                <option value="Ayah"></option>
+                                <option value="Ibu"></option>
+                                <option value="Kakak"></option>
+                                <option value="Adik"></option>
                                 <option value="Kakek"></option>
                                 <option value="Nenek"></option>
                                 <option value="Paman"></option>

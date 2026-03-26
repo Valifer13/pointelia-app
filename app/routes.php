@@ -73,10 +73,15 @@ $routes = [
 
     // Letter routes
     "letters"                               => ["controller" => "LetterController", "method" => "index"],
-    "letters/detail"                        => ["controller" => "LetterController", "method" => "detail"],
-    "letters/add-student-agreement-letter"  => ["controller" => "LetterController", "method" => "add_student_aggrement_letter"],
-    "letters/add-parental-summons-letter"   => ["controller" => "LetterController", "method" => "add_parental_summons_letter"],
-    "letters/add-parental-agreement-letter" => ["controller" => "LetterController", "method" => "add_parental_agreement_letter"],
+    "letters/add-student-agreement-letter"  => ["controller" => "LetterController", "method" => "add_student_agreement_letter"],
+    "letters/add-guardian-invit-letter"   => ["controller" => "LetterController", "method" => "add_guardian_invit_letter"],
+    "letters/add-guardian-agreement-letter" => ["controller" => "LetterController", "method" => "add_guardian_agreement_letter"],
     "letters/add-school-transfer-letter"    => ["controller" => "LetterController", "method" => "add_school_transfer_letter"],
     "letters/add-point-reduction-letter"    => ["controller" => "LetterController", "method" => "add_point_reduction_letter"],
+
+    "letters/student-agreement-letter"  => ["controller" => "LetterController", "method" => "student_agreement_letter"],
+    "letters/guardian-invit-letter"     => ["controller" => "LetterController", "method" => "guardian_invit_letter"],
+    "letters/guardian-agreement-letter" => ["controller" => "LetterController", "method" => "guardian_agreement_letter"],
+    "letters/school-transfer-letter"    => ["controller" => "LetterController", "method" => "school_transfer_letter"],
+    "letters/point-reduction-letter"    => ["controller" => "LetterController", "method" => "point_reduction_letter"],
 ];

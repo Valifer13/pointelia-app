@@ -187,7 +187,7 @@
             </nav>
         </aside>
 
-        <section class="relative w-full h-full min-h-screen overflow-y-auto overflow-x-hidden max-w-[1440px] px-4 md:px-8 lg:px-10 pt-6 pb-20 mx-auto">
+        <section class="relative w-full h-full min-h-screen overflow-y-auto overflow-x-hidden max-w-[1440px] px-4 md:px-8 lg:px-10 pt-6 pb-32 mx-auto">
             <?php require_once "../app/views/" . $viewPath . ".php"; ?>
         </section>
 

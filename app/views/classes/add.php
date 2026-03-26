@@ -38,15 +38,6 @@
                         <?php endforeach; ?>
                     </datalist>
                 </div>
-                <div class="flex flex-col gap-1 w-full">
-                    <label class="font-semibold" for="bk_teacher">Guru BK</label>
-                    <input required class="w-full p-2 rounded-md border border-zinc-300 bg-zinc-50 focus:outline-none" type="text" name="bk_teacher" id="bk_teacher" list="BKTeachers">
-                    <datalist id="BKTeachers">
-                        <?php foreach($bk_teachers as $bk_teacher): ?>
-                            <option value="<?= $bk_teacher['code'] ?>"><?= $bk_teacher['fullname'] ?></option>
-                        <?php endforeach; ?>
-                    </datalist>
-                </div>
             </div>
             <div class="flex justify-end">
                 <button type="submit" class="flex w-full justify-center md:w-fit gap-2 items-center px-3 py-2 bg-blue-600 hover:bg-blue-700 transition-colors duration-300 cursor-pointer text-white rounded-md">

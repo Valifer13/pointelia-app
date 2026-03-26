@@ -19,7 +19,7 @@
             </div>
         </a>
 
-        <a href="<?= BASE_URL ?>/letters/parental-summons-letter" class="flex items-start p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md hover:border-amber-400 hover:bg-amber-50 transition-all text-left group cursor-pointer">
+        <a href="<?= BASE_URL ?>/letters/add-guardian-invit-letter" class="flex items-start p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md hover:border-amber-400 hover:bg-amber-50 transition-all text-left group cursor-pointer">
             <div class="p-3 bg-amber-100 text-amber-600 rounded-lg group-hover:bg-amber-200 transition-colors">
                 <i class="fas fa-envelope-open-text text-xl"></i>
             </div>
@@ -29,7 +29,7 @@
             </div>
         </a>
 
-        <a href="<?= BASE_URL ?>/letters/parental-agreement-letter" class="flex items-start p-6 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md hover:border-emerald-400 hover:bg-emerald-50 transition-all text-left group cursor-pointer">
+        <a href="<?= BASE_URL ?>/letters/add-guardian-agreement-letter" class="flex items-start p-6 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md hover:border-emerald-400 hover:bg-emerald-50 transition-all text-left group cursor-pointer">
             <div class="p-3 bg-emerald-100 text-emerald-600 rounded-lg group-hover:bg-emerald-200 transition-colors">
                 <i class="fas fa-handshake text-xl"></i>
             </div>
@@ -39,7 +39,7 @@
             </div>
         </a>
 
-        <a href="<?= BASE_URL ?>/letters/school-transfer-letter" class="flex items-start p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md hover:border-purple-400 hover:bg-purple-50 transition-all text-left group cursor-pointer">
+        <a href="<?= BASE_URL ?>/letters/add-school-transfer-letter" class="flex items-start p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md hover:border-purple-400 hover:bg-purple-50 transition-all text-left group cursor-pointer">
             <div class="p-3 bg-purple-100 text-purple-600 rounded-lg group-hover:bg-purple-200 transition-colors">
                 <i class="fas fa-exchange-alt text-xl"></i>
             </div>
@@ -49,7 +49,7 @@
             </div>
         </a>
 
-        <a href="<?= BASE_URL ?>/letters/point-reduction-letter" class="flex items-start p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md hover:border-rose-400 hover:bg-rose-50 transition-all text-left group cursor-pointer">
+        <a href="<?= BASE_URL ?>/letters/add-point-reduction-letter" class="flex items-start p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md hover:border-rose-400 hover:bg-rose-50 transition-all text-left group cursor-pointer">
             <div class="p-3 bg-rose-100 text-rose-600 rounded-lg group-hover:bg-rose-200 transition-colors">
                 <i class="fas fa-shield-alt text-xl"></i>
             </div>
@@ -74,66 +74,84 @@
         <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
                 <thead>
-                    <tr class="bg-gray-50 text-gray-600 text-sm">
+                    <tr class="bg-gray-50 text-gray-600 text-sm **:whitespace-nowrap">
+                        <th class="px-6 py-3 font-medium border-b border-gray-200">No</th>
                         <th class="px-6 py-3 font-medium border-b border-gray-200">No. Surat</th>
                         <th class="px-6 py-3 font-medium border-b border-gray-200">Tanggal</th>
                         <th class="px-6 py-3 font-medium border-b border-gray-200">Jenis Surat</th>
+                        <th class="px-6 py-3 font-medium border-b border-gray-200">Dibuat Oleh</th>
                         <th class="px-6 py-3 font-medium border-b border-gray-200">Nama Siswa</th>
                         <th class="px-6 py-3 font-medium border-b border-gray-200">Status</th>
                         <th class="px-6 py-3 font-medium border-b border-gray-200 text-right">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="text-sm text-gray-700 divide-y divide-gray-100">
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="px-6 py-4 font-medium text-gray-900">SRT/24/001</td>
-                        <td class="px-6 py-4">20 Mar 2026</td>
-                        <td class="px-6 py-4">
-                            <span class="bg-blue-100 text-blue-700 px-2.5 py-1 rounded-full text-xs font-medium">Perjanjian Siswa</span>
-                        </td>
-                        <td class="px-6 py-4">Budi Santoso</td>
-                        <td class="px-6 py-4">
-                            <span class="text-emerald-600 font-medium"><i class="fas fa-check-circle mr-1"></i>Selesai</span>
-                        </td>
-                        <td class="px-6 py-4 text-right">
-                            <button onclick="cetakSurat('SRT/24/001')" class="inline-flex items-center px-3 py-1.5 bg-white border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm cursor-pointer">
-                                <i class="fas fa-print mr-2"></i> Cetak
-                            </button>
-                        </td>
-                    </tr>
+                <tbody class="text-sm text-gray-700 divide-y divide-gray-100 **:whitespace-nowrap">
+                    <?php if (!empty($letters['data'])): ?>
+                        <?php
+                        $count = ($letters['pagination']['current_page'] - 1) * 10 + 1;
+                        foreach ($letters['data'] as $letter):
+                        ?>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4"><?= str_pad($count++, 2, '0', STR_PAD_LEFT) ?></td>
+                                <td class="px-6 py-4 font-medium text-gray-900"><?= $letter['no_letter'] ?? "-" ?></td>
+                                <td class="px-6 py-4"><?= $letter['issued_date'] ?></td>
+                                <td class="px-6 py-4">
+                                    <?php if ($letter['letter_type'] === "Perjanjian Siswa"): ?>
+                                        <span class="bg-blue-100 text-blue-700 px-2.5 py-1 rounded-full text-xs font-medium"><?= $letter['letter_type'] ?></span>
+                                    <?php elseif ($letter['letter_type'] === "Panggilan Wali"): ?>
+                                        <span class="bg-amber-100 text-amber-700 px-2.5 py-1 rounded-full text-xs font-medium"><?= $letter['letter_type'] ?></span>
+                                    <?php elseif ($letter['letter_type'] === "Perjanjian Wali"): ?>
+                                        <span class="bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full text-xs font-medium"><?= $letter['letter_type'] ?></span>
+                                    <?php elseif ($letter['letter_type'] === "Pindah Sekolah"): ?>
+                                        <span class="bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full text-xs font-medium"><?= $letter['letter_type'] ?></span>
+                                    <?php elseif ($letter['letter_type'] === "Pengurangan Poin"): ?>
+                                        <span class="bg-red-100 text-red-700 px-2.5 py-1 rounded-full text-xs font-medium"><?= $letter['letter_type'] ?></span>
+                                    <?php endif; ?>
+                                </td>
+                                <td class="px-6 py-4"><?= $letter['creator_fullname'] ?></td>
+                                <td class="px-6 py-4"><?= $letter['student_name'] ?></td>
+                                <td class="px-6 py-4">
+                                    <?php if ($letter['letter_status'] === "draft"): ?>
+                                        <span class="text-amber-600 font-medium"><i class="fas fa-clock mr-1"></i>Menunggu</span>
+                                    <?php elseif ($letter['letter_status'] === "accepted"): ?>
+                                        <span class="text-emerald-600 font-medium"><i class="fas fa-check-circle mr-1"></i>Diterima</span>
+                                    <?php elseif ($letter['letter_status'] === "rejected"): ?>
+                                        <span class="text-zinc-600 font-medium"><i class="fas fa-x mr-1"></i>Ditolak</span>
+                                    <?php elseif ($letter['letter_status'] === "printed"): ?>
+                                        <span class="text-blue-600 font-medium"><i class="fas fa-print mr-1"></i>Di Print</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <?php if ($letter['letter_type'] === "Perjanjian Siswa"): ?>
+                                        <a href="<?= BASE_URL . '/letters/student-agreement-letter/' . $letter['letter_id'] ?>" class="inline-flex items-center px-3 py-1.5 bg-white border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm cursor-pointer">
+                                            <i class="fas fa-eye mr-2"></i> Detail
+                                        </a>
+                                    <?php elseif ($letter['letter_type'] === "Panggilan Wali"): ?>
+                                        <a href="<?= BASE_URL . '/letters/guardian-invit-letter/' . $letter['letter_id'] ?>" class="inline-flex items-center px-3 py-1.5 bg-white border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm cursor-pointer">
+                                            <i class="fas fa-eye mr-2"></i> Detail
+                                        </a>
+                                    <?php elseif ($letter['letter_type'] === "Perjanjian Wali"): ?>
+                                        <a href="<?= BASE_URL . '/letters/guardian-agreement-letter/' . $letter['letter_id'] ?>" class="inline-flex items-center px-3 py-1.5 bg-white border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm cursor-pointer">
+                                            <i class="fas fa-eye mr-2"></i> Detail
+                                        </a>
+                                    <?php elseif ($letter['letter_type'] === "Pindah Sekolah"): ?>
+                                        <a href="<?= BASE_URL . '/letters/school-transfer-letter/' . $letter['letter_id'] ?>" class="inline-flex items-center px-3 py-1.5 bg-white border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm cursor-pointer">
+                                            <i class="fas fa-eye mr-2"></i> Detail
+                                        </a>
+                                    <?php elseif ($letter['letter_type'] === "Pengurangan Poin"): ?>
+                                        <a href="<?= BASE_URL . '/letters/point-reduction-letter/' . $letter['letter_id'] ?>" class="inline-flex items-center px-3 py-1.5 bg-white border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm cursor-pointer">
+                                            <i class="fas fa-eye mr-2"></i> Detail
+                                        </a>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="px-6 py-4 font-semibold text-gray-600 text-xl text-center" colspan="9">Belum ada surat tercetak</td>
+                        </tr>
+                    <?php endif; ?>
 
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="px-6 py-4 font-medium text-gray-900">SRT/24/002</td>
-                        <td class="px-6 py-4">18 Mar 2026</td>
-                        <td class="px-6 py-4">
-                            <span class="bg-amber-100 text-amber-700 px-2.5 py-1 rounded-full text-xs font-medium">Panggilan Ortu</span>
-                        </td>
-                        <td class="px-6 py-4">Siti Aminah</td>
-                        <td class="px-6 py-4">
-                            <span class="text-amber-600 font-medium"><i class="fas fa-clock mr-1"></i>Menunggu</span>
-                        </td>
-                        <td class="px-6 py-4 text-right">
-                            <button onclick="cetakSurat('SRT/24/002')" class="inline-flex items-center px-3 py-1.5 bg-white border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm">
-                                <i class="fas fa-print mr-2"></i> Cetak
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="px-6 py-4 font-medium text-gray-900">SRT/24/003</td>
-                        <td class="px-6 py-4">15 Mar 2026</td>
-                        <td class="px-6 py-4">
-                            <span class="bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full text-xs font-medium">Pindah Sekolah</span>
-                        </td>
-                        <td class="px-6 py-4">Agus Pratama</td>
-                        <td class="px-6 py-4">
-                            <span class="text-emerald-600 font-medium"><i class="fas fa-check-circle mr-1"></i>Selesai</span>
-                        </td>
-                        <td class="px-6 py-4 text-right">
-                            <button onclick="cetakSurat('SRT/24/003')" class="inline-flex items-center px-3 py-1.5 bg-white border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm">
-                                <i class="fas fa-print mr-2"></i> Cetak
-                            </button>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -150,16 +168,16 @@
 </div>
 
 <script>
-    function buatSurat(jenisSurat) {
-        // Di aplikasi nyata, ini bisa membuka modal atau pindah ke halaman form
-        alert(`Membuka form pembuatan: ${jenisSurat}`);
-    }
+    // function buatSurat(jenisSurat) {
+    //     // Di aplikasi nyata, ini bisa membuka modal atau pindah ke halaman form
+    //     alert(`Membuka form pembuatan: ${jenisSurat}`);
+    // }
 
-    function cetakSurat(nomorSurat) {
-        // Di aplikasi nyata, ini bisa memicu window.print() atau mengunduh PDF
-        if (confirm(`Apakah Anda yakin ingin mencetak dokumen dengan nomor ${nomorSurat}?`)) {
-            console.log(`Mencetak ${nomorSurat}...`);
-            // window.print();
-        }
-    }
+    // function cetakSurat(nomorSurat) {
+    //     // Di aplikasi nyata, ini bisa memicu window.print() atau mengunduh PDF
+    //     if (confirm(`Apakah Anda yakin ingin mencetak dokumen dengan nomor ${nomorSurat}?`)) {
+    //         console.log(`Mencetak ${nomorSurat}...`);
+    //         // window.print();
+    //     }
+    // }
 </script>

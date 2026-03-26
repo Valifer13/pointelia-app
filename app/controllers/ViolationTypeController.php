@@ -12,14 +12,14 @@ class ViolationTypeController extends Controller
 
     public function index()
     {
-        $data = $this->violationTypeService->getAllViolationTypes(1);
+        $data = $this->violationTypeService->getAllViolationTypeWithPaginations(1);
 
         $this->view("violation-types/index", $data, "List Tipe Pelanggaran");
     }
 
     public function index_with_pagination($page)
     {
-        $data = $this->violationTypeService->getAllViolationTypes($page);
+        $data = $this->violationTypeService->getAllViolationTypeWithPaginations($page);
 
         $this->view("violation-types/index", $data, "List Tipe Pelanggaran");
     }

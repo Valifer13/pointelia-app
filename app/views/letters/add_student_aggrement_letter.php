@@ -167,7 +167,7 @@
                         this.guardians = data.data.guardians ?? []
                     }
                 } catch (e) {
-                    this.error = 'Terjadi kesalahan server'
+                    this.error = 'Data siswa tidak ditemukan'
                 }
 
                 this.loading = false

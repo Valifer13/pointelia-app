@@ -76,11 +76,28 @@ class Teacher extends Model
             roles.name AS role_name
             FROM users 
             JOIN roles ON users.role_id = roles.id
-            WHERE roles.name = :role_name
+            WHERE roles.name = :role_name AND is_active = 1
         ");
         $this->db->bind(":role_name", $role_name);
         $this->db->execute();
         return $this->db->result();
+    }
+
+    public function getTeacherByPosition(string $position)
+    {
+        $this->db->query("SELECT * FROM users WHERE position = :position AND is_active = 1");
+        $this->db->bind(":position", $position);
+        $this->db->execute();
+        return $this->db->single();
+    }
+
+    public function getBkTeacher(string $grade)
+    {
+        $position = "Guru BK " . $grade;
+        $this->db->query("SELECT * FROM users WHERE position = :position AND is_active = 1");
+        $this->db->bind(":position", $position);
+        $this->db->execute();
+        return $this->db->single();
     }
 
     public function resetPassword(string $code, string $new_password) {

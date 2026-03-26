@@ -13,7 +13,6 @@
           <span class="px-3 py-1 bg-zinc-100 text-zinc-600 text-[11px] font-semibold uppercase tracking-widest rounded-full">Tahun 2025/2026</span>
         </div>
         <p class="text-zinc-500 text-base">Wali Kelas: <a href="#" class="text-zinc-900 font-medium hover:underline"><?= $student_class['form_tutor_name'] ?></a></p>
-        <p class="text-zinc-500 text-base">Guru BK: <a href="#" class="text-zinc-900 font-medium hover:underline"><?= $student_class['bk_teacher_name'] ?></a></p>
       </div>
 
       <div class="flex gap-3">

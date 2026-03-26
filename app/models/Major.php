@@ -2,7 +2,14 @@
 
 class Major extends Model
 {
-    public function getAllMajors(int $page = 1, int $perPage = 10)
+    public function getAllMajors()
+    {
+        $this->db->query("SELECT * FROM majors");
+        $this->db->execute();
+        return $this->db->result();
+    }
+
+    public function getAllMajorsWithPagination(int $page = 1, int $perPage = 10)
     {
         // Pastikan page minimal 1
         (int) $page = max($page, 1);

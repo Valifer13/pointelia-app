@@ -4,6 +4,7 @@
 @theme {
     /* Fonts */
     --font-main: "Poppins", sans-serif;
+    --font-letter: "Times New Roman", Times, serif;
 
     /* Colors */
     --color-deep-blue: #2a4d88;

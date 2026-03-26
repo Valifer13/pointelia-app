@@ -19,7 +19,7 @@ class StudentClassService
 
     public function getAllStudentClasses(int $page)
     {
-        $student_classes = $this->studentClassModel->getAllStudentClassesWithTeachers($page);
+        $student_classes = $this->studentClassModel->getAllStudentClassesWithTeachersAndPagination($page);
 
         return [
             'student_classes' => $student_classes,
@@ -45,12 +45,10 @@ class StudentClassService
     public function getCreateStudentClassFormData()
     {
         $majors = $this->majorModel->getAllMajors();
-        $bk_teachers = $this->teacherModel->getTeacherByRole("Bimbingan Konseling");
         $form_tutors = $this->teacherModel->getTeacherByRole("Guru");
 
         return [
             'majors' => $majors,
-            'bk_teachers' => $bk_teachers,
             'form_tutors' => $form_tutors
         ];
     }
@@ -60,7 +58,6 @@ class StudentClassService
         $major       = $this->majorModel->getMajorByName($data['major']);
         $grade       = $this->gradeLevelModel->getGradeLevelByName($data['grade_class']);
         $form_tutor  = $this->teacherModel->getTeacherByCode($data['form_tutor']);
-        $bk_teacher  = $this->teacherModel->getTeacherByCode($data['bk_teacher']);
         $last_class  = $this->studentClassModel->getStudentClassByGradeAndMajor($grade['grade'], $major['name']);
         $last_rombel = 1;
 
@@ -76,21 +73,16 @@ class StudentClassService
             throw new Exception("Data guru wali tidak ditemukan.");
         }
 
-        if (empty($bk_teacher)) {
-            throw new Exception("Data guru BK tidak ditemukan.");
-        }
-
         if (empty($last_class['rombel'])) {
             $last_rombel = 1;
         } else {
-            $last_rombel++;
+            $last_rombel = $last_class['rombel'] + 1;
         }
 
         $this->studentClassModel->create(
             $major['id'],
             $grade['id'],
             $form_tutor['code'],
-            $bk_teacher['code'],
             $last_rombel
         );
     }
@@ -99,7 +91,6 @@ class StudentClassService
     {
         $student_class = $this->studentClassModel->getStudentClassById($id);
         $majors = $this->majorModel->getAllMajors();
-        $bk_teachers = $this->teacherModel->getTeacherByRole("Bimbingan Konseling");
         $form_tutors = $this->teacherModel->getTeacherByRole("Guru");
 
         if (empty($student_class)) {
@@ -109,7 +100,6 @@ class StudentClassService
         return [
             'student_class' => $student_class,
             'majors' => $majors,
-            'bk_teachers' => $bk_teachers,
             'form_tutors' => $form_tutors
         ];
     }
@@ -120,7 +110,6 @@ class StudentClassService
         $major       = $this->majorModel->getMajorByName($data['major']);
         $grade       = $this->gradeLevelModel->getGradeLevelByName($data['grade_class']);
         $form_tutor  = $this->teacherModel->getTeacherByCode($data['form_tutor']);
-        $bk_teacher  = $this->teacherModel->getTeacherByCode($data['bk_teacher']);
 
         if (empty($student_class)) {
             throw new Exception("Data kelas tidak ditemukan");
@@ -138,16 +127,11 @@ class StudentClassService
             throw new Exception("Data guru wali tidak ditemukan.");
         }
 
-        if (empty($bk_teacher)) {
-            throw new Exception("Data guru BK tidak ditemukan.");
-        }
-
         $this->studentClassModel->update(
             $data['id'],
             $major['id'],
             $grade['id'],
             $form_tutor['code'],
-            $bk_teacher['code'],
             $data['rombel']
         );
     }

@@ -13,7 +13,7 @@ class MajorService
 
     public function getAllMajors(int $page): array
     {
-        $majors = $this->majorModel->getAllMajors($page);
+        $majors = $this->majorModel->getAllMajorsWithPagination($page);
 
         return [
             'majors' => $majors,

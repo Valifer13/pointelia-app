@@ -30,7 +30,14 @@ class Student extends Model
         return $this->db->result();
     }
 
-    public function getAllStudents(int $page = 1, int $perPage = 10)
+    public function getAllStudents()
+    {
+        $this->db->query("SELECT name, nis FROM students");
+        $this->db->execute();
+        return $this->db->result();
+    }
+
+    public function getAllStudentsWithPagination(int $page = 1, int $perPage = 10)
     {
         // Pastikan page minimal 1
         (int) $page = max($page, 1);

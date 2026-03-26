@@ -10,7 +10,24 @@ class Letter extends Model
         (int) $offset = ($page - 1) * $perPage;
 
         // Ambil data
-        $this->db->query("SELECT * FROM letters LIMIT $perPage OFFSET $offset");
+        $this->db->query("SELECT
+                letters.id as letter_id,
+                letters.no_letter,
+                letters.letter_type,
+                letters.issued_date,
+                letters.status as letter_status,
+                students.nis as student_nis,
+                students.name as student_name,
+                creator.code as creator_code,
+                creator.fullname as creator_fullname,
+                academic_years.year as academic_year
+            FROM letters
+                JOIN students ON letters.student_nis = students.nis
+                JOIN users as creator ON letters.created_by = creator.code
+                JOIN academic_years ON letters.academic_year_id = academic_years.id
+            ORDER BY letters.created_at DESC
+            LIMIT $perPage OFFSET $offset;
+        ");
         $this->db->execute();
         $data = $this->db->result();
 
@@ -52,31 +69,48 @@ class Letter extends Model
     }
 
     public function createLetter(
+        $letter_type,
         $student_nis,
         $issued_date,
         $status,
         $created_by,
-        $validated_by,
-        $academic_year_id
+        $academic_year_id,
+        $no_letter = null
     ) {
-        $this->db->query("INSERT INTO letters (student_nis, issued_date, status, created_by, validated_by, academic_year_id) VALUES (:student_nis, :issued_date, :status, :created_by, :validated_by, :academic_year_id)");
+        if (!empty($no_letter)) {
+            $query = "INSERT INTO letters (letter_type, no_letter, student_nis, issued_date, status, created_by, academic_year_id) VALUES (:letter_type, :no_letter, :student_nis, :issued_date, :status, :created_by, :academic_year_id)";
+        } else {
+            $query = "INSERT INTO letters (letter_type, student_nis, issued_date, status, created_by, academic_year_id) VALUES (:letter_type, :student_nis, :issued_date, :status, :created_by, :academic_year_id)";
+        }
 
+        $this->db->query($query);
+
+        if (!empty($no_letter)) {
+            $this->db->bind(":no_letter", $no_letter);
+        }
+
+        $this->db->bind(":letter_type", $letter_type);
         $this->db->bind(":student_nis", $student_nis);
         $this->db->bind(":issued_date", $issued_date);
         $this->db->bind(":status", $status);
         $this->db->bind(":created_by", $created_by);
-        $this->db->bind(":validated_by", $validated_by);
         $this->db->bind(":academic_year_id", $academic_year_id);
 
         $this->db->execute();
     }
 
-    public function createInviteLetter(
+
+
+    //? ======================
+    //? Guardian Invite Letter
+    //? ======================
+
+    public function createGuardianInviteLetterDetail(
         $letter_id,
         $reason,
         $schedule
     ) {
-        $this->db->query("INSERT INTO invit_letter_detail VALUES (:letter_id, :reason, :schedule)");
+        $this->db->query("INSERT INTO guardian_invit_letter_detail VALUES (:letter_id, :reason, :schedule)");
 
         $this->db->bind(":letter_id", $letter_id);
         $this->db->bind(":reason", $reason);
@@ -85,7 +119,51 @@ class Letter extends Model
         $this->db->execute();
     }
 
-    public function createTransferLetter(
+    public function findGuardianInvitLetterDetail($letter_id)
+    {
+        $this->db->query("SELECT
+                guardian_invit_letter_detail.reason as invit_reason,
+                guardian_invit_letter_detail.schedule as invit_schedule,
+                letters.id as letter_id,
+                letters.no_letter,
+                letters.letter_type,
+                letters.issued_date,
+                letters.status,
+                students.nis as student_nis,
+                students.name as student_name,
+                classes.rombel as class_rombel,
+                majors.name as major_name,
+                majors.description as major_description,
+                grade_levels.grade,
+                academic_years.year as academic_year
+            FROM guardian_invit_letter_detail
+                JOIN letters 
+                    ON guardian_invit_letter_detail.letter_id = letters.id
+                JOIN students 
+                    ON letters.student_nis = students.nis
+                JOIN classes 
+                    ON students.class_id = classes.id
+                JOIN majors 
+                    ON classes.major_id = majors.id
+                JOIN grade_levels 
+                    ON classes.grade_level_id = grade_levels.id
+                JOIN academic_years 
+                    ON letters.academic_year_id = academic_years.id
+            WHERE letters.id = :letter_id;
+        ");
+
+        $this->db->bind(":letter_id", $letter_id);
+        $this->db->execute();
+        return $this->db->single();
+    }
+
+
+
+    //? ======================
+    //? Transfer Letter
+    //? ======================
+
+    public function createTransferLetterDetail(
         $letter_id,
         $target_school,
         $reason_for_moving
@@ -99,7 +177,13 @@ class Letter extends Model
         $this->db->execute();
     }
 
-    public function createPointDeductionLetter(
+
+
+    //? ======================
+    //? Point Reduction
+    //? ======================
+
+    public function createPointDeductionLetterDetail(
         $letter_id,
         $reason,
         $deduction_amount
@@ -112,12 +196,18 @@ class Letter extends Model
 
         $this->db->execute();
     }
+    
 
-    public function createPermissionToAttendLetter(
+
+    //? =========================
+    //? Guardian Agreement Letter
+    //? =========================
+
+    public function createGuardianAgreementLetterDetail(
         $letter_id,
         $reason
     ) {
-        $this->db->query("INSERT INTO permission_to_attend_letter_detail VALUES (:letter_id, :reason)");
+        $this->db->query("INSERT INTO create_guardian_agreement_letter_detail VALUES (:letter_id, :reason)");
 
         $this->db->bind(":letter_id", $letter_id);
         $this->db->bind(":reason", $reason);
@@ -125,15 +215,66 @@ class Letter extends Model
         $this->db->execute();
     }
 
-    public function createStatementOfAgreementLetter(
+
+
+    //? =========================
+    //? Student Agreement Letter
+    //? =========================
+
+    public function createStudentAgreementLetterDetail(
         $letter_id,
-        $problem
+        $guardian_id
     ) {
-        $this->db->query("INSERT INTO statement_of_agreement_letter_detail VALUES (:letter_id, :problem)");
+        $this->db->query("INSERT INTO student_agreement_letter_detail VALUES (:letter_id, :guardian_id)");
 
         $this->db->bind(":letter_id", $letter_id);
-        $this->db->bind(":problem", $problem);
+        $this->db->bind(":guardian_id", $guardian_id);
 
         $this->db->execute();
+    }
+
+    public function findStudentAgreementLetterDetail($letter_id)
+    {
+        $this->db->query("SELECT
+                letters.id as letter_id,
+                letters.no_letter,
+                letters.letter_type,
+                letters.issued_date,
+                letters.status,
+                students.nis as student_nis,
+                students.name as student_name,
+                classes.rombel as class_rombel,
+                majors.name as major_name,
+                majors.description as major_description,
+                grade_levels.grade,
+                guardians.name as guardian_name,
+                guardians.job as guardian_job,
+                guardians.address as guardian_address,
+                guardians.phone_number as guardian_phone_number,
+                academic_years.year as academic_year,
+                users.fullname as class_form_tutor_fullname
+            FROM student_agreement_letter_detail
+                JOIN letters 
+                    ON student_agreement_letter_detail.letter_id = letters.id
+                JOIN students 
+                    ON letters.student_nis = students.nis
+                JOIN classes 
+                    ON students.class_id = classes.id
+                JOIN majors 
+                    ON classes.major_id = majors.id
+                JOIN grade_levels 
+                    ON classes.grade_level_id = grade_levels.id
+                JOIN guardians 
+                    ON student_agreement_letter_detail.guardian_id = guardians.id
+                JOIN academic_years 
+                    ON letters.academic_year_id = academic_years.id
+                JOIN users
+                    ON classes.form_tutor_code = users.code
+            WHERE letters.id = :letter_id;
+        ");
+
+        $this->db->bind(":letter_id", $letter_id);
+        $this->db->execute();
+        return $this->db->single();
     }
 }

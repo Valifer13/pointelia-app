@@ -11,9 +11,9 @@ class ViolationTypeService
         $this->db = $db;
     }
 
-    public function getAllViolationTypes(int $page): array
+    public function getAllViolationTypeWithPaginations(int $page): array
     {
-        $violation_types = $this->violationTypeModel->getAllViolationType($page);
+        $violation_types = $this->violationTypeModel->getAllViolationTypeWithPagination($page);
 
         return [
             "violation_types" => $violation_types,

@@ -19,9 +19,9 @@ class StudentService
         $this->guardianModel         = new Guardian($db);
     }
 
-    public function getAllStudentsWithClasses(int $page): array
+    public function getAllStudentsWithPaginationWithClasses(int $page): array
     {
-        $students = $this->studentModel->getAllStudents($page);
+        $students = $this->studentModel->getAllStudentsWithPagination($page);
         $classes  = [];
 
         foreach ($students['data'] as $student) {
@@ -189,9 +189,9 @@ class StudentService
         $dataWali = null;
 
         foreach ($studentGuardians as $guardian) {
-            if ($guardian['relationship'] === "Ayah Kandung") {
+            if ($guardian['relationship'] === "Ayah") {
                 $dataAyah = $guardian;
-            } elseif ($guardian['relationship'] === "Ibu Kandung") {
+            } elseif ($guardian['relationship'] === "Ibu") {
                 $dataIbu = $guardian;
             } else {
                 $dataWali = $guardian;

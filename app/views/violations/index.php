@@ -29,9 +29,11 @@
         <thead>
             <tr class="text-[11px] text-zinc-400 uppercase tracking-widest whitespace-nowrap border-b border-zinc-200">
                 <th class="pb-4 px-4 font-semibold pl-2 w-16">No</th>
-                <th class="pb-4 px-4 font-semibold w-2/5">Kelas</th>
-                <th class="pb-4 px-4 font-semibold w-1/5">Wali Kelas</th>
-                <th class="pb-4 px-4 font-semibold w-1/5">Guru BK</th>
+                <th class="pb-4 px-4 font-semibold w-2/5">Nama Siswa</th>
+                <th class="pb-4 px-4 font-semibold w-1/5">Tipe Pelanggaran</th>
+                <th class="pb-4 px-4 font-semibold w-1/5">Pelapor</th>
+                <th class="pb-4 px-4 font-semibold w-1/5">Validator</th>
+                <th class="pb-4 px-4 font-semibold w-1/5">Tanggal</th>
                 <th class="pb-4 px-4 font-semibold text-right pr-2">Aksi</th>
             </tr>
         </thead>
