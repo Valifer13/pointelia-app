@@ -6,6 +6,7 @@ class StudentViolationController extends Controller
 
     public function __construct()
     {
+        AuthMiddleware::check();
         $db                            = Database::getInstance();
         $this->StudentViolationService = new StudentViolationService($db);
     }

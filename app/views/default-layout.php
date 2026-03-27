@@ -151,7 +151,7 @@
                 <div class="flex flex-col gap-1">
                     <div class="nav-divider hidden w-full h-px bg-zinc-300"></div>
                     <span class="nav-divider-title text-xs text-zinc-400">Lainnya</span>
-                    <a title="Notifikasi" href="<?= BASE_URL ?>/notifications" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
+                    <!-- <a title="Notifikasi" href="<?= BASE_URL ?>/notifications" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
                         <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <g fill="none">
@@ -162,7 +162,7 @@
                         <span>
                             Notifikasi
                         </span>
-                    </a>
+                    </a> -->
                     <a title="Aktivitas" href="<?= BASE_URL ?>/activities" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
                         <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -172,17 +172,15 @@
                             Aktivitas
                         </span>
                     </a>
-                    <form action="<?= BASE_URL ?>/logout" method="post">
-                        <button type="submit" title="Logout" class="relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-red-50 hover:border-red-200 w-full text-red-500 cursor-pointer">
-                            <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-red-200"></div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h6q.425 0 .713.288T12 4t-.288.713T11 5H5v14h6q.425 0 .713.288T12 20t-.288.713T11 21zm12.175-8H10q-.425 0-.712-.288T9 12t.288-.712T10 11h7.175L15.3 9.125q-.275-.275-.275-.675t.275-.7t.7-.313t.725.288L20.3 11.3q.3.3.3.7t-.3.7l-3.575 3.575q-.3.3-.712.288t-.713-.313q-.275-.3-.262-.712t.287-.688z" />
-                            </svg>
-                            <span>
-                                Logout
-                            </span>
-                        </button>
-                    </form>
+                    <a title="Aktivitas" href="<?= BASE_URL ?>/account" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
+                        <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4" />
+                        </svg>
+                        <span>
+                            Akun
+                        </span>
+                    </a>
                 </div>
             </nav>
         </aside>

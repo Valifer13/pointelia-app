@@ -6,6 +6,7 @@ class DashboardController extends Controller
     {
         AuthMiddleware::check();
     }
+
     public function index() {
         $this->view("dashboard", [], "Dashboard");
     }

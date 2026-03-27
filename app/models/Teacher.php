@@ -49,7 +49,13 @@ class Teacher extends Model
 
     public function getTeacherByCode(string $code)
     {
-        $this->db->query("SELECT * FROM users WHERE code=:code");
+        $this->db->query("SELECT
+            users.*,
+            roles.name AS role
+            FROM users
+            JOIN roles ON users.role_id = roles.id
+            WHERE users.code = :code;
+");
         $this->db->bind(":code", $code);
         $this->db->execute();
         return $this->db->single();
@@ -102,6 +108,7 @@ class Teacher extends Model
 
     public function resetPassword(string $code, string $new_password) {
         $this->db->query("UPDATE users SET password=:new_password WHERE code=:code");
+        $this->db->bind(":code", $code);
         $this->db->bind(":new_password", $new_password);
         $this->db->execute();
     }

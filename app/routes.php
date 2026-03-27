@@ -8,6 +8,7 @@ $routes = [
     "login"            => [ "controller" => "AuthController", "method" => "login"], 
     "logout"           => [ "controller" => "AuthController", "method" => "logout"], 
     "change-password"  => [ "controller" => "AuthController", "method" => "change_password"], 
+    "account"          => [ "controller" => "AuthController", "method" => "account"], 
 
     // Dashboard
     "dashboard" => [ "controller" => "DashboardController", "method" => "index"], 
@@ -72,9 +73,11 @@ $routes = [
     "majors/edit"   => ["controller" => "MajorController", "method" => "edit"],
 
     // Letter routes
-    "letters"                               => ["controller" => "LetterController", "method" => "index"],
+    "letters"      => ["controller" => "LetterController", "method" => "index"],
+    "letters/page" => ["controller" => "LetterController", "method" => "index_with_pagination"],
+
     "letters/add-student-agreement-letter"  => ["controller" => "LetterController", "method" => "add_student_agreement_letter"],
-    "letters/add-guardian-invit-letter"   => ["controller" => "LetterController", "method" => "add_guardian_invit_letter"],
+    "letters/add-guardian-invit-letter"     => ["controller" => "LetterController", "method" => "add_guardian_invit_letter"],
     "letters/add-guardian-agreement-letter" => ["controller" => "LetterController", "method" => "add_guardian_agreement_letter"],
     "letters/add-school-transfer-letter"    => ["controller" => "LetterController", "method" => "add_school_transfer_letter"],
     "letters/add-point-reduction-letter"    => ["controller" => "LetterController", "method" => "add_point_reduction_letter"],

@@ -8,6 +8,7 @@ class TeacherController extends Controller
 
     public function __construct()
     {
+        AuthMiddleware::check();
         $db                   = Database::getInstance();
         $this->teacherService = new TeacherService($db);
     }

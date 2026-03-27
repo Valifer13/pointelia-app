@@ -6,6 +6,7 @@ class LetterController extends Controller
 
     public function __construct()
     {
+        AuthMiddleware::check();
         $db = Database::getInstance();
         $this->letterService = new LetterService($db);
     }
@@ -13,6 +14,13 @@ class LetterController extends Controller
     public function index()
     {
         $data = $this->letterService->getAllLetters(1);
+
+        $this->view("letters/index", $data, "Pembuatan & Cetak Surat");
+    }
+
+    public function index_with_pagination($page)
+    {
+        $data = $this->letterService->getAllLetters($page);
 
         $this->view("letters/index", $data, "Pembuatan & Cetak Surat");
     }

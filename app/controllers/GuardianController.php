@@ -6,6 +6,7 @@ class GuardianController extends Controller
 
     public function __construct()
     {
+        AuthMiddleware::check();
         $db                    = Database::getInstance();
         $this->guadrianService = new GuardianService($db);
     }

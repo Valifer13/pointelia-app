@@ -6,6 +6,7 @@ class ViolationTypeController extends Controller
 
     public function __construct()
     {
+        AuthMiddleware::check();
         $db = Database::getInstance();
         $this->violationTypeService = new ViolationTypeService($db);
     }
