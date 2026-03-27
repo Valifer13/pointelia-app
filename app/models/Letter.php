@@ -163,18 +163,66 @@ class Letter extends Model
     //? Transfer Letter
     //? ======================
 
-    public function createTransferLetterDetail(
+    public function createSchoolTransferLetterDetail(
         $letter_id,
+        $guardian_id,
         $target_school,
         $reason_for_moving
     ) {
-        $this->db->query("INSERT INTO transfer_letter_detail VALUES (:letter_id, :target_school, :reason_for_moving)");
+        $this->db->query("INSERT INTO transfer_letter_detail VALUES (:letter_id, :guardian_id, :target_school, :reason_for_moving)");
 
         $this->db->bind(":letter_id", $letter_id);
+        $this->db->bind(":guardian_id", $guardian_id);
         $this->db->bind(":target_school", $target_school);
         $this->db->bind(":reason_for_moving", $reason_for_moving);
 
         $this->db->execute();
+    }
+
+    public function findSchoolTransferLetterDetail($letter_id)
+    {
+        $this->db->query("SELECT
+                transfer_letter_detail.target_school,
+                transfer_letter_detail.reason_for_moving,
+                letters.id as letter_id,
+                letters.no_letter,
+                letters.letter_type,
+                letters.issued_date,
+                letters.status,
+                students.nis as student_nis,
+                students.name as student_name,
+                students.gender as student_gender,
+                students.address as student_address,
+                classes.rombel as class_rombel,
+                majors.name as major_name,
+                majors.description as major_description,
+                grade_levels.grade,
+                guardians.name as guardian_name,
+                guardians.job as guardian_job,
+                guardians.address as guardian_address,
+                guardians.phone_number as guardian_phone_number,
+                academic_years.year as academic_year
+            FROM transfer_letter_detail
+                JOIN letters 
+                    ON transfer_letter_detail.letter_id = letters.id
+                JOIN students 
+                    ON letters.student_nis = students.nis
+                JOIN guardians 
+                    ON transfer_letter_detail.guardian_id = guardians.id
+                JOIN classes 
+                    ON students.class_id = classes.id
+                JOIN majors 
+                    ON classes.major_id = majors.id
+                JOIN grade_levels 
+                    ON classes.grade_level_id = grade_levels.id
+                JOIN academic_years 
+                    ON letters.academic_year_id = academic_years.id
+            WHERE letters.id = :letter_id;
+        ");
+
+        $this->db->bind(":letter_id", $letter_id);
+        $this->db->execute();
+        return $this->db->single();
     }
 
 
@@ -205,14 +253,62 @@ class Letter extends Model
 
     public function createGuardianAgreementLetterDetail(
         $letter_id,
-        $reason
+        $guardian_id,
+        $guardian_birthplace,
+        $guardian_date_of_birth
     ) {
-        $this->db->query("INSERT INTO create_guardian_agreement_letter_detail VALUES (:letter_id, :reason)");
+        $this->db->query("INSERT INTO guardian_agreement_letter_detail VALUES (:letter_id, :guardian_id, :guardian_birthplace, :guardian_date_of_birth)");
 
         $this->db->bind(":letter_id", $letter_id);
-        $this->db->bind(":reason", $reason);
+        $this->db->bind(":guardian_id", $guardian_id);
+        $this->db->bind(":guardian_birthplace", $guardian_birthplace);
+        $this->db->bind(":guardian_date_of_birth", $guardian_date_of_birth);
 
         $this->db->execute();
+    }
+
+    public function findGuardianAgreementLetterDetail($letter_id)
+    {
+        $this->db->query("SELECT
+                guardian_agreement_letter_detail.guardian_birthplace,
+                guardian_agreement_letter_detail.guardian_date_of_birth,
+                letters.id as letter_id,
+                letters.no_letter,
+                letters.letter_type,
+                letters.issued_date,
+                letters.status,
+                students.nis as student_nis,
+                students.name as student_name,
+                classes.rombel as class_rombel,
+                majors.name as major_name,
+                majors.description as major_description,
+                grade_levels.grade,
+                guardians.name as guardian_name,
+                guardians.job as guardian_job,
+                guardians.address as guardian_address,
+                guardians.phone_number as guardian_phone_number,
+                academic_years.year as academic_year
+            FROM guardian_agreement_letter_detail
+                JOIN letters 
+                    ON guardian_agreement_letter_detail.letter_id = letters.id
+                JOIN guardians 
+                    ON guardian_agreement_letter_detail.guardian_id = guardians.id
+                JOIN students 
+                    ON letters.student_nis = students.nis
+                JOIN classes 
+                    ON students.class_id = classes.id
+                JOIN majors 
+                    ON classes.major_id = majors.id
+                JOIN grade_levels 
+                    ON classes.grade_level_id = grade_levels.id
+                JOIN academic_years 
+                    ON letters.academic_year_id = academic_years.id
+            WHERE letters.id = :letter_id;
+        ");
+
+        $this->db->bind(":letter_id", $letter_id);
+        $this->db->execute();
+        return $this->db->single();
     }
 
 

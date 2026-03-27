@@ -6,7 +6,6 @@
 </div>
 
 <div class="w-full overflow-x-auto mb-6">
-
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
 
         <a href="<?= BASE_URL ?>/letters/add-student-agreement-letter" class="flex items-start p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md hover:border-blue-400 hover:bg-blue-50 transition-all text-left group cursor-pointer">
@@ -49,7 +48,7 @@
             </div>
         </a>
 
-        <a href="<?= BASE_URL ?>/letters/add-point-reduction-letter" class="flex items-start p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md hover:border-rose-400 hover:bg-rose-50 transition-all text-left group cursor-pointer">
+        <!-- <a href="<?= BASE_URL ?>/letters/add-point-reduction-letter" class="flex items-start p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md hover:border-rose-400 hover:bg-rose-50 transition-all text-left group cursor-pointer">
             <div class="p-3 bg-rose-100 text-rose-600 rounded-lg group-hover:bg-rose-200 transition-colors">
                 <i class="fas fa-shield-alt text-xl"></i>
             </div>
@@ -57,7 +56,7 @@
                 <h3 class="text-base font-semibold text-gray-900 group-hover:text-rose-700">Pengurangan Poin</h3>
                 <p class="text-sm text-gray-500 mt-1">Dokumen resmi pemulihan poin pelanggaran.</p>
             </div>
-        </a>
+        </a> -->
 
     </div>
 
@@ -156,15 +155,29 @@
             </table>
         </div>
 
-        <div class="px-6 py-4 border-t border-gray-200 bg-gray-50 flex items-center justify-between">
-            <span class="text-sm text-gray-500">Menampilkan 1 hingga 3 dari 12 data</span>
-            <div class="flex space-x-2">
-                <button class="px-3 py-1 border border-gray-300 rounded bg-white text-gray-500 hover:bg-gray-100 disabled:opacity-50" disabled>Sebelumnya</button>
-                <button class="px-3 py-1 border border-gray-300 rounded bg-white text-gray-700 hover:bg-gray-100">Selanjutnya</button>
-            </div>
-        </div>
     </div>
+</div>
 
+<div class="pagination flex gap-5 py-4 justify-center px-5 bg-white rounded-md shadow-md">
+    <ul class="flex justify-center gap-3 text-gray-900">
+        <li>
+            <a href="<?= $letters['pagination']['has_prev'] ? BASE_URL . '/letters/page/' . ($letters['pagination']['current_page'] - 1) : '#' ?>" class="grid size-8 place-content-center rounded border border-gray-200 transition-colors hover:bg-gray-50 rtl:rotate-180" aria-label="Previous page">
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+            </a>
+        </li>
+
+        <li class="text-sm/8 font-medium tracking-widest"><?= $letters['pagination']['current_page'] ?>/<?= $letters['pagination']['last_page'] ?></li>
+
+        <li>
+            <a href="<?= $letters['pagination']['has_next'] ? BASE_URL . '/letters/page/' . ($letters['pagination']['current_page'] + 1) : '#' ?>" class="grid size-8 place-content-center rounded border border-gray-200 transition-colors hover:bg-gray-50 rtl:rotate-180" aria-label="Next page">
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                </svg>
+            </a>
+        </li>
+    </ul>
 </div>
 
 <script>

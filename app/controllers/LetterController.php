@@ -71,7 +71,57 @@ class LetterController extends Controller
         $this->view("letters/guardian_invit_letter", $data, "Detail Surat Perjanjian Siswa");
     }
 
+
+
     //? ======================
-    //? Guardian Invite
+    //? Guardian Agreement
     //? ======================
+
+    public function add_guardian_agreement_letter()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            try {
+                $this->letterService->createLetter($_POST);
+                Flasher::setFlash("Berhasil membuat surat.", "success");
+            } catch (Exception $err) {
+                Flasher::setFlash("Gagal membuat surat. Error: " . $err->getMessage(), "error");
+            }
+            header("Location: " . BASE_URL . "/letters");
+            exit;
+        }
+        $this->view("letters/add_guardian_agreement_letter", [], "Buat Surat Perjanjian Orang Tua/Wali");
+    }
+
+    public function guardian_agreement_letter($id)
+    {
+        $data = $this->letterService->getGuardianAgreementLetterDetail($id);
+        $this->view("letters/guardian_agreement_letter", $data, "Detail Surat Perjanjian");
+    }
+
+
+
+    //? ======================
+    //? Student Transfer
+    //? ======================
+
+    public function add_school_transfer_letter()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            try {
+                $this->letterService->createLetter($_POST);
+                Flasher::setFlash("Berhasil membuat surat.", "success");
+            } catch (Exception $err) {
+                Flasher::setFlash("Gagal membuat surat. Error: " . $err->getMessage(), "error");
+            }
+            header("Location: " . BASE_URL . "/letters");
+            exit;
+        }
+        $this->view("letters/add_school_transfer_letter", [], "Buat Surat Pindah Sekolah");
+    }
+
+    public function school_transfer_letter($id)
+    {
+        $data = $this->letterService->getSchoolTransferLetterDetail($id);
+        $this->view("letters/school_transfer_letter", $data, "Detail Surat Pindah Sekolah");
+    }
 }

@@ -61,50 +61,24 @@
 </div>
 
 <div class="pagination flex gap-5 py-4 justify-center px-5 bg-white rounded-md shadow-md">
-    <ul class="flex justify-center gap-1 text-gray-900">
-
-        <!-- PREVIOUS -->
+    <ul class="flex justify-center gap-3 text-gray-900">
         <li>
-            <a href="<?= $majors['pagination']['has_prev'] ? BASE_URL . '/majors/page/' . ($majors['pagination']['current_page'] - 1) : '#' ?>"
-               class="grid size-8 place-content-center rounded border border-gray-200 transition-colors 
-               <?= !$majors['pagination']['has_prev'] ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-50' ?>"
-               aria-label="Previous page">
-               
+            <a href="<?= $majors['pagination']['has_prev'] ? BASE_URL . '/majors/page/' . ($majors['pagination']['current_page'] - 1) : '#' ?>" class="grid size-8 place-content-center rounded border border-gray-200 transition-colors hover:bg-gray-50 rtl:rotate-180" aria-label="Previous page">
                 <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                 </svg>
             </a>
         </li>
 
-        <!-- PAGE NUMBERS -->
-        <?php for ($i = 1; $i <= $majors['pagination']['last_page']; $i++): ?>
-            <li>
-                <?php if ($i == $majors['pagination']['current_page']): ?>
-                    <span class="block size-8 rounded border border-blue-600 bg-blue-600 text-center text-sm/8 font-medium text-white">
-                        <?= $i ?>
-                    </span>
-                <?php else: ?>
-                    <a href="<?= BASE_URL ?>/majors/page/<?= $i ?>"
-                       class="block size-8 rounded border border-gray-200 text-center text-sm/8 font-medium transition-colors hover:bg-gray-50">
-                        <?= $i ?>
-                    </a>
-                <?php endif; ?>
-            </li>
-        <?php endfor; ?>
+        <li class="text-sm/8 font-medium tracking-widest"><?= $majors['pagination']['current_page'] ?>/<?= $majors['pagination']['last_page'] ?></li>
 
-        <!-- NEXT -->
         <li>
-            <a href="<?= $majors['pagination']['has_next'] ? BASE_URL . '/majors/page/' . ($majors['pagination']['current_page'] + 1) : '#' ?>"
-               class="grid size-8 place-content-center rounded border border-gray-200 transition-colors 
-               <?= !$majors['pagination']['has_next'] ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-50' ?>"
-               aria-label="Next page">
-               
+            <a href="<?= $majors['pagination']['has_next'] ? BASE_URL . '/majors/page/' . ($majors['pagination']['current_page'] + 1) : '#' ?>" class="grid size-8 place-content-center rounded border border-gray-200 transition-colors hover:bg-gray-50 rtl:rotate-180" aria-label="Next page">
                 <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
                 </svg>
             </a>
         </li>
-
     </ul>
 </div>
 

@@ -93,6 +93,58 @@ class LetterService
                 $this->db->rollback();
                 throw new Exception($err->getMessage());
             }
+        } else if ($data['letter_type'] === "guardian-agreement-letter") {
+            try {
+                $this->db->beginTransaction();
+                $this->letterModel->createLetter(
+                    "Perjanjian Wali",
+                    $data['student_nis'],
+                    $currentDate,
+                    "draft",
+                    $_SESSION['user']['id'],
+                    $current_academic_year_id
+                );
+
+                $lastLetterId = $this->db->lastInsertId();
+
+                $this->letterModel->createGuardianAgreementLetterDetail(
+                    $lastLetterId,
+                    $data['guardian_id'],
+                    $data['guardian_birthplace'],
+                    $data['guardian_date_of_birth']
+                );
+                $this->db->commit();
+            } catch (PDOException $err) {
+                $this->db->rollback();
+                throw new Exception($err->getMessage());
+            }
+        } else if ($data['letter_type'] === "school-transfer-letter") {
+            $no_letter = $data['no_letter'] . "/SMK TI/BG/" . romawi(date("m")) . "/" . date("Y");
+            try {
+                $this->db->beginTransaction();
+                $this->letterModel->createLetter(
+                    "Pindah Sekolah",
+                    $data['student_nis'],
+                    $currentDate,
+                    "draft",
+                    $_SESSION['user']['id'],
+                    $current_academic_year_id,
+                    $no_letter
+                );
+
+                $lastLetterId = $this->db->lastInsertId();
+
+                $this->letterModel->createSchoolTransferLetterDetail(
+                    $lastLetterId,
+                    $data['guardian_id'],
+                    $data['target_school'],
+                    $data['reason']
+                );
+                $this->db->commit();
+            } catch(PDOException $err) {
+                $this->db->rollback();
+                throw new Exception($err->getMessage());
+            }
         }
     }
 
@@ -145,6 +197,38 @@ class LetterService
             "letter" => $letter,
             "bk_teacher" => $bk_teacher,
             "waka_kesiswaan" => $waka_kesiswaan
+        ];
+    }
+
+    public function getGuardianAgreementLetterDetail($id): array
+    {
+        $letter = $this->letterModel->findGuardianAgreementLetterDetail($id);
+
+        if (empty($letter)) {
+            throw new Exception("Data surat tidak ditemukan");
+        }
+
+        return [
+            'letter' => $letter
+        ];
+    }
+
+    public function getSchoolTransferLetterDetail($id): array
+    {
+        $letter = $this->letterModel->findSchoolTransferLetterDetail($id);
+        $headschool = $this->teacherModel->getTeacherByPosition("Kepala Sekolah");
+
+        if (empty($letter)) {
+            throw new Exception("Data surat tidak ditemukan");
+        }
+
+        if (empty($headschool)) {
+            throw new Exception("Data kepala sekolah tidak ditemukan");
+        }
+
+        return [
+            'letter' => $letter,
+            'headschool' => $headschool
         ];
     }
 }

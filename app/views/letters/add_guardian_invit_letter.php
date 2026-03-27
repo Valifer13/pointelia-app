@@ -58,7 +58,7 @@
             </div>
         </div>
 
-        <h3 class="text-md font-semibold text-gray-800 mb-3">Pilih Data Orang Tua/Wali untuk Surat:</h3>
+        <h3 class="text-md font-semibold text-gray-800 mb-3">Isi data surat:</h3>
 
         <form action="" method="post" class="w-full bg-white border border-zinc-200 rounded-2xl p-6 shadow-sm flex flex-col gap-6">
             <input type="hidden" name="letter_type" value="guardian-invit-letter">

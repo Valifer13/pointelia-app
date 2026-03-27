@@ -95,35 +95,7 @@
 <div class="page font-letter">
 
     <!-- HEADER -->
-    <!-- <div class="flex items-center gap-4 pb-2">
-        <div class="shrink-0">
-            <img
-                src="https://smkti-baliglobal.sch.id/assets/logo.png"
-                alt="Logo SMK TI Bali Global"
-                class="w-16 h-16 object-contain"
-                onerror="this.style.display='none'" />
-        </div>
-        <div class="flex-1 text-center leading-tight">
-            <div class="text-gray-600 mb-0.5" style="font-size:7px; font-family: serif;">
-                ᬲᬾᬓᭀᬮᬄᬫᭂᬦᭂᬗᬄᬓᭂᬚᬸᬭᬸᬫᬦ᭄ᬢᭂᬓ᭄ᬦᭀᬮᭀᬕᬶᬇᬦ᭄ᬓᭀᬭᬫᬲᬶᬢ᭄ᬩᬮᬶᬕ᭄ᬮᭀᬩᬮ᭄
-            </div>
-            <div class="font-bold tracking-wider text-gray-700 uppercase" style="font-size:9px;">
-                SEKOLAH MENENGAH KEJURUAN TEKNOLOGI INFORMASI BALI GLOBAL
-            </div>
-            <div class="font-black tracking-widest text-gray-900 uppercase my-0.5" style="font-size:11px; letter-spacing:0.12em;">
-                SMK TI BALI GLOBAL DENPASAR
-            </div>
-            <div class="text-gray-600 leading-relaxed" style="font-size:7.5px;">
-                JL. TJ. BUNGKAK NO.8 DENPASAR TELP. (0361) 261867 FAX. (0361) 261807<br />
-                website : www.smkti-baliglobal.sch.id | email : admin@smkti-baliglobal.sch.id
-            </div>
-        </div>
-    </div> -->
-
     <img class="mb-2" src="/assets/icons/kop.jpg" alt="">
-
-    <!-- Header Border -->
-    <!-- <div class="header-border-top header-border-bottom mb-5" style="border-top: 3px solid #1a1a1a; border-bottom: 1.5px solid #1a1a1a; padding-bottom: 2px; margin-top: 2px;"></div> -->
 
     <!-- DOCUMENT TITLE -->
     <div class="text-center mb-5">
