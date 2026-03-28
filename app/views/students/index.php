@@ -27,6 +27,7 @@
                 <th class="pb-4 px-4 font-semibold w-2/5">Nama Lengkap</th>
                 <th class="pb-4 px-4 font-semibold w-1/5">NIS / NISN</th>
                 <th class="pb-4 px-4 font-semibold w-1/5">Jenis Kelamin</th>
+                <th class="pb-4 px-4 font-semibold w-1/5">Poin</th>
                 <th class="pb-4 px-4 font-semibold text-right pr-2">Aksi</th>
             </tr>
         </thead>
@@ -60,6 +61,7 @@
                             <p class="text-pink-600">Perempuan</p>
                         </td>
                     <?php endif; ?>
+                    <td class="p-4 text-zinc-600">0</td>
                     <td class="p-4 text-right pr-2">
                         <button class="data-option-btn p-1 border border-zinc-200 w-fit rounded-md inset-shadow-zinc-400 transition-all duration-500 cursor-pointer" data-id="<?= $student['nis'] ?>" data-name="<?= $student['name'] ?>">
                             <svg class="text-zinc-400 group-hover:text-zinc-800 transition-all duration-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">

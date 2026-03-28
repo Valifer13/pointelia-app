@@ -119,6 +119,13 @@ class Letter extends Model
         $this->db->execute();
     }
 
+    public function getAllGuardianInvitLetters()
+    {
+        $this->db->query("SELECT * FROM letters WHERE letter_type = 'Panggilan Wali'");
+        $this->db->execute();
+        return $this->db->result();
+    }
+
     public function findGuardianInvitLetterDetail($letter_id)
     {
         $this->db->query("SELECT

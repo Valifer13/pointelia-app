@@ -8,7 +8,7 @@
         <h2 class="text-xl font-semibold text-nowrap whitespace-nowrap">Data Wali</h2>
         <div class="w-full h-px bg-zinc-300"></div>
         <div class="w-full flex flex-col gap-4">
-            <div class="flex w-full gap-4">
+            <div class="flex w-full gap-4 flex-col md:flex-row">
                 <div class="w-full">
                     <label class="font-semibold" for="name">Nama</label>
                     <input required class="w-full p-2 rounded-md border border-zinc-300 bg-zinc-50 focus:outline-none" type="text" name="name" id="name" placeholder="Nama wali..." autocomplete="off">

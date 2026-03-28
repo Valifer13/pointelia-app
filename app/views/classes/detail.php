@@ -32,12 +32,12 @@
     <div class="w-full overflow-x-auto">
       <table class="w-full text-left border-collapse">
         <thead>
-          <tr class="text-[11px] text-zinc-400 uppercase tracking-widest border-b border-zinc-200">
-            <th class="pb-4 font-semibold pl-2 w-16">No</th>
-            <th class="pb-4 font-semibold w-2/5">Nama Lengkap</th>
-            <th class="pb-4 font-semibold w-1/5">NIS / NISN</th>
-            <th class="pb-4 font-semibold w-1/5">Jenis Kelamin</th>
-            <th class="pb-4 font-semibold text-right pr-2">Aksi</th>
+          <tr class="text-[11px] text-zinc-400 uppercase tracking-widest border-b border-zinc-200 **:whitespace-nowrap">
+            <th class="pb-4 px-4 font-semibold pl-2 w-16">No</th>
+            <th class="pb-4 px-4 font-semibold w-2/5">Nama Lengkap</th>
+            <th class="pb-4 px-4 font-semibold w-1/5">NIS / NISN</th>
+            <th class="pb-4 px-4 font-semibold w-1/5">Jenis Kelamin</th>
+            <th class="pb-4 px-4 font-semibold text-right pr-2">Aksi</th>
           </tr>
         </thead>
         <tbody class="text-sm">
@@ -48,15 +48,15 @@
             foreach ($students_in_this_class as $student):
               $count++
             ?>
-              <tr class="border-b border-zinc-100 hover:bg-zinc-50/80 transition-colors group">
-                <td class="py-4 pl-2 text-zinc-400"><?= str_pad($count, 2, '0', STR_PAD_LEFT) ?></td>
-                <td class="py-4">
+              <tr class="border-b border-zinc-100 hover:bg-zinc-50/80 transition-colors group **:whitespace-nowrap">
+                <td class="py-4 px-2 pl-2 text-zinc-400"><?= str_pad($count, 2, '0', STR_PAD_LEFT) ?></td>
+                <td class="py-4 px-2">
                   <div class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-full bg-zinc-100 flex items-center justify-center text-xs font-medium text-zinc-500">AD</div>
                     <span class="text-zinc-900 font-medium"><?= $student['name'] ?></span>
                   </div>
                 </td>
-                <td class="py-4 text-zinc-600"><?= $student['nis'] ?><br><span class="text-xs text-zinc-400"><?= $student['nisn'] ?></span></td>
+                <td class="py-4 px-2 text-zinc-600"><?= $student['nis'] ?><br><span class="text-xs text-zinc-400"><?= $student['nisn'] ?></span></td>
                 <?php if ($student["gender"] === "M"): ?>
                   <td class="p-4 flex gap-2 items-center text-blue-600">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
@@ -72,7 +72,7 @@
                     <p class="text-pink-600">Perempuan</p>
                   </td>
                 <?php endif; ?>
-                <td class="py-4 text-right pr-2">
+                <td class="py-4 px-2 text-right pr-2">
                   <button class="data-option-btn p-1 border border-zinc-200 w-fit rounded-md inset-shadow-zinc-400 transition-all duration-500 cursor-pointer" data-id="<?= $student['nis'] ?>" data-name="<?= $student['name'] ?>">
                     <svg class="text-zinc-400 group-hover:text-zinc-800 transition-all duration-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                       <path fill="currentColor" d="M7 12a2 2 0 1 1-4 0a2 2 0 0 1 4 0m7 0a2 2 0 1 1-4 0a2 2 0 0 1 4 0m7 0a2 2 0 1 1-4 0a2 2 0 0 1 4 0" />

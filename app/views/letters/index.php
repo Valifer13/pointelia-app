@@ -61,11 +61,11 @@
     </div>
 
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-        <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center bg-white">
+        <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center bg-white flex-col md:flex-row gap-4">
             <h2 class="text-lg font-semibold text-gray-900">Riwayat Surat Terakhir</h2>
 
-            <div class="relative">
-                <input type="text" placeholder="Cari siswa..." class="pl-9 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <div class="relative w-full md:w-fit">
+                <input type="text" placeholder="Cari siswa..." class="pl-9 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full">
                 <i class="fas fa-search absolute left-3 top-2.5 text-gray-400"></i>
             </div>
         </div>

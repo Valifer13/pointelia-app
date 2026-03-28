@@ -8,7 +8,7 @@
         <h2 class="text-xl font-semibold text-nowrap whitespace-nowrap px-6 py-4">Profil Guru</h2>
         <div class="w-full h-px bg-zinc-300"></div>
         <div class="w-full flex flex-col gap-4 p-6">
-            <div class="flex w-full gap-4">
+            <div class="flex w-full gap-4 flex-col md:flex-row">
                 <div class="w-full">
                     <label class="font-semibold" for="code">Code<span class="text-red-500">*</span></label>
                     <input required class="w-full p-2 rounded-md border border-zinc-300 bg-zinc-50 focus:outline-none read-only:text-zinc-400" type="text" name="code" id="code" value="0021.">
@@ -18,7 +18,7 @@
                     <input required class="w-full p-2 rounded-md border border-zinc-300 bg-zinc-50 focus:outline-none" type="text" name="username" id="username" placeholder="Username guru..." autocomplete="off">
                 </div>
             </div>
-            <div class="flex w-full gap-4">
+            <div class="flex w-full gap-4 flex-col md:flex-row">
                 <div class="w-full">
                     <label class="font-semibold" for="fullname">Nama<span class="text-red-500">*</span></label>
                     <input required class="w-full p-2 rounded-md border border-zinc-300 bg-zinc-50 focus:outline-none" type="text" name="fullname" id="fullname" placeholder="Nama guru..." autocomplete="off">
@@ -46,7 +46,7 @@
             </div>
             <div class="space-y-3">
                 <p class="font-semibold">Hak Akses</p>
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="w-full">
                         <label for="teacher_access" class="flex items-center gap-2 rounded border border-gray-300 bg-white p-3 text-sm text-zinc-700 font-medium shadow-sm transition-colors hover:bg-zinc-50 has-checked:border-green-600 has-checked:ring-1 has-checked:ring-green-600 has-checked:bg-green-100 has-checked:text-green-600">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">

@@ -51,6 +51,13 @@ class StudentService
         $studentClass      = $this->studentClassModel->getStudentClassById($student['class_id']);
         $studentViolations = $this->studentViolationModel->getAllViolationsWithTypeByStudentNis($nis);
         $studentGuardians  = $this->studentGuardianModel->getAllGuardianByStudentId($nis);
+        $violation_points  = 0;
+
+        if (!empty($studentViolations)) {
+            foreach ($studentViolations as $violation) {
+                $violation_points += $violation['violation_poin'];
+            }
+        }
 
         [$dataAyah, $dataIbu, $dataWali] = $this->categorizeGuardians($studentGuardians);
 
@@ -61,13 +68,14 @@ class StudentService
         ]);
 
         return [
-            'student'           => $student,
-            'studentClass'      => $studentClass,
-            'studentViolations' => $studentViolations,
-            'dataAyah'          => $dataAyah,
-            'dataIbu'           => $dataIbu,
-            'dataWali'          => $dataWali,
-            'guardians'         => $guardians,
+            'student'               => $student,
+            'studentClass'          => $studentClass,
+            'studentViolations'     => $studentViolations,
+            'total_violation_point' => $violation_points,
+            'dataAyah'              => $dataAyah,
+            'dataIbu'               => $dataIbu,
+            'dataWali'              => $dataWali,
+            'guardians'             => $guardians,
         ];
     }
 

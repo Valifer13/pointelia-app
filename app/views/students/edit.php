@@ -8,7 +8,7 @@
         <h2 class="text-xl font-semibold text-nowrap whitespace-nowrap">Data Siswa</h2>
         <div class="w-full h-px bg-zinc-300"></div>
         <div class="w-full flex flex-col gap-4">
-            <div class="flex w-full gap-4">
+            <div class="flex w-full gap-4 flex-col md:flex-row">
                 <div class="w-full">
                     <label class="font-semibold" for="nis">NIS</label>
                     <input required class="w-full p-2 rounded-md border border-zinc-300 bg-zinc-50 focus:outline-none read-only:text-zinc-400" type="text" name="nis" id="nis" readonly value="<?= str_pad($student['nis'], 4, "0", STR_PAD_LEFT) ?>">
@@ -18,7 +18,7 @@
                     <input required class="w-full p-2 rounded-md border border-zinc-300 bg-zinc-50 focus:outline-none" type="text" name="nisn" id="nisn" value="<?= $student['nisn'] ?>">
                 </div>
             </div>
-            <div class="flex w-full gap-4">
+            <div class="flex w-full gap-4 flex-col md:flex-row">
                 <div class="w-full">
                     <label class="font-semibold" for="name">Nama</label>
                     <input required class="w-full p-2 rounded-md border border-zinc-300 bg-zinc-50 focus:outline-none" type="text" name="name" id="name" placeholder="Nama siswa..." autocomplete="off" value="<?= $student['name'] ?>">
@@ -28,7 +28,7 @@
                     <input required class="w-full p-2 rounded-md border border-zinc-300 bg-zinc-50 focus:outline-none" type="email" name="email" id="email" placeholder="Email siswa..." autocomplete="off" value="<?= $student['email'] ?>">
                 </div>
             </div>
-            <div class="flex w-full gap-4">
+            <div class="flex w-full gap-4 flex-col md:flex-row">
                 <div class="w-full">
                     <label class="font-semibold" for="phone_number">Nomor HP</label>
                     <input required class="w-full p-2 rounded-md border border-zinc-300 bg-zinc-50 focus:outline-none" type="tel" id="phone_number" name="phone_number" value="<?= $student['phone_number'] ?>">

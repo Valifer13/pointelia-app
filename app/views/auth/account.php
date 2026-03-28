@@ -59,12 +59,12 @@
     </div>
 
     <div class="p-6 md:p-8 bg-gray-50 border-t border-gray-100 flex flex-col sm:flex-row justify-end gap-4">
-        <a href="<?= BASE_URL ?>/change-password" type="button" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 font-medium transition-colors shadow-sm text-sm cursor-pointer">
+        <a href="<?= BASE_URL ?>/change-password" type="button" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 font-medium transition-colors shadow-sm text-sm cursor-pointer text-center w-full md:w-fit whitespace-nowrap">
             Reset Password
         </a>
 
-        <form action="<?= BASE_URL ?>/logout" method="post">
-            <button type="submit" class="px-5 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium transition-colors shadow-sm text-sm cursor-pointer">
+        <form action="<?= BASE_URL ?>/logout" method="post" class="w-full">
+            <button type="submit" class="px-5 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium transition-colors shadow-sm text-sm cursor-pointer w-full md:w-fit">
                 Keluar (Logout)
             </button>
         </form>

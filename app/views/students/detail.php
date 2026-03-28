@@ -6,9 +6,11 @@
 <section class="bg-white p-5 rounded-lg shadow-md mb-6">
     <h2 class="text-xl font-semibold">Profil Siswa</h2>
     <div class="w-full h-px bg-zinc-300 my-4"></div>
-    <div class="flex gap-5">
-        <div class="size-32 overflow-hidden">
-            <img src="https://placehold.co/400" alt="student profile">
+    <div class="flex gap-5 flex-col md:flex-row">
+        <div class="w-full md:w-fit flex md:block justify-center md:justify-normal">
+            <div class="size-32 overflow-hidden">
+                <img src="https://placehold.co/400" alt="student profile">
+            </div>
         </div>
         <div class="flex flex-col gap-4">
             <div class="flex flex-col">
@@ -56,7 +58,7 @@
     </div>
 </section>
 
-<section class="flex gap-5 mb-6">
+<section class="flex gap-5 mb-6 flex-col md:flex-row">
     <div class="bg-white p-5 rounded-lg shadow-md w-full min-w-0"> <!-- min-w-0 is the key fix -->
         <h2 class="text-xl font-semibold">Riwayat Pelanggaran Terbaru</h2>
         <div class="w-full h-px bg-zinc-300 my-4"></div>
@@ -84,7 +86,7 @@
                                 <td><?= $violation['violation_name'] ?></td>
                                 <td><?= $violation['notes'] ?></td>
                                 <td><?= $violation['reporter_name'] ?></td>
-                                <td><?= $violation['validator_name'] ?></td>
+                                <td><?= $violation['validator_name'] ?? "-" ?></td>
                                 <td><?= $violation['violation_date'] ?></td>
                             </tr>
                         <?php endforeach; ?>
@@ -98,7 +100,7 @@
     <div class="bg-white p-5 rounded-lg shadow-md min-w-[300px]">
         <h2 class="text-xl font-semibold">Skor Pelanggaran</h2>
         <div class="w-full h-px bg-zinc-300 my-4"></div>
-        <p class="w-full text-6xl font-bold text-center">86</p>
+        <p class="w-full text-6xl font-bold text-center"><?= $total_violation_point ?></p>
     </div>
 </section>
 

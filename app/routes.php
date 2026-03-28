@@ -44,7 +44,7 @@ $routes = [
     "violation-types"        => ["controller" => "ViolationTypeController", "method" => "index"],
     "violation-types/page"   => ["controller" => "ViolationTypeController", "method" => "index_with_pagination"],
     "violation-types/add"    => ["controller" => "ViolationTypeController", "method" => "add"],
-    "violation-types/detail" => ["controller" => "ViolationTypeController", "method" => "detail"],
+    // "violation-types/detail" => ["controller" => "ViolationTypeController", "method" => "detail"],
     "violation-types/delete" => ["controller" => "ViolationTypeController", "method" => "delete"],
     "violation-types/edit"   => ["controller" => "ViolationTypeController", "method" => "edit"],
 
@@ -52,7 +52,7 @@ $routes = [
     "guardians"        => ["controller" => "GuardianController", "method" => "index"],
     "guardians/page"   => ["controller" => "GuardianController", "method" => "index_with_pagination"],
     "guardians/add"    => ["controller" => "GuardianController", "method" => "add"],
-    "guardians/detail" => ["controller" => "GuardianController", "method" => "detail"],
+    // "guardians/detail" => ["controller" => "GuardianController", "method" => "detail"],
     "guardians/delete" => ["controller" => "GuardianController", "method" => "delete"],
     "guardians/edit"   => ["controller" => "GuardianController", "method" => "edit"],
 

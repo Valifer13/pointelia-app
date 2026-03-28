@@ -30,7 +30,7 @@ class StudentViolation extends Model
             FROM student_violations
             JOIN violation_types ON student_violations.violation_type_id = violation_types.id
             JOIN users as reporter ON student_violations.reported_by = reporter.code
-            JOIN users as validator ON student_violations.validated_by = validator.code
+            LEFT JOIN users as validator ON student_violations.validated_by = validator.code
             WHERE student_violations.student_nis = :student_nis;
         ");
 
@@ -118,6 +118,55 @@ class StudentViolation extends Model
                 'has_prev' => $page > 1,
             ]
         ];
+    }
+
+    public function getStudentViolationInThisMonth()
+    {
+        $this->db->query(" SELECT
+                student_violations.violation_date,
+                student_violations.notes as violation_notes,
+                student_violations.status as violation_status,
+                students.nis as student_nis,
+                students.name as student_name,
+                classes.rombel as class_rombel,
+                majors.name as major_name,
+                grade_levels.grade as class_grade,
+                violation_types.name as violation_name,
+                violation_types.point_value as violation_point
+            FROM student_violations
+                JOIN students
+                    ON student_violations.student_nis = students.nis
+                JOIN classes
+                    ON students.class_id = classes.id
+                JOIN majors
+                    ON classes.major_id = majors.id
+                JOIN grade_levels
+                    ON classes.grade_level_id = grade_levels.id
+                JOIN violation_types
+                    ON student_violations.violation_type_id = violation_types.id
+            WHERE MONTH(student_violations.created_at) = MONTH(NOW())
+                AND YEAR(student_violations.created_at) = YEAR(NOW())
+            ORDER BY student_violations.created_at DESC
+            LIMIT 5;
+        ");
+        $this->db->execute();
+        return $this->db->result();
+    }
+
+    public function getSpecialAttentionStudents()
+    {
+        $this->db->query("SELECT
+            	students.nis,
+                students.name,
+                SUM(violation_types.point_value) as total_points
+            FROM student_violations
+            	JOIN students ON student_violations.student_nis = students.nis
+               	JOIN violation_types ON student_violations.violation_type_id = violation_types.id
+            GROUP BY students.nis, students.name
+            HAVING total_points > 50;
+        ");
+        $this->db->execute();
+        return $this->db->result();
     }
 
     public function create(

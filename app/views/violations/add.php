@@ -8,7 +8,7 @@
         <h2 class="text-xl font-semibold text-nowrap whitespace-nowrap">Data Siswa</h2>
         <div class="w-full h-px bg-zinc-300"></div>
         <div class="w-full flex flex-col gap-4">
-            <div class="flex w-full gap-4">
+            <div class="flex w-full gap-4 flex-col md:flex-row">
                 <div class="w-full">
                     <label class="font-semibold" for="student_nis">NIS Siswa</label>
                     <input required class="w-full p-2 rounded-md border border-zinc-300 bg-zinc-50 focus:outline-none read-only:text-zinc-400" type="text" name="student_nis" id="student_nis" list="Students">
@@ -28,7 +28,7 @@
                     </datalist>
                 </div>
             </div>
-            <div class="flex w-full gap-4">
+            <div class="flex w-full gap-4 flex-col md:flex-row">
                 <div class="w-full">
                     <label class="font-semibold" for="occurrence_date">Tanggal Terjadi</label>
                     <input required class="w-full p-2 rounded-md border border-zinc-300 bg-zinc-50 focus:outline-none" type="date" name="occurrence_date" id="occurrence_date">
