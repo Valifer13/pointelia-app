@@ -11,7 +11,27 @@ class StudentViolation extends Model
 
     public function getAllViolationsByStudentNis($studentNis)
     {
-        $this->db->query("SELECT * FROM student_violations WHERE student_nis = :student_nis");
+        $this->db->query("SELECT
+            sv.*,
+            vt.name as violation_type_name,
+            vt.point_value,
+            students.name as student_name,
+            reporter.fullname as reporter_name,
+            validator.fullname as validator_name,
+            (
+                SELECT SUM(vt2.point_value)
+                FROM student_violations sv2
+                JOIN violation_types vt2 ON sv2.violation_type_id = vt2.id
+                WHERE sv2.student_nis = sv.student_nis
+            ) as total_points
+        FROM student_violations sv
+        JOIN violation_types vt ON sv.violation_type_id = vt.id
+        JOIN students ON sv.student_nis = students.nis
+        LEFT JOIN users reporter ON sv.reported_by = reporter.code
+        LEFT JOIN users validator ON sv.validated_by = validator.code
+        WHERE sv.student_nis = :student_nis
+        ORDER BY sv.created_at DESC
+        ");
         $this->db->bind(":student_nis", $studentNis);
         $this->db->execute();
         return $this->db->result();

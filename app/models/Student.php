@@ -74,7 +74,18 @@ class Student extends Model
 
     public function getStudentByNis(string $nis)
     {
-        $this->db->query("SELECT * FROM students WHERE nis=:nis");
+        $this->db->query("SELECT
+                students.*,
+                majors.name as major_name,
+                majors.description as major_description,
+                grade_levels.grade as grade,
+                classes.rombel as rombel
+            FROM students
+                JOIN classes ON students.class_id = classes.id
+                JOIN majors ON classes.major_id = majors.id
+                JOIN grade_levels ON classes.grade_level_id = grade_levels.id
+            WHERE students.nis=:nis
+        ");
         $this->db->bind(":nis", $nis);
         $this->db->execute();
         return $this->db->single();

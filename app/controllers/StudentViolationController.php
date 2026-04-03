@@ -30,6 +30,15 @@ class StudentViolationController extends Controller
         $this->view("violations/index", $data, "List Pelanggaran");
     }
 
+    public function detail($student_nis)
+    {
+        AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah']);
+
+        $data = $this->StudentViolationService->getViolationsWithoutPagination($student_nis);
+
+        $this->view("violations/detail", $data, "Detail Pelanggaran Siswa");
+    }
+
     public function add()
     {
         AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah', 'guru']);

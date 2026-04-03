@@ -28,6 +28,28 @@ class StudentViolationService
         ];
     }
 
+    public function getViolationsWithoutPagination($student_nis): array
+    {
+        $student_violations = $this->studentViolationModel->getAllViolationsByStudentNis($student_nis);
+        $total_violation_poin = $student_violations[0]['total_points'];
+        $student = $this->studentModel->getStudentByNis($student_nis);
+
+        return [
+            'student_violations' => $student_violations,
+            'total_violation_poin' => $total_violation_poin,
+            'student' => $student
+        ];
+    }
+
+    public function getViolationById(int $id): array
+    {
+        $student_violations = $this->studentViolationModel->getAllViolationsWithStudentsTeachersAndPaginationByNis($_SESSION['user']['id']);
+
+        return [
+            'student_violations' => $student_violations
+        ];
+    }
+
     public function getAddStudentViolationFormData(): array
     {
         $students       = $this->studentModel->getAllStudents();

@@ -58,11 +58,9 @@
                         <td class="p-4 text-zinc-600"><?= $violation["violation_poin"] ?? "-" ?></td>
                         <td class="p-4 text-zinc-600"><?= $violation["violation_date"] ?></td>
                         <td class="p-4 text-right pr-2">
-                            <button class="data-option-btn p-1 border border-zinc-200 w-fit rounded-md inset-shadow-zinc-400 transition-all duration-500 cursor-pointer" data-id="<?= $violation['violation_id'] ?>" data-name="pelanggaran">
-                                <svg class="text-zinc-400 group-hover:text-zinc-800 transition-all duration-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                    <path fill="currentColor" d="M7 12a2 2 0 1 1-4 0a2 2 0 0 1 4 0m7 0a2 2 0 1 1-4 0a2 2 0 0 1 4 0m7 0a2 2 0 1 1-4 0a2 2 0 0 1 4 0" />
-                                </svg>
-                            </button>
+                            <a href="<?= BASE_URL . '/violations/detail/' . $violation['student_nis'] ?>" class="inline-flex items-center px-3 py-1.5 bg-white border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm cursor-pointer">
+                                <i class="fas fa-print mr-2"></i> Cetak
+                            </a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
