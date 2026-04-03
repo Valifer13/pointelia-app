@@ -15,18 +15,22 @@ class StudentController extends Controller
 
     public function index()
     {
+        AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah', 'guru']);
         $data = $this->studentService->getAllStudentsWithPaginationWithClasses(1);
         $this->view("students/index", $data, "List Siswa");
     }
 
     public function index_with_pagination(int $page)
     {
+        AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah', 'guru']);
         $data = $this->studentService->getAllStudentsWithPaginationWithClasses($page);
         $this->view("students/index", $data, "List Siswa");
     }
 
     public function detail($nis)
     {
+        AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah', 'guru', 'siswa']);
+
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $this->handleDetailPost($nis);
         }
@@ -44,6 +48,8 @@ class StudentController extends Controller
 
     public function add()
     {
+        AuthMiddleware::checkRole(['admin']);
+
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             try {
                 $this->studentService->createStudent($_POST);
@@ -62,6 +68,8 @@ class StudentController extends Controller
 
     public function edit($nis)
     {
+        AuthMiddleware::checkRole(['admin']);
+
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             try {
                 $this->studentService->updateStudent($_POST);
@@ -86,6 +94,8 @@ class StudentController extends Controller
 
     public function delete($nis)
     {
+        AuthMiddleware::checkRole(['admin']);
+
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             try {
                 $this->studentService->deleteStudent($nis);

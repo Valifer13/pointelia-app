@@ -5,7 +5,8 @@ $routes = [
     "" => ["controller" => "HomeController", "method" => "index"],
 
     // Auth routes
-    "login"            => [ "controller" => "AuthController", "method" => "login"], 
+    "login/teacher"    => [ "controller" => "AuthController", "method" => "login_teacher"], 
+    "login/student"    => [ "controller" => "AuthController", "method" => "login_student"], 
     "logout"           => [ "controller" => "AuthController", "method" => "logout"], 
     "change-password"  => [ "controller" => "AuthController", "method" => "change_password"], 
     "account"          => [ "controller" => "AuthController", "method" => "account"], 

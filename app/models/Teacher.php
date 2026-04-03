@@ -195,9 +195,10 @@ class Teacher extends Model
         $this->db->bind(":position", $position);
         $this->db->bind(":is_active", $is_active);
 
-        if (!$this->db->execute()) {
-            throw new Exception("Unkown error occured at model level");
-        }
+        $this->db->execute();
+        // if (!$this->db->execute()) {
+        //     throw new Exception("Unkown error occured at model level");
+        // }
     }
 
     public function delete(string $code) {

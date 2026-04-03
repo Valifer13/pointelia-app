@@ -72,26 +72,26 @@
                     </div>
 
                     <div class="w-full">
-                        <label for="bk_access" class="flex items-center gap-2 rounded border border-gray-300 bg-white p-3 text-sm text-zinc-700 font-medium shadow-sm transition-colors hover:bg-zinc-50 has-checked:border-violet-600 has-checked:ring-1 has-checked:ring-violet-600 has-checked:bg-violet-100 has-checked:text-violet-600">
+                        <label for="wakasek_access" class="flex items-center gap-2 rounded border border-gray-300 bg-white p-3 text-sm text-zinc-700 font-medium shadow-sm transition-colors hover:bg-zinc-50 has-checked:border-violet-600 has-checked:ring-1 has-checked:ring-violet-600 has-checked:bg-violet-100 has-checked:text-violet-600">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
                                 <path fill="currentColor" d="M7 7.5C7 4.424 9.424 2 12.5 2S18 4.424 18 7.5S15.576 13 12.5 13a5.8 5.8 0 0 1-1.5-.18V13a1 1 0 0 1-1 1H9v1a1 1 0 0 1-1 1H7v.5A1.5 1.5 0 0 1 5.5 18h-2A1.5 1.5 0 0 1 2 16.5v-1.586c0-.398.158-.78.44-1.06l4.54-4.541c.134-.134.2-.368.142-.638A5.6 5.6 0 0 1 7 7.5M15 6a1 1 0 1 0-2 0a1 1 0 0 0 2 0" />
                             </svg>
 
-                            <p class="font-semibold">Bimbingan Konseling</p>
+                            <p class="font-semibold">Wakasek</p>
 
-                            <input type="radio" name="access" value="Bimbingan Konseling" id="bk_access" class="sr-only" <?= $role['name'] === "Bimbingan Konseling" ? "checked" : "" ?>>
+                            <input type="radio" name="access" value="Wakasek" id="wakasek_access" class="sr-only" <?= $role['name'] === "Wakasek" ? "checked" : "" ?>>
                         </label>
                     </div>
 
                     <div class="w-full">
-                        <label for="manajemen_access" class="flex items-center gap-2 rounded border border-gray-300 bg-white p-3 text-sm text-zinc-700 font-medium shadow-sm transition-colors hover:bg-zinc-50 has-checked:border-orange-600 has-checked:ring-1 has-checked:ring-orange-600 has-checked:bg-orange-100">
+                        <label for="headschool_access" class="flex items-center gap-2 rounded border border-gray-300 bg-white p-3 text-sm text-zinc-700 font-medium shadow-sm transition-colors hover:bg-zinc-50 has-checked:border-orange-600 has-checked:ring-1 has-checked:ring-orange-600 has-checked:bg-orange-100">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
                                 <path fill="currentColor" d="M7 7.5C7 4.424 9.424 2 12.5 2S18 4.424 18 7.5S15.576 13 12.5 13a5.8 5.8 0 0 1-1.5-.18V13a1 1 0 0 1-1 1H9v1a1 1 0 0 1-1 1H7v.5A1.5 1.5 0 0 1 5.5 18h-2A1.5 1.5 0 0 1 2 16.5v-1.586c0-.398.158-.78.44-1.06l4.54-4.541c.134-.134.2-.368.142-.638A5.6 5.6 0 0 1 7 7.5M15 6a1 1 0 1 0-2 0a1 1 0 0 0 2 0" />
                             </svg>
 
-                            <p class="font-semibold">Manajemen</p>
+                            <p class="font-semibold">Kepala Sekolah</p>
 
-                            <input type="radio" name="access" value="Manajemen" id="manajemen_access" class="sr-only" <?= $role['name'] === "Manajemen" ? "checked" : "" ?>>
+                            <input type="radio" name="access" value="Kepala Sekolah" id="headschool_access" class="sr-only" <?= $role['name'] === "Kepala Sekolah" ? "checked" : "" ?>>
                         </label>
                     </div>
                 </div>

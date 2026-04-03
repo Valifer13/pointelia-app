@@ -13,6 +13,7 @@ class LetterController extends Controller
 
     public function index()
     {
+        AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah', 'guru', 'siswa']);
         $data = $this->letterService->getAllLetters(1);
 
         $this->view("letters/index", $data, "Pembuatan & Cetak Surat");
@@ -20,6 +21,7 @@ class LetterController extends Controller
 
     public function index_with_pagination($page)
     {
+        AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah', 'guru', 'siswa']);
         $data = $this->letterService->getAllLetters($page);
 
         $this->view("letters/index", $data, "Pembuatan & Cetak Surat");
@@ -33,6 +35,7 @@ class LetterController extends Controller
 
     public function add_student_agreement_letter()
     {
+        AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah']);
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             try {
                 $this->letterService->createLetter($_POST);
@@ -48,6 +51,7 @@ class LetterController extends Controller
 
     public function student_agreement_letter($id)
     {
+        AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah']);
         $data = $this->letterService->getStudentAgreementLetterDetail($id);
         $this->view("letters/student_agreement_letter", $data, "Detail Surat Perjanjian Siswa");
     }
@@ -60,6 +64,7 @@ class LetterController extends Controller
 
     public function add_guardian_invit_letter()
     {
+        AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah']);
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             try {
                 $this->letterService->createLetter($_POST);
@@ -75,6 +80,7 @@ class LetterController extends Controller
 
     public function guardian_invit_letter($id)
     {
+        AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah']);
         $data = $this->letterService->getGuardianInvitLetterDetail($id);
         $this->view("letters/guardian_invit_letter", $data, "Detail Surat Perjanjian Siswa");
     }
@@ -87,6 +93,7 @@ class LetterController extends Controller
 
     public function add_guardian_agreement_letter()
     {
+        AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah']);
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             try {
                 $this->letterService->createLetter($_POST);
@@ -102,6 +109,8 @@ class LetterController extends Controller
 
     public function guardian_agreement_letter($id)
     {
+        AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah']);
+
         $data = $this->letterService->getGuardianAgreementLetterDetail($id);
         $this->view("letters/guardian_agreement_letter", $data, "Detail Surat Perjanjian");
     }
@@ -114,6 +123,7 @@ class LetterController extends Controller
 
     public function add_school_transfer_letter()
     {
+        AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah']);
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             try {
                 $this->letterService->createLetter($_POST);
@@ -129,6 +139,7 @@ class LetterController extends Controller
 
     public function school_transfer_letter($id)
     {
+        AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah']);
         $data = $this->letterService->getSchoolTransferLetterDetail($id);
         $this->view("letters/school_transfer_letter", $data, "Detail Surat Pindah Sekolah");
     }

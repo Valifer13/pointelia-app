@@ -3,7 +3,8 @@
 class HomeController extends Controller
 {
     public function index() {
-        $this->view('welcome', [],'Welcome Page', "home");
+        // $this->view('welcome', [],'Welcome Page', "home");
+        require_once "../app/views/welcome.php";
     }
 
     public function pageNotFound() {

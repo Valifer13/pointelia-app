@@ -34,6 +34,15 @@ class TeacherService {
         ];
     }
 
+    public function getAddTeacherFormData(): array
+    {
+        $roles = $this->roleModel->getAllRoles();
+
+        return [
+            'roles' => $roles
+        ];
+    }
+
     public function createTeacherData(array $data): void
     {
         $role     = $this->roleModel->getRoleByName($data['access']);

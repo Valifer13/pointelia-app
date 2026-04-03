@@ -22,7 +22,11 @@ class LetterService
 
     public function getAllLetters(int $page): array
     {
-        $letters = $this->letterModel->getAllLetters($page);
+        if (AuthMiddleware::checkRoleForBool(['siswa'])) {
+            $letters = $this->letterModel->getAllLettersByStudentNis($_SESSION['user']['id'], $page);
+        } else {
+            $letters = $this->letterModel->getAllLetters($page);
+        }
 
         return [
             'letters' => $letters,

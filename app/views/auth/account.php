@@ -5,8 +5,13 @@
             BS
         </div>
         <div class="text-center md:text-left">
-            <h1 class="text-2xl font-bold text-gray-900"><?= $fullname ?></h1>
-            <p class="text-gray-500 mt-1">NIP. XXXX XXXX XXXX</p>
+            <h1 class="text-2xl font-bold text-gray-900"><?= $fullname ?? $name ?></h1>
+
+            <?php if ($_SESSION['user']['role'] === "Siswa"): ?>
+                <p class="text-gray-500 mt-1">NIS: <?= $nis ?></p>
+            <?php else: ?>
+                <p class="text-gray-500 mt-1">NIP. XXXX XXXX XXXX</p>
+            <?php endif; ?>
         </div>
     </div>
 
@@ -15,10 +20,12 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
 
+            <?php if ($_SESSION['user']['role'] !== "Siswa"): ?>
             <div>
                 <p class="text-sm text-gray-500 mb-1">Username</p>
                 <p class="font-medium text-gray-900"><?= $username ?></p>
             </div>
+            <?php endif; ?>
 
             <div>
                 <p class="text-sm text-gray-500 mb-1">Email</p>
@@ -30,10 +37,12 @@
                 <p class="font-medium text-gray-900"><?= $phone_number ?></p>
             </div>
 
+            <?php if ($_SESSION['user']['role'] !== "Siswa"): ?>
             <div>
                 <p class="text-sm text-gray-500 mb-1">Jabatan</p>
                 <p class="font-medium text-gray-900"><?= $position ?></p>
             </div>
+            <?php endif; ?>
 
             <div>
                 <p class="text-sm text-gray-500 mb-2">Hak Akses</p>
@@ -58,7 +67,7 @@
         </div>
     </div>
 
-    <div class="p-6 md:p-8 bg-gray-50 border-t border-gray-100 flex flex-col sm:flex-row justify-end gap-4">
+    <div class="p-6 md:p-8 bg-gray-50 border-t border-gray-100 flex flex-col sm:flex-row justify-end items-center gap-4">
         <a href="<?= BASE_URL ?>/change-password" type="button" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 font-medium transition-colors shadow-sm text-sm cursor-pointer text-center w-full md:w-fit whitespace-nowrap">
             Reset Password
         </a>

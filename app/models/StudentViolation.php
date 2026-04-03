@@ -120,6 +120,64 @@ class StudentViolation extends Model
         ];
     }
 
+    public function getAllViolationsWithStudentsTeachersAndPaginationByNis(string $student_nis, int $page = 1, int $perPage = 10)
+    {
+        // Pastikan page minimal 1
+        (int) $page = max($page, 1);
+
+        (int) $offset = ($page - 1) * $perPage;
+
+        $this->db->query("SELECT
+                students.nis as student_nis,
+                students.name as student_name,
+                violation_types.name as violation_type_name,
+                violation_types.point_value as violation_poin,
+                reporter.code as reporter_code,
+                reporter.fullname as reporter_name,
+                validator.code as validator_code,
+                validator.fullname as validator_name,
+                student_violations.id as violation_id,
+                student_violations.violation_date as violation_date,
+                student_violations.notes as violation_notes,
+                student_violations.status as violation_status,
+                student_violations.validated_at as validated_at
+            FROM student_violations
+                JOIN students ON student_violations.student_nis = students.nis
+                JOIN violation_types ON student_violations.violation_type_id = violation_types.id
+                JOIN users as reporter ON  student_violations.reported_by = reporter.code
+                LEFT JOIN users as validator ON  student_violations.validated_by = validator.code
+            WHERE student_violations.student_nis = :student_nis
+            ORDER BY student_violations.created_at DESC
+            LIMIT $perPage OFFSET $offset;
+        ");
+        $this->db->bind(":student_nis", $student_nis);
+        $this->db->execute();
+        $data = $this->db->result();
+
+        // Hitung total data
+        $this->db->query("SELECT COUNT(*) as total FROM student_violations WHERE student_nis = :student_nis");
+        $this->db->bind(":student_nis", $student_nis);
+        $this->db->execute();
+        $total = $this->db->single()['total'];
+
+        // Hitung last page
+        $lastPage = ceil($total / $perPage);
+
+        return [
+            'data' => $data,
+            'pagination' => [
+                'total' => (int)$total,
+                'per_page' => $perPage,
+                'current_page' => $page,
+                'last_page' => (int)$lastPage,
+                'from' => $offset + 1,
+                'to' => $offset + count($data),
+                'has_next' => $page < $lastPage,
+                'has_prev' => $page > 1,
+            ]
+        ];
+    }
+
     public function getStudentViolationInThisMonth()
     {
         $this->db->query(" SELECT

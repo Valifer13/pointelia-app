@@ -61,7 +61,7 @@
     <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
         <div class="px-6 py-5 border-b border-gray-100 flex justify-between items-center">
             <h2 class="text-lg font-semibold text-gray-800">Pelanggaran Terbaru</h2>
-            <button class="text-sm text-indigo-600 font-medium hover:text-indigo-700">Lihat Semua</button>
+            <a href="<?= BASE_URL ?>/violations" class="text-sm text-indigo-600 font-medium hover:text-indigo-700">Lihat Semua</a>
         </div>
         <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">

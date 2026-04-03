@@ -127,6 +127,7 @@ class StudentService
     public function createStudent(array $data): void
     {
         $classId = $this->studentClassModel->getIdClass($data['class'])[0]['id'];
+        $password = password_hash("user123", PASSWORD_DEFAULT);
 
         $this->studentModel->create(
             $data['nis'],
@@ -134,7 +135,7 @@ class StudentService
             $data['name']         ?? null,
             $data['email']        ?? null,
             $data['phone_number'] ?? null,
-            "user123",
+            $password,
             $data['gender']       ?? null,
             $classId,
             $data['address']      ?? null

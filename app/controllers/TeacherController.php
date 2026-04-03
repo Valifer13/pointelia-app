@@ -9,6 +9,8 @@ class TeacherController extends Controller
     public function __construct()
     {
         AuthMiddleware::check();
+        AuthMiddleware::checkRole(['admin']);
+
         $db                   = Database::getInstance();
         $this->teacherService = new TeacherService($db);
     }
@@ -48,7 +50,8 @@ class TeacherController extends Controller
             exit;
         }
 
-        $this->view('teachers/add', [], "Tambah Guru");
+        $data = $this->teacherService->getAddTeacherFormData();
+        $this->view('teachers/add', $data, "Tambah Guru");
     }
 
     public function edit($code)

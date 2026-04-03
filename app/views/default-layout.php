@@ -63,7 +63,7 @@
             </div>
             <div class="flex gap-4 items-center">
                 <div class="flex flex-col justify-between items-end">
-                    <p class="font-medium"><?= $_SESSION['user']['fullname'] ?></p>
+                    <p class="font-medium"><?= $_SESSION['user']['fullname'] ?? $_SESSION['user']['name'] ?? "Guest" ?></p>
                     <span class="text-xs text-zinc-400"><?= $_SESSION['user']['role'] ?></span>
                 </div>
                 <div class="size-10 overflow-hidden rounded-full">
@@ -108,44 +108,58 @@
                 </div>
 
                 <div class="flex flex-col gap-1">
-                    <div class="nav-divider hidden w-full h-px bg-zinc-300"></div>
-                    <span class="nav-divider-title text-xs text-zinc-400">Data</span>
-                    <a title="Orang Tua" href="<?= BASE_URL ?>/guardians" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
-                        <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                            <path fill="currentColor" d="M7 11a4.5 4.5 0 1 1 0-9a4.5 4.5 0 0 1 0 9m10.5 4a4 4 0 1 1 0-8a4 4 0 0 1 0 8m0 1a4.5 4.5 0 0 1 4.5 4.5v.5h-9v-.5a4.5 4.5 0 0 1 4.5-4.5M7 12a5 5 0 0 1 5 5v4H2v-4a5 5 0 0 1 5-5" />
-                        </svg>
-                        <span>
-                            Orang Tua
-                        </span>
-                    </a>
-                    <a title="Siswa" href="<?= BASE_URL ?>/students" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
-                        <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                            <path fill="currentColor" d="M16 8c0 2.21-1.79 4-4 4s-4-1.79-4-4l.11-.94L5 5.5L12 2l7 3.5v5h-1V6l-2.11 1.06zm-4 6c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4" />
-                        </svg>
-                        <span>
-                            Siswa
-                        </span>
-                    </a>
-                    <a title="Guru" href="<?= BASE_URL ?>/teachers" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
-                        <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                            <path fill="currentColor" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4" />
-                        </svg>
-                        <span>
-                            Guru
-                        </span>
-                    </a>
-                    <a title="Kelas" href="<?= BASE_URL ?>/classes" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
-                        <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                            <path fill="currentColor" d="M23 2H1a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h22a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1m-1 18h-2v-1h-5v1H2V4h20zM10.29 9.71A1.71 1.71 0 0 1 12 8c.95 0 1.71.77 1.71 1.71c0 .95-.76 1.72-1.71 1.72s-1.71-.77-1.71-1.72m-4.58 1.58c0-.71.58-1.29 1.29-1.29a1.29 1.29 0 0 1 1.29 1.29c0 .71-.58 1.28-1.29 1.28S5.71 12 5.71 11.29m10 0A1.29 1.29 0 0 1 17 10a1.29 1.29 0 0 1 1.29 1.29c0 .71-.58 1.28-1.29 1.28s-1.29-.57-1.29-1.28M20 15.14V16H4v-.86c0-.94 1.55-1.71 3-1.71c.55 0 1.11.11 1.6.3c.75-.69 2.1-1.16 3.4-1.16s2.65.47 3.4 1.16c.49-.19 1.05-.3 1.6-.3c1.45 0 3 .77 3 1.71" />
-                        </svg>
-                        <span>
-                            Kelas
-                        </span>
-                    </a>
+                    <?php if (!AuthMiddleware::checkRoleForBool(['siswa'])): ?>
+                        <div class="nav-divider hidden w-full h-px bg-zinc-300"></div>
+                        <span class="nav-divider-title text-xs text-zinc-400">Data</span>
+                    <?php endif; ?>
+
+                    <?php if (AuthMiddleware::checkRoleForBool(['admin'])): ?>
+                        <a title="Orang Tua" href="<?= BASE_URL ?>/guardians" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
+                            <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M7 11a4.5 4.5 0 1 1 0-9a4.5 4.5 0 0 1 0 9m10.5 4a4 4 0 1 1 0-8a4 4 0 0 1 0 8m0 1a4.5 4.5 0 0 1 4.5 4.5v.5h-9v-.5a4.5 4.5 0 0 1 4.5-4.5M7 12a5 5 0 0 1 5 5v4H2v-4a5 5 0 0 1 5-5" />
+                            </svg>
+                            <span>
+                                Orang Tua
+                            </span>
+                        </a>
+                    <?php endif; ?>
+
+                    <?php if (!AuthMiddleware::checkRoleForBool(['siswa'])): ?>
+                        <a title="Siswa" href="<?= BASE_URL ?>/students" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
+                            <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M16 8c0 2.21-1.79 4-4 4s-4-1.79-4-4l.11-.94L5 5.5L12 2l7 3.5v5h-1V6l-2.11 1.06zm-4 6c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4" />
+                            </svg>
+                            <span>
+                                Siswa
+                            </span>
+                        </a>
+                    <?php endif; ?>
+
+                    <?php if (AuthMiddleware::checkRoleForBool(['admin'])): ?>
+                        <a title="Guru" href="<?= BASE_URL ?>/teachers" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
+                            <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4" />
+                            </svg>
+                            <span>
+                                Guru
+                            </span>
+                        </a>
+                    <?php endif; ?>
+
+                    <?php if (AuthMiddleware::checkRoleForBool(['admin'])): ?>
+                        <a title="Kelas" href="<?= BASE_URL ?>/classes" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
+                            <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M23 2H1a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h22a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1m-1 18h-2v-1h-5v1H2V4h20zM10.29 9.71A1.71 1.71 0 0 1 12 8c.95 0 1.71.77 1.71 1.71c0 .95-.76 1.72-1.71 1.72s-1.71-.77-1.71-1.72m-4.58 1.58c0-.71.58-1.29 1.29-1.29a1.29 1.29 0 0 1 1.29 1.29c0 .71-.58 1.28-1.29 1.28S5.71 12 5.71 11.29m10 0A1.29 1.29 0 0 1 17 10a1.29 1.29 0 0 1 1.29 1.29c0 .71-.58 1.28-1.29 1.28s-1.29-.57-1.29-1.28M20 15.14V16H4v-.86c0-.94 1.55-1.71 3-1.71c.55 0 1.11.11 1.6.3c.75-.69 2.1-1.16 3.4-1.16s2.65.47 3.4 1.16c.49-.19 1.05-.3 1.6-.3c1.45 0 3 .77 3 1.71" />
+                            </svg>
+                            <span>
+                                Kelas
+                            </span>
+                        </a>
+                    <?php endif; ?>
                 </div>
 
                 <div class="flex flex-col gap-1">
@@ -163,7 +177,7 @@
                             Notifikasi
                         </span>
                     </a> -->
-                    <a title="Aktivitas" href="<?= BASE_URL ?>/activities" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
+                    <!-- <a title="Aktivitas" href="<?= BASE_URL ?>/activities" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
                         <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M6.962 2.421c1.276-.171 2.908-.171 4.981-.171h.114c2.073 0 3.705 0 4.98.171c1.31.176 2.354.545 3.175 1.367c.822.821 1.19 1.866 1.367 3.174c.171 1.276.171 2.908.171 4.981v.114c0 2.073 0 3.705-.171 4.98c-.176 1.31-.545 2.354-1.367 3.175c-.821.822-1.866 1.19-3.174 1.367c-1.276.171-2.908.171-4.981.171h-.114c-2.073 0-3.705 0-4.98-.171c-1.31-.176-2.354-.545-3.175-1.367c-.822-.821-1.19-1.866-1.367-3.174c-.171-1.276-.171-2.908-.171-4.981v-.114c0-2.073 0-3.705.171-4.98c.176-1.31.545-2.354 1.367-3.175c.821-.822 1.866-1.19 3.174-1.367m4.773 4.432a.75.75 0 0 0-1.431-.132L8.492 11.25H7a.75.75 0 0 0 0 1.5h2a.75.75 0 0 0 .696-.472l1.063-2.657l1.506 7.526a.75.75 0 0 0 1.431.132l1.812-4.529H17a.75.75 0 0 0 0-1.5h-2a.75.75 0 0 0-.696.471L13.24 14.38z" />
@@ -171,7 +185,7 @@
                         <span>
                             Aktivitas
                         </span>
-                    </a>
+                    </a> -->
                     <a title="Aktivitas" href="<?= BASE_URL ?>/account" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
                         <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">

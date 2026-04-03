@@ -7,6 +7,8 @@ class MajorController extends Controller
     public function __construct()
     {
         AuthMiddleware::check();
+        AuthMiddleware::checkRole(['admin']);
+
         $db = Database::getInstance();
         $this->majorService = new MajorService($db);
     }

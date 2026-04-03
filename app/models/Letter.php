@@ -53,6 +53,61 @@ class Letter extends Model
             ]
         ];
     }
+
+    public function getAllLettersByStudentNis(string $student_nis, int $page = 1, int $perPage = 10)
+    {
+        // Pastikan page minimal 1
+        (int) $page = max($page, 1);
+
+        (int) $offset = ($page - 1) * $perPage;
+
+        // Ambil data
+        $this->db->query("SELECT
+                letters.id as letter_id,
+                letters.no_letter,
+                letters.letter_type,
+                letters.issued_date,
+                letters.status as letter_status,
+                students.nis as student_nis,
+                students.name as student_name,
+                creator.code as creator_code,
+                creator.fullname as creator_fullname,
+                academic_years.year as academic_year
+            FROM letters
+                JOIN students ON letters.student_nis = students.nis
+                JOIN users as creator ON letters.created_by = creator.code
+                JOIN academic_years ON letters.academic_year_id = academic_years.id
+            WHERE letters.student_nis = :student_nis
+            ORDER BY letters.created_at DESC
+            LIMIT $perPage OFFSET $offset;
+        ");
+        $this->db->bind(":student_nis", $student_nis);
+        $this->db->execute();
+        $data = $this->db->result();
+
+        // Hitung total data
+        $this->db->query("SELECT COUNT(*) as total FROM letters WHERE student_nis = :student_nis");
+        $this->db->bind(":student_nis", $student_nis);
+        $this->db->execute();
+        $total = $this->db->single()['total'];
+
+        // Hitung last page
+        $lastPage = ceil($total / $perPage);
+
+        return [
+            'data' => $data,
+            'pagination' => [
+                'total' => (int)$total,
+                'per_page' => $perPage,
+                'current_page' => $page,
+                'last_page' => (int)$lastPage,
+                'from' => $offset + 1,
+                'to' => $offset + count($data),
+                'has_next' => $page < $lastPage,
+                'has_prev' => $page > 1,
+            ]
+        ];
+    }
     
     public function createLetterType(
         $code,

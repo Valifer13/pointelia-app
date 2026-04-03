@@ -17,7 +17,11 @@ class StudentViolationService
 
     public function getViolations(int $page): array
     {
-        $student_violations = $this->studentViolationModel->getAllViolationsWithStudentsTeachersAndPagination($page);
+        if (AuthMiddleware::checkRoleForBool(['siswa'])) {
+            $student_violations = $this->studentViolationModel->getAllViolationsWithStudentsTeachersAndPaginationByNis($_SESSION['user']['id']);
+        } else {
+            $student_violations = $this->studentViolationModel->getAllViolationsWithStudentsTeachersAndPagination($page);
+        }
 
         return [
             'student_violations' => $student_violations,

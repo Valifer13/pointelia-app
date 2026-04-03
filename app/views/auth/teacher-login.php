@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Login</title>
+    <title>Halaman Login - Guru</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +40,7 @@
             </div>
 
             <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold text-gray-900 mb-2">Login</h2>
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">Login Guru</h2>
                 <p class="text-gray-500 text-sm">Selamat datang kembali! Silakan masuk ke akun Anda.</p>
             </div>
 
@@ -65,6 +65,10 @@
                 <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition-colors shadow-sm">
                     Masuk
                 </button>
+
+                <div class="flex justify-end mt-2">
+                    <a href="<?= BASE_URL ?>/login/student" class="text-blue-500 hover:text-blue-700">Login sebagai siswa</a>
+                </div>
             </form>
 
         </div>

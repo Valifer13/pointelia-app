@@ -1,54 +1,59 @@
 <div class="flex flex-col md:flex-row justify-between gap-4 items-start lg:items-center mb-8 bg-white p-4 rounded-md shadow-md">
     <div class="flex flex-col gap-1">
-        <h1 class="text-2xl font-semibold tracking-wide text-zinc-600"><?= $title ?></h1>
+        <?php if (!AuthMiddleware::checkRoleForBool(['siswa'])): ?>
+            <h1 class="text-2xl font-semibold tracking-wide text-zinc-600"><?= $title ?></h1>
+        <?php else: ?>
+            <h1 class="text-2xl font-semibold tracking-wide text-zinc-600">Surat - Surat</h1>
+        <?php endif; ?>
         <?php get_breadcrumb() ?>
     </div>
 </div>
 
 <div class="w-full overflow-x-auto mb-6">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+    <?php if (!AuthMiddleware::checkRoleForBool(['siswa'])): ?>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
 
-        <a href="<?= BASE_URL ?>/letters/add-student-agreement-letter" class="flex items-start p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md hover:border-blue-400 hover:bg-blue-50 transition-all text-left group cursor-pointer">
-            <div class="p-3 bg-blue-100 text-blue-600 rounded-lg group-hover:bg-blue-200 transition-colors">
-                <i class="fas fa-user-edit text-xl"></i>
-            </div>
-            <div class="ml-4">
-                <h3 class="text-base font-semibold text-gray-900 group-hover:text-blue-700">Surat Perjanjian Siswa</h3>
-                <p class="text-sm text-gray-500 mt-1">Buat form komitmen dan perjanjian untuk siswa.</p>
-            </div>
-        </a>
+            <a href="<?= BASE_URL ?>/letters/add-student-agreement-letter" class="flex items-start p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md hover:border-blue-400 hover:bg-blue-50 transition-all text-left group cursor-pointer">
+                <div class="p-3 bg-blue-100 text-blue-600 rounded-lg group-hover:bg-blue-200 transition-colors">
+                    <i class="fas fa-user-edit text-xl"></i>
+                </div>
+                <div class="ml-4">
+                    <h3 class="text-base font-semibold text-gray-900 group-hover:text-blue-700">Surat Perjanjian Siswa</h3>
+                    <p class="text-sm text-gray-500 mt-1">Buat form komitmen dan perjanjian untuk siswa.</p>
+                </div>
+            </a>
 
-        <a href="<?= BASE_URL ?>/letters/add-guardian-invit-letter" class="flex items-start p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md hover:border-amber-400 hover:bg-amber-50 transition-all text-left group cursor-pointer">
-            <div class="p-3 bg-amber-100 text-amber-600 rounded-lg group-hover:bg-amber-200 transition-colors">
-                <i class="fas fa-envelope-open-text text-xl"></i>
-            </div>
-            <div class="ml-4">
-                <h3 class="text-base font-semibold text-gray-900 group-hover:text-amber-700">Panggilan Orang Tua/Wali</h3>
-                <p class="text-sm text-gray-500 mt-1">Buat surat undangan pertemuan resmi.</p>
-            </div>
-        </a>
+            <a href="<?= BASE_URL ?>/letters/add-guardian-invit-letter" class="flex items-start p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md hover:border-amber-400 hover:bg-amber-50 transition-all text-left group cursor-pointer">
+                <div class="p-3 bg-amber-100 text-amber-600 rounded-lg group-hover:bg-amber-200 transition-colors">
+                    <i class="fas fa-envelope-open-text text-xl"></i>
+                </div>
+                <div class="ml-4">
+                    <h3 class="text-base font-semibold text-gray-900 group-hover:text-amber-700">Panggilan Orang Tua/Wali</h3>
+                    <p class="text-sm text-gray-500 mt-1">Buat surat undangan pertemuan resmi.</p>
+                </div>
+            </a>
 
-        <a href="<?= BASE_URL ?>/letters/add-guardian-agreement-letter" class="flex items-start p-6 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md hover:border-emerald-400 hover:bg-emerald-50 transition-all text-left group cursor-pointer">
-            <div class="p-3 bg-emerald-100 text-emerald-600 rounded-lg group-hover:bg-emerald-200 transition-colors">
-                <i class="fas fa-handshake text-xl"></i>
-            </div>
-            <div class="ml-4">
-                <h3 class="text-base font-semibold text-gray-900 group-hover:text-emerald-700">Perjanjian Orang Tua/Wali</h3>
-                <p class="text-sm text-gray-500 mt-1">Buat surat kesepakatan dengan orang tua.</p>
-            </div>
-        </a>
+            <a href="<?= BASE_URL ?>/letters/add-guardian-agreement-letter" class="flex items-start p-6 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md hover:border-emerald-400 hover:bg-emerald-50 transition-all text-left group cursor-pointer">
+                <div class="p-3 bg-emerald-100 text-emerald-600 rounded-lg group-hover:bg-emerald-200 transition-colors">
+                    <i class="fas fa-handshake text-xl"></i>
+                </div>
+                <div class="ml-4">
+                    <h3 class="text-base font-semibold text-gray-900 group-hover:text-emerald-700">Perjanjian Orang Tua/Wali</h3>
+                    <p class="text-sm text-gray-500 mt-1">Buat surat kesepakatan dengan orang tua.</p>
+                </div>
+            </a>
 
-        <a href="<?= BASE_URL ?>/letters/add-school-transfer-letter" class="flex items-start p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md hover:border-purple-400 hover:bg-purple-50 transition-all text-left group cursor-pointer">
-            <div class="p-3 bg-purple-100 text-purple-600 rounded-lg group-hover:bg-purple-200 transition-colors">
-                <i class="fas fa-exchange-alt text-xl"></i>
-            </div>
-            <div class="ml-4">
-                <h3 class="text-base font-semibold text-gray-900 group-hover:text-purple-700">Surat Pindah Sekolah</h3>
-                <p class="text-sm text-gray-500 mt-1">Penerbitan dokumen mutasi siswa.</p>
-            </div>
-        </a>
+            <a href="<?= BASE_URL ?>/letters/add-school-transfer-letter" class="flex items-start p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md hover:border-purple-400 hover:bg-purple-50 transition-all text-left group cursor-pointer">
+                <div class="p-3 bg-purple-100 text-purple-600 rounded-lg group-hover:bg-purple-200 transition-colors">
+                    <i class="fas fa-exchange-alt text-xl"></i>
+                </div>
+                <div class="ml-4">
+                    <h3 class="text-base font-semibold text-gray-900 group-hover:text-purple-700">Surat Pindah Sekolah</h3>
+                    <p class="text-sm text-gray-500 mt-1">Penerbitan dokumen mutasi siswa.</p>
+                </div>
+            </a>
 
-        <!-- <a href="<?= BASE_URL ?>/letters/add-point-reduction-letter" class="flex items-start p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md hover:border-rose-400 hover:bg-rose-50 transition-all text-left group cursor-pointer">
+            <!-- <a href="<?= BASE_URL ?>/letters/add-point-reduction-letter" class="flex items-start p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md hover:border-rose-400 hover:bg-rose-50 transition-all text-left group cursor-pointer">
             <div class="p-3 bg-rose-100 text-rose-600 rounded-lg group-hover:bg-rose-200 transition-colors">
                 <i class="fas fa-shield-alt text-xl"></i>
             </div>
@@ -58,7 +63,8 @@
             </div>
         </a> -->
 
-    </div>
+        </div>
+    <?php endif; ?>
 
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
         <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center bg-white flex-col md:flex-row gap-4">

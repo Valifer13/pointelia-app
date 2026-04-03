@@ -7,12 +7,15 @@ class StudentViolationController extends Controller
     public function __construct()
     {
         AuthMiddleware::check();
+
         $db                            = Database::getInstance();
         $this->StudentViolationService = new StudentViolationService($db);
     }
 
     public function index()
     {
+        AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah', 'guru', 'siswa']);
+
         $data = $this->StudentViolationService->getViolations(1);
 
         $this->view("violations/index", $data, "List Pelanggaran");
@@ -20,6 +23,8 @@ class StudentViolationController extends Controller
 
     public function index_with_pagination($page)
     {
+        AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah', 'guru', 'siswa']);
+
         $data = $this->StudentViolationService->getViolations($page);
 
         $this->view("violations/index", $data, "List Pelanggaran");
@@ -27,6 +32,8 @@ class StudentViolationController extends Controller
 
     public function add()
     {
+        AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah', 'guru']);
+
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             try {
                 $this->StudentViolationService->addStudentViolation($_POST);
@@ -44,14 +51,14 @@ class StudentViolationController extends Controller
         $this->view("violations/add", $data, "Tambah Pelanggaran");
     }
 
-    public function update()
-    {
-        // code
-        $this->view("violations/edit", [], "Edit Pelanggaran");
-    }
+    // public function update()
+    // {
+    //     // code
+    //     $this->view("violations/edit", [], "Edit Pelanggaran");
+    // }
     
-    public function delete()
-    {
-        // code
-    }
+    // public function delete()
+    // {
+    //     // code
+    // }
 }
