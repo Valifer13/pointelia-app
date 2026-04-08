@@ -1,0 +1,1 @@
+<p>detail of <?= $violationType['name'] ?></p>

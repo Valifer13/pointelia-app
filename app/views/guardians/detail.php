@@ -1,0 +1,1 @@
+guardian detail page

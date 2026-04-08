@@ -8,28 +8,31 @@ class App
 
     public function __construct()
     {
-        $urlParts = $this->parseUrl();
+        $url = $this->parseUrl();
         require_once "../app/routes.php";
 
-        if (isset($urlParts[0])) {
-            $route = $urlParts[0];
+        if (isset($url[0])) {
+            $route = $url[0];
         }
 
-        if (isset($urlParts[1])) {
-            $route = $urlParts[0] . '/' . $urlParts[1];
+        if (isset($url[1])) {
+            $route = $url[0] . '/' . $url[1];
         }
 
         if (isset($routes[$route])) {
             $this->controller = $routes[$route]['controller'];
             $this->method = $routes[$route]['method'];
-            $this->params = array_slice($urlParts, 2);
+            $this->params = array_slice($url, 2);
         } else {
-            echo "404 - Route Not Found";
-            return;
+            $this->controller = "HomeController";
+            $this->method = "pageNotFound";
         }
 
-        require_once '../app/controllers/' . $this->controller . '.php';
-
+        if (!str_contains($this->controller, "Api")) {
+            require_once '../app/controllers/' . $this->controller . '.php';
+        } else {
+            require_once '../app/api/' . $this->controller . '.php';
+        }
         $this->controller = new $this->controller;
 
         call_user_func_array([$this->controller, $this->method], $this->params);
@@ -37,7 +40,10 @@ class App
 
     public function parseUrl() {
         if (isset($_GET['url'])) {
-            return explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
+            $url = trim($_GET['url'], '/');
+            $url = filter_var($url, FILTER_SANITIZE_URL);
+            $url = explode('/', $url);
+            return $url;
         }
 
         return [''];
