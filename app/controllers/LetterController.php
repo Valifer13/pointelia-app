@@ -14,6 +14,18 @@ class LetterController extends Controller
     public function index()
     {
         AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah', 'guru', 'siswa']);
+
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            try {
+                $this->letterService->saveDocumentLetter($_POST, $_FILES['letter_photo']);
+                Flasher::setFlash("Berhasil mengkonfirmasi surat!", "success");
+            } catch (Exception $err) {
+                Flasher::setFlash("Gagal upload foto surat! Error: " . $err->getMessage(), "error");
+            }
+            header("Location: " . BASE_URL . "/letters");
+            exit;
+        }
+
         $data = $this->letterService->getAllLetters(1);
 
         $this->view("letters/index", $data, "Pembuatan & Cetak Surat");
@@ -22,9 +34,30 @@ class LetterController extends Controller
     public function index_with_pagination($page)
     {
         AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah', 'guru', 'siswa']);
+
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            try {
+                $this->letterService->saveDocumentLetter($_POST, $_FILES['photo_letter']);
+                Flasher::setFlash("Berhasil mengkonfirmasi surat!", "success");
+            } catch (Exception $err) {
+                Flasher::setFlash("Gagal upload foto surat!", "error");
+            }
+            header("Location: " . BASE_URL . "/letters");
+            exit;
+        }
+
         $data = $this->letterService->getAllLetters($page);
 
         $this->view("letters/index", $data, "Pembuatan & Cetak Surat");
+    }
+
+    public function confirmed_document($leter_id)
+    {
+        AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah']);
+
+        $data = $this->letterService->getLetter($leter_id);
+
+        $this->view("letters/confirmed_document", $data, "Bukti Surat Tertanda-tangan");
     }
 
 
@@ -82,7 +115,7 @@ class LetterController extends Controller
     {
         AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah']);
         $data = $this->letterService->getGuardianInvitLetterDetail($id);
-        $this->view("letters/guardian_invit_letter", $data, "Detail Surat Perjanjian Siswa");
+        $this->view("letters/guardian_invit_letter", $data, "Detail Surat Panggilan Orang Tua");
     }
 
 
@@ -112,7 +145,7 @@ class LetterController extends Controller
         AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah']);
 
         $data = $this->letterService->getGuardianAgreementLetterDetail($id);
-        $this->view("letters/guardian_agreement_letter", $data, "Detail Surat Perjanjian");
+        $this->view("letters/guardian_agreement_letter", $data, "Detail Surat Perjanjian Orang Tua");
     }
 
 

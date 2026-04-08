@@ -207,7 +207,7 @@
         <div class="flex flex-col gap-[60px] ps-10">
             <div>
                 <p>
-                    Denpasar, <?= $letter['issued_date'] ?><br>
+                    Denpasar, <?= getFormatedDate($letter['issued_date']) ?><br>
                     Siswa yang bersangkutan
                 </p>
             </div>

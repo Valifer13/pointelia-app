@@ -247,6 +247,24 @@ class StudentViolation extends Model
         return $this->db->result();
     }
 
+    public function getStudentViolationPointByStudentNis($student_nis)
+    {
+        $this->db->query("SELECT
+            	students.nis,
+                students.name,
+                SUM(violation_types.point_value) as total_points
+            FROM student_violations
+            	JOIN students ON student_violations.student_nis = students.nis
+               	JOIN violation_types ON student_violations.violation_type_id = violation_types.id
+            WHERE student_violations.student_nis = :student_nis
+            GROUP BY students.nis, students.name
+        ");
+
+        $this->db->bind(":student_nis", $student_nis);
+        $this->db->execute();
+        return $this->db->single();
+    }
+
     public function create(
         $student_nis,
         $violation_type_id,

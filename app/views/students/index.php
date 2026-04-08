@@ -39,6 +39,7 @@
 
             <?php
             $count = ($students['pagination']['current_page'] - 1) * 10 + 1;
+            $point_count = 0;
             foreach ($students['data'] as $student):
             ?>
                 <tr class="border-b border-zinc-100 hover:bg-zinc-50/80 whitespace-nowrap transition-colors group">
@@ -65,8 +66,8 @@
                             <p class="text-pink-600">Perempuan</p>
                         </td>
                     <?php endif; ?>
-                    <td class="p-4 text-zinc-600">0</td>
-
+                    <td class="p-4 text-zinc-600"><?= $total_violation_point_per_students[$point_count++] ?></td>
+ 
                     <?php if (AuthMiddleware::checkRoleForBool(['admin'])): ?>
                         <td class="p-4 text-right pr-2">
                             <button class="data-option-btn p-1 border border-zinc-200 w-fit rounded-md inset-shadow-zinc-400 transition-all duration-500 cursor-pointer" data-id="<?= $student['nis'] ?>" data-name="<?= $student['name'] ?>">

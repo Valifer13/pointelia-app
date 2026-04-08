@@ -108,6 +108,22 @@ class Letter extends Model
             ]
         ];
     }
+
+    public function confirmLetter($letter_id, $photo_name)
+    {
+        $this->db->query("UPDATE letters SET status = 'confirmed', document_name = :document_name WHERE id = :id");
+        $this->db->bind(":document_name", $photo_name);
+        $this->db->bind(":id", $letter_id);
+        $this->db->execute();
+    }
+
+    public function getLetterById($letter_id)
+    {
+        $this->db->query("SELECT * FROM letters WHERE id = :id");
+        $this->db->bind(":id", $letter_id);
+        $this->db->execute();
+        return $this->db->single();
+    }
     
     public function createLetterType(
         $code,

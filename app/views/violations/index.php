@@ -38,7 +38,9 @@
                 <th class="pb-4 px-4 font-semibold w-1/5">Pelapor</th>
                 <th class="pb-4 px-4 font-semibold w-1/5">Poin</th>
                 <th class="pb-4 px-4 font-semibold w-1/5">Tanggal</th>
-                <th class="pb-4 px-4 font-semibold text-right pr-2">Aksi</th>
+                <?php if (!AuthMiddleware::checkRoleForBool(['siswa', 'guru'])): ?>
+                    <th class="pb-4 px-4 font-semibold text-right pr-2">Aksi</th>
+                <?php endif; ?>
             </tr>
         </thead>
         <tbody class="text-sm">
@@ -57,11 +59,13 @@
                         <td class="p-4 text-zinc-600"><?= $violation["reporter_name"] ?></td>
                         <td class="p-4 text-zinc-600"><?= $violation["violation_poin"] ?? "-" ?></td>
                         <td class="p-4 text-zinc-600"><?= $violation["violation_date"] ?></td>
-                        <td class="p-4 text-right pr-2">
-                            <a href="<?= BASE_URL . '/violations/detail/' . $violation['student_nis'] ?>" class="inline-flex items-center px-3 py-1.5 bg-white border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm cursor-pointer">
-                                <i class="fas fa-print mr-2"></i> Cetak
-                            </a>
-                        </td>
+                        <?php if (!AuthMiddleware::checkRoleForBool(['siswa', 'guru'])): ?>
+                            <td class="p-4 text-right pr-2">
+                                <a href="<?= BASE_URL . '/violations/detail/' . $violation['student_nis'] ?>" class="inline-flex items-center px-3 py-1.5 bg-white border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm cursor-pointer">
+                                    <i class="fas fa-print mr-2"></i> Cetak
+                                </a>
+                            </td>
+                        <?php endif; ?>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>

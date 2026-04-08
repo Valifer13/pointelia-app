@@ -19,7 +19,6 @@ class LetterService
         $this->teacherModel  = new Teacher($db);
     }
 
-
     public function getAllLetters(int $page): array
     {
         if (AuthMiddleware::checkRoleForBool(['siswa'])) {
@@ -31,6 +30,30 @@ class LetterService
         return [
             'letters' => $letters,
         ];
+    }
+
+    public function getLetter($letter_id): array
+    {
+        $letter = $this->letterModel->getLetterById($letter_id);
+
+        if (empty($letter)) {
+            throw new Exception("Data surat tidak ditemukan.");
+        }
+
+        return [
+            'letter' => $letter
+        ];
+    }
+
+    public function saveDocumentLetter($post, $file): void
+    {
+        if ($file['error'] !== 0) {
+            throw new Exception();
+        }
+
+        $document_name = moveLetterPhoto($file);
+
+        $this->letterModel->confirmLetter($post['letter_id'], $document_name);
     }
 
     public function createLetter(array $data): void
@@ -145,7 +168,7 @@ class LetterService
                     $data['reason']
                 );
                 $this->db->commit();
-            } catch(PDOException $err) {
+            } catch (PDOException $err) {
                 $this->db->rollback();
                 throw new Exception($err->getMessage());
             }

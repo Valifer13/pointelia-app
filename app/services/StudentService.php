@@ -22,6 +22,7 @@ class StudentService
     public function getAllStudentsWithPaginationWithClasses(int $page): array
     {
         $students = $this->studentModel->getAllStudentsWithPagination($page);
+        $total_points_per_students = [];
         $classes  = [];
 
         foreach ($students['data'] as $student) {
@@ -34,8 +35,19 @@ class StudentService
             }
         }
 
+        foreach ($students['data'] as $student) {
+            $violation_obj = $this->studentViolationModel->getStudentViolationPointByStudentNis($student['nis']);
+
+            if (!empty($violation_obj)) {
+                $total_points_per_students[] = $violation_obj['total_points'];
+            } else {
+                $total_points_per_students[] = "0";
+            }
+        }
+
         return [
             'students' => $students,
+            'total_violation_point_per_students' => $total_points_per_students,
             'classes'  => $classes,
         ];
     }

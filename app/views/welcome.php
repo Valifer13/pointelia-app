@@ -768,8 +768,8 @@
                 <!-- Stats visual -->
                 <div class="grid grid-cols-2 gap-4" data-aos>
                     <div class="bento-card p-7 bg-[#0a0a0a] border-[#1a1a1a] col-span-2">
-                        <div class="tag mb-3" style="background: rgba(37,99,235,0.15); border-color: rgba(37,99,235,0.3); color: #93C5FD;">Dampak Nyata</div>
-                        <h3 class="font-display font-700 text-white text-2xl mb-1" style="font-weight:700;">Sekolah melaporkan penurunan<br />pelanggaran hingga <span class="text-blue-400">40%</span></h3>
+                        <div class="tag mb-3 text-blue-600" style="background: rgba(37,99,235,0.15); border-color: rgba(37,99,235,0.3);">Dampak Nyata</div>
+                        <h3 class="font-display font-700 text-gray-900 text-2xl mb-1" style="font-weight:700;">Sekolah melaporkan penurunan<br />pelanggaran hingga <span class="text-blue-400">40%</span></h3>
                         <p class="text-gray-500 text-sm">setelah mengimplementasikan sistem pencatatan yang konsisten.</p>
                     </div>
                     <div class="bento-card p-6 text-center">

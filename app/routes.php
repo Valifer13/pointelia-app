@@ -74,8 +74,9 @@ $routes = [
     "majors/edit"   => ["controller" => "MajorController", "method" => "edit"],
 
     // Letter routes
-    "letters"      => ["controller" => "LetterController", "method" => "index"],
-    "letters/page" => ["controller" => "LetterController", "method" => "index_with_pagination"],
+    "letters"                         => ["controller" => "LetterController", "method" => "index"],
+    "letters/page"                    => ["controller" => "LetterController", "method" => "index_with_pagination"],
+    "letters/confirmed_document"      => ["controller" => "LetterController", "method" => "confirmed_document"],
 
     "letters/add-student-agreement-letter"  => ["controller" => "LetterController", "method" => "add_student_agreement_letter"],
     "letters/add-guardian-invit-letter"     => ["controller" => "LetterController", "method" => "add_guardian_invit_letter"],
