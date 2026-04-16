@@ -1428,6 +1428,9 @@
   .bg-zinc-500 {
     background-color: var(--color-zinc-500);
   }
+  .bg-zinc-700 {
+    background-color: var(--color-zinc-700);
+  }
   .bg-linear-to-r {
     --tw-gradient-position: to right;
     @supports (background-image: linear-gradient(in lab, red, red)) {

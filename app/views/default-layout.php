@@ -74,12 +74,19 @@
     </header>
 
     <main id="main" class="grid grid-cols-1 lg:grid-cols-[16rem_1fr] h-[calc(100vh-65px)] overflow-hidden transition-all duration-300">
+        <?php
+            // Fungsi bantuan untuk mengecek apakah path URL saat ini cocok dengan link menu
+            $currentUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+            $isActive = function ($path) use ($currentUri) {
+                return strpos($currentUri, $path) !== false;
+            };
+        ?>
         <aside id="aside" class="h-0 lg:h-full bg-white overflow-hidden">
             <nav id="navbar" class="expand fixed inset-y-0 left-0 top-[72px] w-64 bg-white p-4 z-50 overflow-y-auto overflow-x-hidden transform -translate-x-full transition-transform duration-300 lg:sticky lg:top-0 lg:inset-auto lg:w-full lg:translate-x-0 lg:h-full lg:z-0 border-r border-zinc-300">
                 <div class="flex flex-col gap-1">
                     <span class="nav-divider-title text-xs text-zinc-400">Main</span>
-                    <a title="Dashboard" href="<?= BASE_URL ?>/dashboard" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
-                        <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
+                    <a title="Dashboard" href="<?= BASE_URL ?>/dashboard" class="<?= $isActive('/dashboard') ? 'active' : "" ?> nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
+                        <div class="<?= $isActive('/dashboard') ? 'active' : "" ?> w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M14 9q-.425 0-.712-.288T13 8V4q0-.425.288-.712T14 3h6q.425 0 .713.288T21 4v4q0 .425-.288.713T20 9zM4 13q-.425 0-.712-.288T3 12V4q0-.425.288-.712T4 3h6q.425 0 .713.288T11 4v8q0 .425-.288.713T10 13zm10 8q-.425 0-.712-.288T13 20v-8q0-.425.288-.712T14 11h6q.425 0 .713.288T21 12v8q0 .425-.288.713T20 21zM4 21q-.425 0-.712-.288T3 20v-4q0-.425.288-.712T4 15h6q.425 0 .713.288T11 16v4q0 .425-.288.713T10 21z" />
                         </svg>
@@ -87,8 +94,8 @@
                             Dashboard
                         </span>
                     </a>
-                    <a title="Pelanggaran" href="<?= BASE_URL ?>/violations" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
-                        <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
+                    <a title="Pelanggaran" href="<?= BASE_URL ?>/violations" class="<?= ($isActive('/violations') || $isActive('/violation-types')) ? 'active' : "" ?> nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
+                        <div class="<?= ($isActive('/violations') || $isActive('/violation-types')) ? 'active' : "" ?> w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <path fill="currentColor" fill-rule="evenodd" d="M7.843 3.802C9.872 2.601 10.886 2 12 2s2.128.6 4.157 1.802l.686.406c2.029 1.202 3.043 1.803 3.6 2.792c.557.99.557 2.19.557 4.594v.812c0 2.403 0 3.605-.557 4.594s-1.571 1.59-3.6 2.791l-.686.407C14.128 21.399 13.114 22 12 22s-2.128-.6-4.157-1.802l-.686-.407c-2.029-1.2-3.043-1.802-3.6-2.791C3 16.01 3 14.81 3 12.406v-.812C3 9.19 3 7.989 3.557 7s1.571-1.59 3.6-2.792zM13 16a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-1-9.75a.75.75 0 0 1 .75.75v6a.75.75 0 0 1-1.5 0V7a.75.75 0 0 1 .75-.75" clip-rule="evenodd" />
                         </svg>
@@ -96,8 +103,8 @@
                             Pelanggaran
                         </span>
                     </a>
-                    <a title="Surat" href="<?= BASE_URL ?>/letters" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
-                        <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
+                    <a title="Surat" href="<?= BASE_URL ?>/letters" class="<?= $isActive('/letters') ? 'active' : "" ?> nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
+                        <div class="<?= $isActive('/letters') ? 'active' : "" ?> w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M4 20q-.825 0-1.412-.587T2 18V6q0-.825.588-1.412T4 4h16q.825 0 1.413.588T22 6v12q0 .825-.587 1.413T20 20zm8.263-7.212q.137-.038.262-.113L19.6 8.25q.2-.125.3-.312t.1-.413q0-.5-.425-.75T18.7 6.8L12 11L5.3 6.8q-.45-.275-.875-.012T4 7.525q0 .25.1.438t.3.287l7.075 4.425q.125.075.263.113t.262.037t.263-.037" />
                         </svg>
@@ -114,8 +121,8 @@
                     <?php endif; ?>
 
                     <?php if (AuthMiddleware::checkRoleForBool(['admin'])): ?>
-                        <a title="Orang Tua" href="<?= BASE_URL ?>/guardians" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
-                            <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
+                        <a title="Orang Tua" href="<?= BASE_URL ?>/guardians" class="<?= $isActive('/guardians') ? 'active' : "" ?> nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
+                            <div class="<?= $isActive('/guardians') ? 'active' : "" ?> w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <path fill="currentColor" d="M7 11a4.5 4.5 0 1 1 0-9a4.5 4.5 0 0 1 0 9m10.5 4a4 4 0 1 1 0-8a4 4 0 0 1 0 8m0 1a4.5 4.5 0 0 1 4.5 4.5v.5h-9v-.5a4.5 4.5 0 0 1 4.5-4.5M7 12a5 5 0 0 1 5 5v4H2v-4a5 5 0 0 1 5-5" />
                             </svg>
@@ -126,8 +133,8 @@
                     <?php endif; ?>
 
                     <?php if (!AuthMiddleware::checkRoleForBool(['siswa'])): ?>
-                        <a title="Siswa" href="<?= BASE_URL ?>/students" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
-                            <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
+                        <a title="Siswa" href="<?= BASE_URL ?>/students" class="<?= $isActive('/students') ? 'active' : "" ?> nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
+                            <div class="<?= $isActive('/students') ? 'active' : "" ?> w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <path fill="currentColor" d="M16 8c0 2.21-1.79 4-4 4s-4-1.79-4-4l.11-.94L5 5.5L12 2l7 3.5v5h-1V6l-2.11 1.06zm-4 6c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4" />
                             </svg>
@@ -138,8 +145,8 @@
                     <?php endif; ?>
 
                     <?php if (AuthMiddleware::checkRoleForBool(['admin'])): ?>
-                        <a title="Guru" href="<?= BASE_URL ?>/teachers" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
-                            <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
+                        <a title="Guru" href="<?= BASE_URL ?>/teachers" class="<?= $isActive('/teachers') ? 'active' : "" ?> nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
+                            <div class="<?= $isActive('/teachers') ? 'active' : "" ?> w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <path fill="currentColor" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4" />
                             </svg>
@@ -150,8 +157,8 @@
                     <?php endif; ?>
 
                     <?php if (AuthMiddleware::checkRoleForBool(['admin'])): ?>
-                        <a title="Kelas" href="<?= BASE_URL ?>/classes" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
-                            <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
+                        <a title="Kelas" href="<?= BASE_URL ?>/classes" class="<?= ($isActive('/classes') || $isActive('/majors')) ? 'active' : "" ?> nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
+                            <div class="<?= ($isActive('/classes') || $isActive('/majors')) ? 'active' : "" ?> w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <path fill="currentColor" d="M23 2H1a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h22a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1m-1 18h-2v-1h-5v1H2V4h20zM10.29 9.71A1.71 1.71 0 0 1 12 8c.95 0 1.71.77 1.71 1.71c0 .95-.76 1.72-1.71 1.72s-1.71-.77-1.71-1.72m-4.58 1.58c0-.71.58-1.29 1.29-1.29a1.29 1.29 0 0 1 1.29 1.29c0 .71-.58 1.28-1.29 1.28S5.71 12 5.71 11.29m10 0A1.29 1.29 0 0 1 17 10a1.29 1.29 0 0 1 1.29 1.29c0 .71-.58 1.28-1.29 1.28s-1.29-.57-1.29-1.28M20 15.14V16H4v-.86c0-.94 1.55-1.71 3-1.71c.55 0 1.11.11 1.6.3c.75-.69 2.1-1.16 3.4-1.16s2.65.47 3.4 1.16c.49-.19 1.05-.3 1.6-.3c1.45 0 3 .77 3 1.71" />
                             </svg>
@@ -186,8 +193,8 @@
                             Aktivitas
                         </span>
                     </a> -->
-                    <a title="Aktivitas" href="<?= BASE_URL ?>/account" class="nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
-                        <div class="w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
+                    <a title="Aktivitas" href="<?= BASE_URL ?>/account" class="<?= $isActive('/account') ? 'active' : "" ?> nav-item relative flex gap-2 items-center px-3 py-2 rounded-xl border-2 overflow-hidden transition-all duration-300 bg-transparent border-transparent group hover:bg-zinc-50 hover:border-zinc-200">
+                        <div class="<?= $isActive('/account') ? 'active' : "" ?> w-2 h-6 rounded-md absolute -left-1 transition-all duration-300 bg-transparent group-hover:bg-zinc-200"></div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4" />
                         </svg>
