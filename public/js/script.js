@@ -81,7 +81,7 @@ class FloatingMenu {
 // *  Activate Nav Functionality
 // * <==========================>
 
-// const currentPath = window.location.pathname.replace(/\/$/, "");
+const currentPath = window.location.pathname.replace(/\/$/, "");
 
 // document.querySelectorAll('#navbar a.nav-item').forEach(link => {
 //     const linkPath = new URL(link.href).pathname.replace(/\/$/, "");

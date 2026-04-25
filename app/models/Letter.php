@@ -117,6 +117,16 @@ class Letter extends Model
         $this->db->execute();
     }
 
+    public function checkStudentLetter($student_nis, array | null $letter_types = null)
+    {
+        $letter_type = '\'' . implode('\', \'', $letter_types) . '\'';
+        $this->db->query("SELECT * FROM letters WHERE student_nis = :student_nis AND letter_type IN ($letter_type)");
+        $this->db->bind(":student_nis", $student_nis);
+        // $this->db->bind(":letter_type", $letter_type);
+        $this->db->execute();
+        return $this->db->result();
+    }
+
     public function getLetterById($letter_id)
     {
         $this->db->query("SELECT * FROM letters WHERE id = :id");

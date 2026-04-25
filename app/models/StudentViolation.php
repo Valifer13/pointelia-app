@@ -247,6 +247,41 @@ class StudentViolation extends Model
         return $this->db->result();
     }
 
+    public function getStudentsByViolationPoint(int $greater_than, int | null $less_than = null)
+    {
+        if (!empty($less_than)) {
+            $query = "SELECT
+            	students.nis,
+                students.name,
+                SUM(violation_types.point_value) as total_points
+            FROM student_violations
+            	JOIN students ON student_violations.student_nis = students.nis
+               	JOIN violation_types ON student_violations.violation_type_id = violation_types.id
+            GROUP BY students.nis, students.name
+            HAVING SUM(violation_types.point_value) BETWEEN :greater_than AND :less_than";
+        } else {
+            $query = "SELECT
+            	students.nis,
+                students.name,
+                SUM(violation_types.point_value) as total_points
+            FROM student_violations
+            	JOIN students ON student_violations.student_nis = students.nis
+               	JOIN violation_types ON student_violations.violation_type_id = violation_types.id
+            GROUP BY students.nis, students.name
+            HAVING total_points > :greater_than";
+        }
+
+        $this->db->query($query);
+        $this->db->bind(":greater_than", $greater_than);
+
+        if (!empty($less_than)) {
+            $this->db->bind(":less_than", $less_than);
+        }
+
+        $this->db->execute();
+        return $this->db->result();
+    }
+
     public function getStudentViolationPointByStudentNis($student_nis)
     {
         $this->db->query("SELECT

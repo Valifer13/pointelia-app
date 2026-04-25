@@ -58,6 +58,146 @@
         </div>
     </div>
 
+    <?php if (AuthMiddleware::checkRoleForBool(['admin', 'wakasek', 'kepala sekolah', 'guru'])): ?>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+            <div class="px-6 py-5 border-b border-gray-100 flex justify-between items-center">
+                <h2 class="text-lg font-semibold text-gray-800">Perjanjian Siswa</h2>
+            </div>
+            <div class="overflow-x-auto h-full">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-50 text-gray-500 text-sm border-b border-gray-100">
+                            <th class="px-6 py-4 font-medium">Siswa</th>
+                            <th class="px-6 py-4 font-medium">Poin</th>
+                            <th class="px-6 py-4 font-medium text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <?php foreach ($student_recommendation['student_agreements'] as $student): ?>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div>
+                                            <div class="font-medium text-gray-900 whitespace-nowrap"><?= $student['name'] ?></div>
+                                            <div class="text-xs text-gray-500 whitespace-nowrap">NIS: <?= $student['nis'] ?></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">+<?= $student['total_points'] ?></span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <form action="<?= BASE_URL ?>/letters/add-student-agreement-letter" method="post">
+                                        <input type="hidden" name="student_nis" value="<?= $student['nis'] ?>">
+                                        <button type="submit" class="inline-flex items-center px-3 py-1.5 bg-white border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm cursor-pointer whitespace-nowrap">
+                                            <i class="fas fa-file mr-2"></i> Buat Surat
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+            <div class="px-6 py-5 border-b border-gray-100 flex justify-between items-center">
+                <h2 class="text-lg font-semibold text-gray-800">Panggilan Orang Tua</h2>
+            </div>
+            <div class="overflow-x-auto h-full">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-50 text-gray-500 text-sm border-b border-gray-100">
+                            <th class="px-6 py-4 font-medium">Siswa</th>
+                            <th class="px-6 py-4 font-medium">Poin</th>
+                            <th class="px-6 py-4 font-medium text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <?php foreach ($student_recommendation['guardian_agreements'] as $student): ?>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div>
+                                            <div class="font-medium text-gray-900 whitespace-nowrap"><?= $student['name'] ?></div>
+                                            <div class="text-xs text-gray-500 whitespace-nowrap">NIS: <?= $student['nis'] ?></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">+<?= $student['total_points'] ?></span>
+                                </td>
+                                <td class="px-6 py-4 flex gap-4 justify-end">
+                                    <?php if (in_array('Panggilan Wali', $student['missing_letters'])): ?>
+                                        <form action="<?= BASE_URL ?>/letters/add-guardian-invit-letter" method="post">
+                                            <input type="hidden" name="student_nis" value="<?= $student['nis'] ?>">
+                                            <button type="submit" class="inline-flex items-center px-3 py-1.5 bg-white border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm cursor-pointer whitespace-nowrap">
+                                                <i class="fas fa-file mr-2"></i> Buat Surat Panggilan
+                                            </button>
+                                        </form>
+                                    <?php endif; ?>
+                                    <?php if (in_array('Perjanjian Wali', $student['missing_letters'])): ?>
+                                        <form action="<?= BASE_URL ?>/letters/add-guardian-agreement-letter" method="post">
+                                            <input type="hidden" name="student_nis" value="<?= $student['nis'] ?>">
+                                            <button type="submit" class="inline-flex items-center px-3 py-1.5 bg-white border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm cursor-pointer whitespace-nowrap">
+                                                <i class="fas fa-file mr-2"></i> Buat Surat Perjanjian
+                                            </button>
+                                        </form>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+            <div class="px-6 py-5 border-b border-gray-100 flex justify-between items-center">
+                <h2 class="text-lg font-semibold text-gray-800">Pindah Sekolah</h2>
+            </div>
+            <div class="overflow-x-auto h-full">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-50 text-gray-500 text-sm border-b border-gray-100">
+                            <th class="px-6 py-4 font-medium">Siswa</th>
+                            <th class="px-6 py-4 font-medium">Poin</th>
+                            <th class="px-6 py-4 font-medium text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <?php foreach ($student_recommendation['problematic_students'] as $student): ?>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div>
+                                            <div class="font-medium text-gray-900 whitespace-nowrap"><?= $student['name'] ?></div>
+                                            <div class="text-xs text-gray-500 whitespace-nowrap">NIS: <?= $student['nis'] ?></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">+<?= $student['total_points'] ?></span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <form action="<?= BASE_URL ?>/letters/add-school-transfer-letter" method="post">
+                                        <input type="hidden" name="student_nis" value="<?= $student['nis'] ?>">
+                                        <button type="submit" class="inline-flex items-center px-3 py-1.5 bg-white border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm cursor-pointer whitespace-nowrap">
+                                            <i class="fas fa-file mr-2"></i> Buat Surat Pindah Sekolah
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+
     <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
         <div class="px-6 py-5 border-b border-gray-100 flex justify-between items-center">
             <h2 class="text-lg font-semibold text-gray-800">Pelanggaran Terbaru</h2>

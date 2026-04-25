@@ -98,6 +98,13 @@ class Student extends Model
         return $this->db->single();
     }
 
+    public function resetPassword(string $nis, string $new_password) {
+        $this->db->query("UPDATE students SET password=:new_password WHERE nis=:nis");
+        $this->db->bind(":nis", $nis);
+        $this->db->bind(":new_password", $new_password);
+        $this->db->execute();
+    }
+
     public function create(
         $nis,
         $nisn,

@@ -37,6 +37,52 @@
         <p x-show="error" x-text="error" class="text-red-500 text-sm mt-2"></p>
     </div>
 
+    <!-- <div x-show="!student">
+        <h2 class="text-lg font-bold text-gray-900 mb-4 border-b pb-2">Siswa yang memiliki poin di atas 25.</h2>
+
+        <div class="bg-white w-full overflow-x-auto p-4 rounded-md shadow-md mb-6">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="text-[11px] text-zinc-400 uppercase tracking-widest whitespace-nowrap border-b border-zinc-200">
+                        <th class="pb-4 px-4 font-semibold pl-2 w-16">No</th>
+                        <th class="pb-4 px-4 font-semibold w-2/5">Nama Lengkap</th>
+                        <th class="pb-4 px-4 font-semibold w-1/5">NIS / NISN</th>
+                        <th class="pb-4 px-4 font-semibold w-1/5">Poin</th>
+                        <th class="pb-4 px-4 font-semibold text-right pr-2">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="text-sm">
+
+                    <?php
+                    $count = 1;
+                    $point_count = 0;
+                    foreach ($students as $student):
+                    ?>
+                        <tr class="border-b border-zinc-100 hover:bg-zinc-50/80 whitespace-nowrap transition-colors group">
+                            <td class="p-4 pl-2 text-zinc-400"><?= str_pad($count++, 2, '0', STR_PAD_LEFT) ?></td>
+                            <td class="p-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-zinc-100 flex items-center justify-center text-xs font-medium text-zinc-500"><?= $student['name'][0] ?></div>
+                                    <span class="text-zinc-900 font-medium"><?= $student['name'] ?></span>
+                                </div>
+                            </td>
+                            <td class="p-4 text-zinc-600"># <?= $student['nis'] ?></td>
+
+                            <td class="p-4 text-zinc-600"><?= $student['total_points'] ?></td>
+
+                            <td class="p-4 text-right pr-2">
+                                <button @click="nis = '<?= $student['nis'] ?>'" class="data-option-btn p-1 border border-zinc-200 w-fit rounded-md inset-shadow-zinc-400 transition-all duration-500 cursor-pointer">
+                                    Pilih Siswa
+                                </button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+
+                </tbody>
+            </table>
+        </div>
+    </div> -->
+
     <div x-show="student" x-transition.opacity.duration.500ms>
 
         <h2 class="text-lg font-bold text-gray-900 mb-4 border-b pb-2">Langkah 2: Verifikasi Data & Pilih Orang Tua/Wali</h2>
@@ -130,7 +176,7 @@
 <script>
     function studentSearch() {
         return {
-            nis: '',
+            nis: "<?= isset($student_nis) ? (string) $student_nis : '' ?>",
             student: null,
             studentClass: null,
             dataAyah: null,

@@ -80,7 +80,12 @@ Karena keterbatasan waktu dan ilmu yang belum mencukupi, aplikasi ini masih memi
 Dikarenakan kekurangan-kekurangan yang telah dijelaskan berikut, rencana pengembangan ke depan adalah memperbaiki setiap kekurangan dan memperbarui desain interface secara menyeluruh demi kemudahan pengguna.
 
 ## Cara Login
-Sebelum login, saya menyarankan untuk menjalankan query ini di phpMyAdmin di database school_pointer:
+Untuk role guru, password akun mereka adalah `user123`, dan untuk siswa adalah `student123`.
+
+Guru -> `user123`
+Siswa -> `student123`
+
+Jika ingin tidak berhasil, jalan saja query ini di SQL PHPMyAdmin table pointer:
 
 ```sql
 UPDATE users SET password = "$2y$12$i7.D4CndNqeHWX6N5DfwF.emXUqRcxS2E86K/d1FhO8kS4m4rhuni";

@@ -69,7 +69,14 @@ class LetterController extends Controller
     public function add_student_agreement_letter()
     {
         AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah']);
+
+        $data = [];
+
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            $data = ['student_nis' => $_POST['student_nis']];
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === "POST" && !empty($_POST['letter_type'])) {
             try {
                 $this->letterService->createLetter($_POST);
                 Flasher::setFlash("Berhasil membuat surat.", "success");
@@ -79,7 +86,8 @@ class LetterController extends Controller
             header("Location: " . BASE_URL . "/letters");
             exit;
         }
-        $this->view("letters/add_student_aggrement_letter", [], "Buat Surat Perjanjian Siswa");
+        // dd($data);
+        $this->view("letters/add_student_aggrement_letter", $data, "Buat Surat Perjanjian Siswa");
     }
 
     public function student_agreement_letter($id)
@@ -98,7 +106,14 @@ class LetterController extends Controller
     public function add_guardian_invit_letter()
     {
         AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah']);
+
+        $data = [];
+
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            $data = ['student_nis' => $_POST['student_nis']];
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === "POST" && !empty($_POST['letter_type'])) {
             try {
                 $this->letterService->createLetter($_POST);
                 Flasher::setFlash("Berhasil membuat surat.", "success");
@@ -108,7 +123,7 @@ class LetterController extends Controller
             header("Location: " . BASE_URL . "/letters");
             exit;
         }
-        $this->view("letters/add_guardian_invit_letter", [], "Buat Surat Panggilan Orang Tua/Wali");
+        $this->view("letters/add_guardian_invit_letter", $data, "Buat Surat Panggilan Orang Tua/Wali");
     }
 
     public function guardian_invit_letter($id)
@@ -127,7 +142,14 @@ class LetterController extends Controller
     public function add_guardian_agreement_letter()
     {
         AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah']);
+
+        $data = [];
+
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            $data = ['student_nis' => $_POST['student_nis']];
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === "POST" && !empty($_POST['letter_type'])) {
             try {
                 $this->letterService->createLetter($_POST);
                 Flasher::setFlash("Berhasil membuat surat.", "success");
@@ -137,7 +159,7 @@ class LetterController extends Controller
             header("Location: " . BASE_URL . "/letters");
             exit;
         }
-        $this->view("letters/add_guardian_agreement_letter", [], "Buat Surat Perjanjian Orang Tua/Wali");
+        $this->view("letters/add_guardian_agreement_letter", $data, "Buat Surat Perjanjian Orang Tua/Wali");
     }
 
     public function guardian_agreement_letter($id)
@@ -157,7 +179,14 @@ class LetterController extends Controller
     public function add_school_transfer_letter()
     {
         AuthMiddleware::checkRole(['admin', 'wakasek', 'kepala sekolah']);
+
+        $data = [];
+
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            $data = ['student_nis' => $_POST['student_nis']];
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === "POST" && !empty($_POST['letter_type'])) {
             try {
                 $this->letterService->createLetter($_POST);
                 Flasher::setFlash("Berhasil membuat surat.", "success");
@@ -167,7 +196,7 @@ class LetterController extends Controller
             header("Location: " . BASE_URL . "/letters");
             exit;
         }
-        $this->view("letters/add_school_transfer_letter", [], "Buat Surat Pindah Sekolah");
+        $this->view("letters/add_school_transfer_letter", $data, "Buat Surat Pindah Sekolah");
     }
 
     public function school_transfer_letter($id)

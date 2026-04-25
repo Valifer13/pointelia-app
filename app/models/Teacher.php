@@ -19,6 +19,7 @@ class Teacher extends Model
             roles.name AS role
             FROM users
             JOIN roles ON users.role_id = roles.id
+            ORDER BY is_active DESC
             LIMIT $perPage OFFSET $offset
         ");
         $this->db->execute();
@@ -202,7 +203,7 @@ class Teacher extends Model
     }
 
     public function delete(string $code) {
-        $this->db->query("DELETE FROM users WHERE code=:code");
+        $this->db->query("UPDATE users SET is_active = 0 WHERE code=:code"); 
         $this->db->bind(":code", $code);
         $this->db->execute();
     }

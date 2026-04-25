@@ -89,7 +89,7 @@ class TeacherController extends Controller
                 header("Location: " . BASE_URL . "/teachers");
             }
 
-            Flasher::setFlash("Berhasil menghapus data", "success");
+            Flasher::setFlash("Berhasil menonaktifkan guru", "success");
             header("Location: " . BASE_URL . "/teachers");
             exit;
         }

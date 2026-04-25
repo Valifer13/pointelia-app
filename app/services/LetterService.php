@@ -7,6 +7,7 @@ class LetterService
     private Student $studentModel;
     private AcademicYear $academicYearModel;
     private Teacher $teacherModel;
+    private StudentViolation $studentViolationModel;
     private Database $db;
 
     public function __construct($db)
@@ -17,6 +18,7 @@ class LetterService
         $this->studentModel  = new Student($db);
         $this->academicYearModel = new AcademicYear($db);
         $this->teacherModel  = new Teacher($db);
+        $this->studentViolationModel  = new StudentViolation($db);
     }
 
     public function getAllLetters(int $page): array

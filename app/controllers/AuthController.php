@@ -76,9 +76,11 @@ class AuthController extends Controller
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $db = Database::getInstance();
+            $studentModel = new Student($db);
             $teacherModel = new Teacher($db);
 
             $teacher = $teacherModel->getTeacherByCode($_SESSION['user']['id']);
+            $student = $studentModel->getStudentByNis($_SESSION['user']['id']);
 
             if ($_POST['new_password'] !== $_POST['password_confirm']) {
                 Flasher::setFlash("Password harus mirip dengan konfirmasi", "warning");
@@ -86,14 +88,26 @@ class AuthController extends Controller
                 exit;
             }
 
-            if (!password_verify($_POST['old_password'], $teacher['password'])) {
-                Flasher::setFlash("Password lama tidak sesuai", "warning");
-                header("Location: " . BASE_URL . "/change-password");
-                exit;
+            if ($_SESSION['user']['role'] === 'Siswa') {
+                if (!password_verify($_POST['old_password'], $student['password'])) {
+                    Flasher::setFlash("Password lama tidak sesuai", "warning");
+                    header("Location: " . BASE_URL . "/change-password");
+                    exit;
+                }
+            } else {
+                if (!password_verify($_POST['old_password'], $teacher['password'])) {
+                    Flasher::setFlash("Password lama tidak sesuai", "warning");
+                    header("Location: " . BASE_URL . "/change-password");
+                    exit;
+                }
             }
 
             $new_password = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
-            $teacherModel->resetPassword($_SESSION['user']['id'], $new_password);
+            if ($_SESSION['user']['role'] === 'Siswa') {
+                $studentModel->resetPassword($_SESSION['user']['id'], $new_password);
+            } else {
+                $teacherModel->resetPassword($_SESSION['user']['id'], $new_password);
+            }
             Flasher::setFlash("Berhasil mengubah password", "success");
             header("Location: " . BASE_URL . "/account");
             exit;

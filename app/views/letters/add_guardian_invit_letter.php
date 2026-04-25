@@ -98,7 +98,7 @@
 <script>
     function studentSearch() {
         return {
-            nis: '',
+            nis: "<?= isset($student_nis) ? (string) $student_nis : '' ?>",
             student: null,
             studentClass: null,
             loading: false,

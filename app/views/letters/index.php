@@ -12,7 +12,7 @@
 <div x-data="{ open: false, letterId: null }">
 
     <div class="w-full overflow-x-auto mb-6">
-        <?php if (!AuthMiddleware::checkRoleForBool(['siswa'])): ?>
+        <?php if (AuthMiddleware::checkRoleForBool(['admin'])): ?>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
 
                 <a href="<?= BASE_URL ?>/letters/add-student-agreement-letter" class="flex items-start p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md hover:border-blue-400 hover:bg-blue-50 transition-all text-left group cursor-pointer">
@@ -72,10 +72,10 @@
             <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center bg-white flex-col md:flex-row gap-4">
                 <h2 class="text-lg font-semibold text-gray-900">Riwayat Surat Terakhir</h2>
 
-                <div class="relative w-full md:w-fit">
+                <!-- <div class="relative w-full md:w-fit">
                     <input type="text" placeholder="Cari siswa..." class="pl-9 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full">
                     <i class="fas fa-search absolute left-3 top-2.5 text-gray-400"></i>
-                </div>
+                </div> -->
             </div>
 
             <div class="overflow-x-auto">
